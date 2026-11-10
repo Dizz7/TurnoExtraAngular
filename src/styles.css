@@ -1,1 +1,1143 @@
-/* You can add global styles to this file, and also import other style files */
+/* ====================
+   DISEÑO PRINCIPAL
+   ==================== */
+
+
+/* Fuente principal */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+
+
+/* Paleta de Colores */
+:root {
+    --cream: #FAF8F3;
+    --dark: #19342D;
+    --coral: #EF7968;
+    --sage: #DCE8DC;
+    --lavender: #E8DFF2;
+    --yellow: #FBE9BA;
+    --blue: #DCEAF6;
+    --peach: #F9DED5;
+    --muted: #65756E;
+    --radius: 22px;
+}
+
+/* Reset de estilos y configuración global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* comportamiento de desplazamiento suave */
+}
+
+/* Estilos generales para el cuerpo y enlaces */
+body {
+    font-family: 'Nunito', sans-serif; /* fuente */
+    background: var(--cream); /* color de fondo */
+    color: var(--dark);    /* color de texto */
+    line-height: 1.6; /* altura de línea */
+}
+
+a {
+    text-decoration: none; /* sin subrayado */
+    color: inherit; /* hereda el color del texto */
+}
+
+/* Estilos para el encabezado y la barra de navegación */
+.header {
+    background: rgba(250, 248, 243, 0.95); /* color de fondo con transparencia */
+    border-bottom: 1px solid #EDEBE5; /* línea inferior */
+}
+
+.navbar {
+    max-width: 1200px; /* ancho máximo */
+    margin: auto; /* centrado horizontal */
+    padding: 22px 24px; /* espacio interno */
+    display: flex; /* diseño flexible */
+    justify-content: space-between; /* espacio entre elementos */
+    align-items: center; /* alineación vertical */
+    gap: 24px; /* espacio entre elementos */
+}
+
+
+/* Diseños del Logo */
+.logo {
+    font-size: 28px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    letter-spacing: -1.5px; /* espaciado entre letras */
+}
+
+.logo-icon {
+    margin-right: 8px; /* espacio a la derecha del icono */
+}
+
+.logo-dot {
+    color: var(--coral); /* color del punto */
+}
+
+
+/* Enlaces de navegación */
+.nav-links {
+    display: flex; /* distribución horizontal */
+    list-style: none; /* elimina las viñetas */
+    gap: 28px; /* espacio entre enlaces */
+    font-weight: 800; /* grosor de fuente */
+}
+
+/* Enlaces al pasar el cursor o cuando la página está activa */
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+    color: var(--coral); /* color destacado */
+}
+/* Contenedor principal de presentación */
+.hero {
+    max-width: 1200px; /* ancho máximo */
+    margin: auto; /* centrado horizontal */
+    padding: 90px 24px; /* espacio interno vertical y horizontal */
+    display: grid; /* distribución mediante CSS Grid */
+    grid-template-columns: 1.1fr 0.9fr; /* dos columnas proporcionales */
+    align-items: center; /* alineación vertical */
+    gap: 50px; /* espacio entre columnas */
+}
+
+/* Contenido de texto de la presentación */
+.hero-content {
+    animation: fadeUp 0.8s ease both; /* animación de entrada */
+}
+
+/* Texto pequeño sobre el título principal */
+.eyebrow {
+    font-size: 14px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    letter-spacing: 2px; /* separación entre letras */
+    color: var(--muted); /* color secundario */
+    margin-bottom: 18px; /* espacio inferior */
+}
+
+/* Título principal de la página */
+.hero h1 {
+    font-size: clamp(40px, 5vw, 70px); /* tamaño adaptable entre 40 y 70 píxeles */
+    line-height: 1.08; /* altura de línea */
+    letter-spacing: -2px; /* reduce la separación entre letras */
+    margin-bottom: 24px; /* espacio inferior */
+}
+
+/* Párrafo descriptivo de la presentación */
+.hero-content > p:not(.eyebrow) {
+    color: var(--muted); /* color secundario */
+    font-size: 18px; /* tamaño de fuente */
+    max-width: 490px; /* ancho máximo del texto */
+    margin-bottom: 30px; /* espacio inferior */
+}
+
+/* Botón principal para explorar los juegos */
+.btn-primary {
+    display: inline-block; /* permite aplicar dimensiones y espaciados */
+    background: var(--coral); /* color de fondo */
+    color: white; /* color del texto */
+    padding: 15px 28px; /* espacio interno */
+    border-radius: 40px; /* bordes redondeados */
+    font-weight: 900; /* grosor de fuente */
+    transition: transform 0.25s, background 0.25s; /* transición suave */
+    cursor: pointer; /* muestra la mano al pasar sobre el botón */
+    font-family: inherit; /* mantiene la fuente Nunito */
+}
+
+/* Efecto al pasar el cursor sobre el botón */
+.btn-primary:hover {
+    background: #D95F50; /* oscurece el color de fondo */
+    transform: translateY(-4px); /* desplaza el botón hacia arriba */
+}
+
+/* Contenedor de elementos decorativos */
+.hero-visual {
+    min-height: 350px; /* altura mínima */
+    background: var(--sage); /* color de fondo */
+    border-radius: 45% 55% 55% 45%; /* forma orgánica */
+    display: flex; /* distribución flexible */
+    justify-content: center; /* centrado horizontal */
+    align-items: center; /* centrado vertical */
+    position: relative; /* referencia para elementos posicionados */
+    animation: float 5s ease-in-out infinite; /* movimiento flotante continuo */
+}
+
+/* Dado decorativo principal */
+.hero-dice {
+    font-size: 130px; /* tamaño del dado */
+    animation: rotateDice 8s ease-in-out infinite; /* rotación suave */
+}
+
+/* Estrella decorativa */
+.hero-star {
+    position: absolute; /* posicionamiento dentro del contenedor */
+    top: 30px; /* distancia desde arriba */
+    right: 45px; /* distancia desde la derecha */
+    font-size: 70px; /* tamaño de la estrella */
+    color: #E8B74E; /* color amarillo */
+}
+
+/* Pieza de juego decorativa */
+.hero-piece {
+    position: absolute; /* posicionamiento dentro del contenedor */
+    bottom: 15px; /* distancia desde abajo */
+    left: 55px; /* distancia desde la izquierda */
+    font-size: 75px; /* tamaño de la pieza */
+    color: var(--coral); /* color destacado */
+}
+
+/* Contenedor general de categorías */
+.categories {
+    max-width: 1200px; /* ancho máximo */
+    margin: auto; /* centrado horizontal */
+    padding: 30px 24px 90px; /* espacio interno */
+}
+
+/* Encabezado de la sección */
+.section-heading {
+    margin-bottom: 28px; /* separación respecto a las tarjetas */
+}
+
+/* Título de la sección */
+.section-heading h2 {
+    font-size: 32px; /* tamaño de fuente */
+    letter-spacing: -1px; /* separación entre letras */
+}
+
+/* Descripción de la sección */
+.section-heading p {
+    color: var(--muted); /* color secundario */
+}
+
+
+
+/* Imagen representativa de cada categoría */
+.category-image {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 18px;
+}
+
+/* Collage de tres juegos en cada categoría */
+.category-collage {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 165px;
+    margin: 0 auto 20px;
+}
+
+.category-collage img {
+    position: absolute;
+    bottom: 10px;
+    width: 54%;
+    height: 135px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 5px rgba(25, 52, 45, 0.15));
+}
+
+/* Caja izquierda */
+.category-collage img:nth-child(1) {
+    left: 0;
+    transform: rotate(-12deg);
+    z-index: 1;
+}
+
+/* Caja central */
+.category-collage img:nth-child(2) {
+    left: 23%;
+    bottom: 0;
+    height: 150px;
+    z-index: 3;
+}
+
+/* Caja derecha */
+.category-collage img:nth-child(3) {
+    right: 0;
+    transform: rotate(12deg);
+    z-index: 2;
+}
+
+
+
+
+/* Diseño general de las tarjetas */
+.category-card {
+    padding: 28px; /* espacio interno */
+    border-radius: var(--radius); /* bordes redondeados */
+    min-height: 240px; /* altura mínima */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    align-items: flex-start; /* alineación al inicio */
+    transition: transform 0.3s, box-shadow 0.3s; /* transiciones suaves */
+    animation: cardReveal 0.7s ease both; /* animación de aparición */
+}
+
+/* Efecto al pasar el cursor sobre una tarjeta */
+.category-card:hover {
+    transform: translateY(-8px); /* eleva la tarjeta */
+    box-shadow: 0 14px 30px rgba(25, 52, 45, 0.10); /* sombra suave */
+}
+
+/* Icono de cada categoría */
+.category-icon {
+    font-size: 55px; /* tamaño del icono */
+    margin-bottom: 18px; /* separación inferior */
+}
+
+/* Nombre de la categoría */
+.category-card h3 {
+    font-size: 23px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+}
+
+/* Descripción de la categoría */
+.category-card p {
+    font-size: 14px; /* tamaño de fuente */
+    margin-top: 5px; /* separación superior */
+}
+
+/* Flecha de navegación */
+.category-arrow {
+    margin-top: auto; /* empuja la flecha hacia abajo */
+    align-self: flex-end; /* alinea la flecha a la derecha */
+    font-size: 24px; /* tamaño de la flecha */
+}
+
+/* Colores de fondo según la categoría */
+.strategy {
+    background: var(--lavender); /* lila pastel */
+}
+
+.family {
+    background: var(--yellow); /* amarillo pastel */
+}
+
+.creativity {
+    background: var(--blue); /* azul pastel */
+}
+
+.party {
+    background: var(--peach); /* durazno pastel */
+}
+
+/* Estilos del pie de página */
+.footer {
+    text-align: center; /* texto centrado */
+    padding: 30px; /* espacio interno */
+    border-top: 1px solid #EDEBE5; /* línea divisoria superior */
+    color: var(--muted); /* color secundario */
+    font-size: 14px; /* tamaño de fuente */
+}
+
+
+
+
+/* ====================
+   ANIMACIONES CSS
+   ==================== */
+
+
+/* Animación 1: aparición con desplazamiento hacia arriba */
+@keyframes fadeUp {
+    from {
+        opacity: 0; /* elemento invisible */
+        transform: translateY(25px); /* posición inicial inferior */
+    }
+    to {
+        opacity: 1; /* elemento visible */
+        transform: translateY(0); /* posición original */
+    }
+}
+
+/* Animación 2: movimiento flotante vertical */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* posición original */
+    }
+    50% {
+        transform: translateY(-12px); /* desplazamiento hacia arriba */
+    }
+}
+
+/* Animación 3: rotación suave del dado */
+@keyframes rotateDice {
+    0%, 100% {
+        transform: rotate(-8deg); /* inclinación hacia la izquierda */
+    }
+    50% {
+        transform: rotate(8deg); /* inclinación hacia la derecha */
+    }
+}
+
+/* Animación 4: aparición progresiva de las tarjetas */
+@keyframes cardReveal {
+    from {
+        opacity: 0; /* elemento invisible */
+        transform: scale(0.94); /* tamaño inicial reducido */
+    }
+    to {
+        opacity: 1; /* elemento visible */
+        transform: scale(1); /* tamaño original */
+    }
+}
+
+
+
+
+
+/* ====================
+   CATÁLOGO DE JUEGOS
+   ==================== */
+
+/* Cuadrícula de productos gestionada por Bootstrap */
+.product-grid {
+    max-width: 1200px; /* ancho máximo */
+    margin-left: auto; /* centrado horizontal */
+    margin-right: auto; /* centrado horizontal */
+}
+
+/* Tarjeta individual */
+.product-card {
+    background: white; /* color de fondo */
+    border-radius: var(--radius); /* bordes redondeados */
+    overflow: hidden; /* evita que el contenido sobresalga */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06); /* sombra suave */
+    transition: transform 0.3s, box-shadow 0.3s; /* transiciones suaves */
+    animation: cardReveal 0.7s ease both; /* animación de aparición */
+}
+
+/* Animación al pasar el cursor */
+.product-card:hover {
+    transform: translateY(-8px); /* eleva la tarjeta */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12); /* sombra más pronunciada */
+}
+
+/* Contenedor de imagen */
+.product-image {
+    height: 250px; /* altura fija */
+    background: var(--sage); /* color de fondo */
+    padding: 25px; /* espacio interno */
+    display: flex; /* distribución flexible */
+    align-items: center; /* centrado vertical */
+    justify-content: center; /* centrado horizontal */
+}
+
+/* Imagen del juego */
+.product-image img {
+    width: 100%; /* ocupa todo el ancho del contenedor */
+    height: 100%; /* ocupa toda la altura del contenedor */
+    object-fit: contain; /* mantiene la proporción de la imagen */
+}
+
+/* Información del producto */
+.product-info {
+    padding: 25px; /* espacio interno */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    flex: 1; /* ocupa el espacio restante */
+}
+
+/* Nombre del juego */
+.product-info h3 {
+    font-size: 24px; /* tamaño de fuente */
+    margin-bottom: 12px; /* espacio inferior */
+}
+
+/* Descripción */
+.product-info p {
+    color: var(--muted); /* color secundario */
+    font-size: 15px; /* tamaño de fuente */
+    line-height: 1.6; /* altura de línea */
+    margin-bottom: 24px; /* espacio inferior */
+}
+
+/* Precio y descuento */
+.product-bottom {
+    display: flex; /* distribución flexible */
+    justify-content: space-between; /* espacio entre elementos */
+    align-items: flex-end; /* alineación al final */
+    flex-wrap: wrap; /* permite que los elementos se ajusten a la siguiente línea */
+    gap: 10px; /* espacio entre elementos */
+    margin-top: auto; /* empuja el contenido hacia abajo */
+}
+
+/* Precio actual */
+.product-price {
+    font-size: 22px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    color: var(--dark); /* color principal */
+}
+
+/* Contenedor de precios */
+.product-prices {
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+}
+
+/* Precio original tachado */
+.old-price {
+    font-size: 14px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+    text-decoration: line-through; /* tachado */
+}
+
+/* Estado sin descuento */
+.product-status {
+    font-size: 12px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+}
+
+/* Etiqueta de descuento */
+.discount-badge {
+    background: var(--peach); /* color de fondo */
+    color: var(--dark); /* color del texto */
+    padding: 6px 12px; /* espacio interno */
+    border-radius: 20px; /* bordes redondeados */
+    font-size: 12px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+}
+
+/* Enlace inferior de regreso */
+.back-navigation {
+    text-align: center; /* texto centrado */
+    margin-top: 50px; /* espacio superior */
+}
+
+/* Ajuste de imagen de Wingspan */
+img.imagen-wingspan {
+    scale: 0.9; /* reduce el tamaño de la imagen */
+}
+
+/* Bordes redondeados para imágenes de productos */
+.product-image img {
+    border-radius: 12px; /* bordes redondeados */
+}
+
+
+/* Permite el efecto hover después de la animación de entrada */
+.product-card,
+.category-card {
+    animation-fill-mode: backwards; /* mantiene el estado inicial de la animación */
+}
+
+
+
+
+
+
+/* ====================
+   FORMULARIO DE REGISTRO
+   ==================== */
+
+/* Contenedor principal del formulario */
+.registration-form {
+    background: white; /* color de fondo */
+    padding: 40px; /* espacio interno */
+    border-radius: var(--radius); /* bordes redondeados */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); /* sombra suave */
+    animation: fadeUp 0.8s ease both; /* animación de aparición */
+}
+
+/* Etiquetas de los campos */
+.registration-form .form-label {
+    font-weight: 800; /* grosor de fuente */
+    color: var(--dark); /* color principal */
+    margin-bottom: 8px; /* espacio inferior */
+}
+
+/* Campos de entrada */
+.registration-form .form-control {
+    border: 2px solid #e5e7eb; /* borde gris claro */
+    border-radius: 12px; /* bordes redondeados */
+    padding: 12px 15px; /* espacio interno */
+    font-family: inherit; /* hereda la fuente del contenedor */
+    color: var(--dark); /* color principal */
+}
+
+/* Efecto al seleccionar un campo */
+.registration-form .form-control:focus {
+    border-color: var(--coral); /* color del borde cuando se enfoca */
+    box-shadow: 0 0 0 3px rgba(255, 127, 107, 0.15); /* sombra suave alrededor del campo */
+}
+
+/* Indicaciones de contraseña */
+.form-hint {
+    font-size: 13px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+    margin-bottom: 22px; /* espacio inferior */
+}
+
+/* Mensajes de validación */
+.form-message {
+    margin-bottom: 20px; /* espacio inferior */
+    font-weight: 700; /* grosor de fuente */
+}
+
+/* Contenedor de botones */
+.form-actions {
+    display: flex; /* distribución flexible */
+    gap: 15px; /* espacio entre botones */
+    flex-wrap: wrap; /* permite que los botones se ajusten a la siguiente línea */
+}
+
+/* Botón secundario */
+.btn-secondary {
+    background: var(--sage); /* color de fondo */
+    color: var(--dark); /* color del texto */
+    border: none; /* sin borde */
+    padding: 12px 24px; /* espacio interno */
+    border-radius: 12px; /* bordes redondeados */
+    font-weight: 800; /* grosor de fuente */
+    cursor: pointer; /* cursor de mano al pasar el ratón */
+    transition: transform 0.3s, background 0.3s; /* transiciones suaves */
+}
+
+.btn-secondary:hover {
+    background: var(--yellow); /* color de fondo al pasar el cursor */
+    color: var(--dark); /* color del texto al pasar el cursor */
+    transform: translateY(-3px); /* eleva el botón al pasar el cursor */
+}
+
+
+/* Ajustes específicos para el botón primario del formulario de registro */
+.registration-form .btn-primary {
+    border: none;          /* Elimina el borde oscuro */
+    box-shadow: none;      /* Elimina la sombra del botón */
+    border-radius: 50px;   /* Mantiene la forma redondeada */
+}
+
+.registration-form .btn-primary:hover {
+    transform: translateY(-3px); /* Eleva el botón al pasar el cursor */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.10); /* Agrega una sombra suave al pasar el cursor */
+}
+
+
+
+/* ====================
+   VALIDACIONES DEL FORMULARIO
+   ==================== */
+
+/* Mensaje de error */
+.form-message.message-error {
+    background: #ffe8e4; /* color de fondo rojo claro */
+    color: #a63d32; /* color de texto rojo oscuro */
+    padding: 15px 20px; /* espacio interno */
+    border-radius: 12px; /* bordes redondeados */
+    border-left: 4px solid var(--coral); /* borde izquierdo rojo */
+}
+
+/* Mensaje de éxito */
+.form-message.message-success {
+    background: #e2f1e6; /* color de fondo verde claro */
+    color: #246b45; /* color de texto verde oscuro */
+    padding: 15px 20px; /* espacio interno */
+    border-radius: 12px; /* bordes redondeados */
+    border-left: 4px solid #58a779; /* borde izquierdo verde */
+}
+
+/* Campo con error */
+.registration-form .form-control.is-invalid {
+    border-color: #dc5b5b; /* color rojo para indicar error */
+}
+
+/* Campo válido */
+.registration-form .form-control.is-valid {
+    border-color: #58a779; /* color verde para indicar validez */
+}
+
+
+/* Animación horizontal cuando hay errores en formulario */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0); /* posición original */
+    }
+
+    20%, 60% {
+        transform: translateX(-8px); /* desplazamiento hacia la izquierda */
+    }
+
+    40%, 80% {
+        transform: translateX(8px); /* desplazamiento hacia la derecha */
+    }
+}
+
+/* Activar animación mediante JavaScript */
+.registration-form .btn-primary.shake {
+    animation: shake 0.4s ease-in-out; /* aplica la animación de sacudida */
+}
+
+/* Respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .registration-form .btn-primary.shake {
+        animation: none; /* desactiva la animación de sacudida */
+    }
+}
+
+
+/* Lista de errores de validación */
+.form-message.message-error ul {
+    margin: 8px 0 0; /* margen superior e inferior */
+    padding-left: 22px; /* espacio a la izquierda para la viñeta */
+}
+
+/* Separación entre los errores */
+.form-message.message-error li {
+    margin-bottom: 6px; /* espacio inferior entre errores */
+}
+
+/* Evita espacio adicional después del último error */
+.form-message.message-error li:last-child {
+    margin-bottom: 0; /* elimina el margen inferior del último elemento */
+}
+
+
+
+
+
+
+/* ====================
+   INICIO DE SESIÓN
+   ==================== */
+
+/* Enlaces del formulario */
+.auth-link {
+    color: var(--coral); /* color del enlace */
+    font-weight: 900; /* grosor de fuente */
+}
+
+.auth-link:hover {
+    color: #D95F50; /* color del enlace al pasar el cursor */
+    text-decoration: underline; /* subrayado al pasar el cursor */
+}
+
+/* Enlace inferior de registro */
+.auth-footer {
+    margin-top: 25px; /* espacio superior */
+    margin-bottom: 0; /* elimina margen inferior */
+    color: var(--muted); /* color secundario */
+    text-align: center; /* texto centrado */
+}
+
+/* Contenedor de cuentas de demostración */
+.demo-accounts {
+    margin-top: 25px; /* espacio superior */
+    padding: 25px; /* espacio interno */
+    background: var(--lavender); /* color de fondo lila */
+    border-radius: var(--radius); /* bordes redondeados */
+}
+
+.demo-accounts h3 {
+    font-size: 20px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    margin-bottom: 8px; /* espacio inferior */
+}
+
+.demo-accounts > p {
+    color: var(--muted); /* color secundario */
+    font-size: 14px; /* tamaño de fuente */
+    margin-bottom: 20px; /* espacio inferior */
+}
+
+/* Tarjeta de cada cuenta ficticia */
+.demo-account {
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    gap: 8px; /* espacio entre elementos */
+    height: 100%; /* ocupa toda la altura del contenedor */
+    padding: 15px; /* espacio interno */
+    background: white; /* color de fondo */
+    border-radius: 12px; /* bordes redondeados */
+}
+
+.demo-account strong {
+    color: var(--dark); /* color principal */
+}
+
+.demo-account span,
+.demo-account code {
+    font-size: 13px; /* tamaño de fuente */
+    overflow-wrap: anywhere; /* permite que el texto se divida en cualquier punto */
+}
+
+.demo-account code {
+    color: var(--coral); /* color del texto en código */
+}
+
+
+
+
+/* Botón de cierre de sesión integrado al menú */
+.header .session-logout {
+    background: none; /* sin color de fondo */
+    border: none; /* sin borde */
+    cursor: pointer; /* cursor de mano al pasar el ratón */
+    font-family: inherit; /* mantiene la fuente del contenedor */
+    font-weight: 800; /* grosor de fuente */
+    color: var(--dark); /* color del texto */
+}
+
+.header .session-logout:hover {
+    color: var(--coral); /* color del texto al pasar el cursor */
+}
+
+
+
+/* Botones de agregar al carrito en las tarjetas */
+.product-card .add-to-cart {
+    display: block; /* ocupa toda la línea */
+    width: 100%; /* ocupa todo el ancho del contenedor */
+    margin-top: 18px; /* espacio superior */
+    padding: 12px 16px; /* espacio interno */
+
+    background: var(--coral); /* color de fondo */
+    color: white; /* color del texto */
+
+    border: none; /* sin borde */
+    border-radius: 14px; /* bordes redondeados */
+    box-shadow: none; /* sin sombra */
+
+    font-family: inherit; /* mantiene la fuente del contenedor */
+    font-size: 0.95rem; /* tamaño de fuente */
+    font-weight: 800; /* grosor de fuente */
+    line-height: 1.4; /* altura de línea */
+    text-align: center; /* texto centrado */
+
+    cursor: pointer; /* cursor de mano al pasar el ratón */
+    transition: background 0.2s ease, transform 0.2s ease; /* transiciones suaves */
+}
+
+.product-card .add-to-cart:hover {
+    background: #e56a5d; /* color de fondo al pasar el cursor */
+    color: white; /* mantiene el color del texto */
+    box-shadow: none; /* sin sombra */
+    transform: translateY(-2px); /* eleva el botón al pasar el cursor */
+}
+
+.product-card .add-to-cart:disabled {
+    opacity: 0.75; /* reduce la opacidad para indicar desactivado */
+    cursor: default; /* cursor por defecto */
+    transform: none; /* elimina cualquier transformación */
+}
+
+
+
+
+/* ====================
+   AJUSTES RESPONSIVOS
+   ==================== */
+
+/* Diseño responsivo */
+
+
+/* Diseño para tablets */
+@media (max-width: 900px) {
+
+}
+
+/* Diseño para celulares */
+@media (max-width: 600px) {
+
+
+    .product-image {
+        height: 220px; /* reduce la altura del contenedor de imagen */
+    }
+}
+
+
+/* Adaptación para tablets y pantallas medianas */
+@media (max-width: 900px) {
+
+    .hero {
+        grid-template-columns: 1fr; /* una sola columna */
+        padding-top: 60px; /* reduce el espacio superior */
+    }
+
+
+    .nav-links {
+        gap: 12px; /* reduce la separación entre enlaces */
+        flex-wrap: wrap; /* permite saltos de línea */
+    }
+}
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+
+    .navbar {
+        flex-direction: column; /* navegación vertical */
+    }
+
+    .nav-links {
+        justify-content: center; /* centra los enlaces */
+        font-size: 13px; /* reduce el tamaño del texto */
+    }
+
+    .hero {
+        padding: 45px 20px; /* reduce los espacios internos */
+    }
+
+    .hero-visual {
+        min-height: 250px; /* reduce la altura del contenedor */
+    }
+
+    .hero-dice {
+        font-size: 90px; /* reduce el tamaño del dado */
+    }
+
+
+
+    .category-card {
+        min-height: 190px; /* reduce la altura mínima */
+    }
+}
+
+
+
+/* Adaptación para celulares registro */
+@media (max-width: 600px) {
+    .registration-form { /* contenedor del formulario */
+        padding: 25px 20px; /* reduce el espacio interno */
+    }
+
+    .form-actions {
+        flex-direction: column; /* los botones se apilan verticalmente */
+    }
+
+    .form-actions button {
+        width: 100%; /* los botones ocupan todo el ancho del contenedor */
+    }
+}
+
+
+
+/* ====================
+   AJUSTES DE ACCESIBILIDAD
+   ==================== */
+
+/* Respeta las preferencias de accesibilidad del usuario */
+@media (prefers-reduced-motion: reduce) {
+
+    *, *::before, *::after {
+        animation: none !important; /* desactiva animaciones */
+        transition: none !important; /* desactiva transiciones */
+        scroll-behavior: auto !important; /* desactiva desplazamiento suave */
+    }
+}
+
+
+
+
+
+
+
+/* ====================
+   NAVEGACIÓN RESPONSIVA CON BOOTSTRAP
+   ==================== */
+
+/* Mantener el diseño original de la barra */
+.header .navbar {
+    max-width: 1200px; /* ancho máximo */
+    margin: 0 auto; /* centrado horizontal */
+    padding: 22px 24px; /* espacio interno */
+    display: flex; /* distribución flexible */
+    flex-direction: row; /* elementos en fila */
+    justify-content: space-between; /* espacio entre elementos */
+    align-items: center; /* alineación vertical */
+}
+
+/* Mantener el logo original */
+.header .navbar-brand {
+    font-family: 'Nunito', sans-serif; /* fuente principal */
+    font-size: 28px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    letter-spacing: -1.5px; /* espaciado entre letras */
+    color: var(--dark); /* color del texto */
+    margin-right: 0; /* elimina margen derecho */
+}
+
+/* Color del logo al pasar el cursor */
+.header .navbar-brand:hover {
+    color: var(--dark); /* mantiene el color del texto al pasar el cursor */
+}
+
+/* Lista de navegación */
+.header .nav-links {
+    display: flex; /* distribución flexible */
+    gap: 28px; /* espacio entre enlaces */
+    margin: 0; /* elimina margen */
+    padding: 0; /* elimina padding */
+}
+
+/* Enlaces con el estilo de TurnoExtra */
+.header .nav-links .nav-link {
+    font-family: 'Nunito', sans-serif; /* fuente principal */
+    font-weight: 800; /* grosor de fuente */
+    color: var(--dark); /* color del texto */
+    padding: 0; /* elimina padding */
+}
+
+/* Enlace activo o seleccionado */
+.header .nav-links .nav-link:hover,
+.header .nav-links .nav-link[aria-current="page"] {
+    color: var(--coral); /* color destacado */
+}
+
+/* Personalizar el botón hamburguesa */
+.header .navbar-toggler {
+    border: 2px solid var(--sage); /* borde gris claro */
+    border-radius: 12px; /* bordes redondeados */
+    padding: 8px 12px; /* espacio interno */
+}
+
+/* Color del contorno al seleccionar el botón */
+.header .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(239, 121, 104, 0.15); /* sombra suave alrededor del botón */
+}
+
+/* Ajustes para tablets y celulares */
+@media (max-width: 991.98px) { /* Bootstrap breakpoint para tablets */
+
+    /* Menú desplegado ocupa una línea completa */
+    .header .navbar-collapse {
+        flex-basis: 100%; /* ocupa todo el ancho */
+        margin-top: 16px; /* espacio superior */
+    }
+
+    /* Enlaces ordenados verticalmente */
+    .header .nav-links {
+        flex-direction: column; /* elementos en columna */
+        align-items: flex-start; /* alineación al inicio */
+        gap: 0; /* elimina el espacio entre enlaces */
+        width: 100%; /* ocupa todo el ancho */
+    }
+
+    /* Área táctil de cada enlace */
+    .header .nav-links .nav-link {
+        display: block; /* ocupa toda la línea */
+        padding: 12px 8px; /* espacio interno */
+        width: 100%; /* ocupa todo el ancho */
+    }
+
+    /* Separación entre enlaces */
+    .header .nav-links .nav-item {
+        width: 100%; /* ocupa todo el ancho */
+        border-bottom: 1px solid #EDEBE5; /* línea divisoria inferior */
+    }
+}
+
+/* ====================
+   CARRITO DE COMPRAS
+   ==================== */
+
+/* Ancho de lectura y tarjeta que agrupa los juegos */
+.cart-page {
+    max-width: 1040px; /* acerca los precios y controles al nombre del juego */
+}
+
+.cart-page .cart-panel {
+    overflow: hidden; /* recorta el encabezado y el resumen en las esquinas */
+    background: white; /* separa la tarjeta del fondo crema */
+    border: 1px solid var(--sage); /* delimita el detalle con verde suave */
+    border-radius: var(--radius); /* conserva el radio de las tarjetas del catálogo */
+    box-shadow: 0 12px 32px rgb(25 52 45 / 7%); /* da profundidad al listado */
+}
+
+/* Encabezados, filas y portadas del catálogo */
+.cart-page .table {
+    --bs-table-color: var(--dark); /* aplica el verde oscuro a los textos */
+    --bs-table-border-color: var(--sage); /* separa las filas con líneas suaves */
+}
+
+.cart-page .table > :not(caption) > * > * {
+    padding: 1rem 1.25rem; /* deja espacio alrededor de los datos y controles */
+}
+
+.cart-page thead th {
+    --bs-table-bg: var(--sage); /* distingue los títulos de las columnas */
+    font-size: .88rem; /* reserva la mayor jerarquía para los juegos */
+}
+
+.cart-page .cart-cover {
+    object-fit: contain; /* muestra la portada completa de cada caja */
+    background: var(--cream); /* enmarca las imágenes transparentes */
+    border-radius: 12px; /* suaviza las esquinas de las miniaturas */
+    padding: 4px; /* separa la caja de su marco */
+}
+
+.cart-page .quantity {
+    width: 5rem; /* limita el ancho del campo al espacio que necesita la cantidad */
+    border-radius: 10px; /* acompaña las formas redondeadas del catálogo */
+}
+
+.cart-page .cart-label {
+    display: none; /* en escritorio los títulos ya están en el encabezado */
+}
+
+/* Botones para finalizar y confirmar la compra */
+.cart-page button.btn-primary {
+    border: 0; /* elimina el borde en relieve del botón nativo */
+}
+
+/* Franja inferior con el acceso al catálogo y el total de la compra */
+.cart-page .cart-summary {
+    display: flex; /* coloca el enlace y el total en la misma franja */
+    flex-wrap: wrap; /* permite que el total baje de línea en celulares */
+    justify-content: space-between; /* sitúa el importe al final de la fila */
+    align-items: center; /* alinea el enlace y el precio por el centro */
+    gap: 1rem; /* separa los elementos cuando el espacio es reducido */
+    padding: 1.25rem; /* da aire al resumen de la compra */
+    background: var(--dark); /* destaca el cierre de la tarjeta */
+    color: var(--cream); /* mantiene el texto legible sobre el verde */
+}
+
+.cart-page #cart-total {
+    margin-left: .5rem; /* separa la cifra de su etiqueta */
+    font-size: 1.5rem; /* destaca el importe final */
+    color: var(--yellow); /* resalta la cifra con el amarillo del sitio */
+}
+
+/* En pantallas pequeñas cada juego ocupa un bloque con sus propias etiquetas */
+@media (max-width: 767.98px) {
+    .cart-page thead {
+        position: absolute; /* mantiene los encabezados disponibles para lectores de pantalla */
+        clip-path: inset(50%); /* oculta los títulos que se repiten en cada bloque */
+    }
+
+    .cart-page :is(table, tbody) {
+        display: block; /* permite distribuir cada fila a todo el ancho */
+    }
+
+    .cart-page tbody tr {
+        display: grid; /* ordena precio, cantidad y subtotal bajo la portada */
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* reparte el ancho sin desplazar la página */
+        gap: .75rem; /* separa los datos de cada juego */
+        padding: 1rem; /* crea un margen interior para el bloque */
+        border-bottom: 1px solid var(--sage); /* distingue un juego del siguiente */
+    }
+
+    .cart-page .table tbody tr > * {
+        padding: 0; /* evita duplicar el espacio interior de la fila */
+        border: 0; /* deja una sola división por juego */
+    }
+
+    .cart-page tbody th,
+    .cart-page tbody td:last-child {
+        grid-column: 1 / -1; /* da una línea propia al nombre y al botón de eliminar */
+    }
+
+    .cart-page .cart-label {
+        display: block; /* identifica cada valor sin depender de la cabecera */
+        color: var(--muted); /* diferencia la etiqueta del importe */
+        font-size: .8rem; /* mantiene compactos los títulos de cada bloque */
+    }
+}
+
+/* Destacar la página activa en Angular Router */
+.header .nav-links .nav-link.active {
+    color: var(--coral);
+}

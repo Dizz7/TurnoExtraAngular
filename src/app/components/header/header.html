@@ -1,34 +1,75 @@
 
-<!-- Navegación principal de TurnoExtra -->
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container">
+<!-- Encabezado y navegación de TurnoExtra -->
+<header class="header">
+  <nav class="navbar navbar-expand-lg"
+       aria-label="Navegación principal">
 
-    <a class="navbar-brand fw-bold" routerLink="/">
-      🎲 turnoextra.
+    <!-- Logo -->
+    <a routerLink="/" class="logo navbar-brand">
+      <span class="logo-icon">🎲</span>
+      turnoextra<span class="logo-dot">.</span>
     </a>
 
+    <!-- Menú hamburguesa -->
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#mainNavbar"
-      aria-controls="mainNavbar"
+      data-bs-target="#menuPrincipal"
+      aria-controls="menuPrincipal"
       aria-expanded="false"
-      aria-label="Mostrar navegación">
+      aria-label="Mostrar u ocultar menú">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" routerLink="/" routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-        <a class="nav-link" routerLink="/estrategia" routerLinkActive="active">Estrategia</a>
-        <a class="nav-link" routerLink="/familiares" routerLinkActive="active">Familiares</a>
-        <a class="nav-link" routerLink="/creatividad" routerLinkActive="active">Creatividad</a>
-        <a class="nav-link" routerLink="/fiesta" routerLinkActive="active">Fiesta</a>
-        <a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a>
-      </div>
-    </div>
+    <!-- Enlaces de navegación -->
+    <div class="collapse navbar-collapse" id="menuPrincipal">
+      <ul class="navbar-nav nav-links ms-auto">
 
-  </div>
-</nav>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            Inicio
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/estrategia"
+             routerLinkActive="active">
+            Estrategia
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/familiares"
+             routerLinkActive="active">
+            Familiares
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/creatividad"
+             routerLinkActive="active">
+            Creatividad
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/fiesta"
+             routerLinkActive="active">
+            Fiesta
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/registro"
+             routerLinkActive="active">
+            Registro
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</header>
