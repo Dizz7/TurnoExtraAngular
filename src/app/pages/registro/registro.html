@@ -1,1 +1,246 @@
-<p>registro works!</p>
+
+<!-- Presentación de la página de registro -->
+<section class="hero">
+
+  <div class="hero-content">
+    <p class="eyebrow">ÚNETE A LA DIVERSIÓN.</p>
+
+    <h1>Tu próxima aventura comienza aquí.</h1>
+
+    <p>
+      Crea tu cuenta en TurnoExtra y prepárate
+      para descubrir nuevos juegos, compartir
+      experiencias y disfrutar de futuras recompensas.
+    </p>
+
+    <a href="#registro" class="btn-primary">
+      Crear mi cuenta →
+    </a>
+  </div>
+
+  <div class="hero-visual family" aria-hidden="true">
+    <span class="hero-dice">🎲</span>
+    <span class="hero-star">✦</span>
+    <span class="hero-piece">⭐</span>
+  </div>
+
+</section>
+
+<!-- Formulario de registro -->
+<section id="registro" class="categories">
+
+  <div class="section-heading">
+    <h2>Regístrate en TurnoExtra</h2>
+    <p>Completa tus datos para comenzar.</p>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+
+        <form
+          id="registration-form"
+          class="registration-form"
+          (ngSubmit)="registrar()"
+          novalidate>
+
+          <!-- Nombre completo -->
+          <div class="mb-3">
+            <label for="full-name" class="form-label">
+              Nombre completo *
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [class]="claseCampo('fullName')"
+              [attr.aria-invalid]="camposValidados.fullName === false"
+              id="full-name"
+              name="fullName"
+              [(ngModel)]="datos.fullName"
+              (blur)="validarCampo('fullName')"
+              autocomplete="name"
+              required>
+          </div>
+
+          <!-- Nombre de usuario -->
+          <div class="mb-3">
+            <label for="username" class="form-label">
+              Nombre de usuario *
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [class]="claseCampo('username')"
+              [attr.aria-invalid]="camposValidados.username === false"
+              id="username"
+              name="username"
+              [(ngModel)]="datos.username"
+              (blur)="validarCampo('username')"
+              autocomplete="username"
+              required>
+          </div>
+
+          <!-- Correo electrónico -->
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              Correo electrónico *
+            </label>
+
+            <input
+              type="email"
+              class="form-control"
+              [class]="claseCampo('email')"
+              [attr.aria-invalid]="camposValidados.email === false"
+              id="email"
+              name="email"
+              [(ngModel)]="datos.email"
+              (blur)="validarCampo('email')"
+              autocomplete="email"
+              required>
+          </div>
+
+          <!-- Contraseñas -->
+          <div class="row">
+
+            <div class="col-12 col-md-6 mb-3">
+              <label for="password" class="form-label">
+                Contraseña *
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                [class]="claseCampo('password')"
+                [attr.aria-invalid]="camposValidados.password === false"
+                id="password"
+                name="password"
+                [(ngModel)]="datos.password"
+                (input)="actualizarContrasena()"
+                (blur)="validarCampo('password')"
+                autocomplete="new-password"
+                minlength="6"
+                maxlength="18"
+                required>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+              <label for="confirm-password" class="form-label">
+                Repetir contraseña *
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                [class]="claseCampo('confirmPassword')"
+                [attr.aria-invalid]="camposValidados.confirmPassword === false"
+                id="confirm-password"
+                name="confirmPassword"
+                [(ngModel)]="datos.confirmPassword"
+                (input)="actualizarConfirmacion()"
+                (blur)="validarCampo('confirmPassword')"
+                autocomplete="new-password"
+                required>
+            </div>
+
+          </div>
+
+          <p class="form-hint">
+            La contraseña debe tener entre 6 y 18 caracteres,
+            al menos una mayúscula y un número.
+          </p>
+
+          <!-- Fecha de nacimiento -->
+          <div class="mb-3">
+            <label for="birth-date" class="form-label">
+              Fecha de nacimiento *
+            </label>
+
+            <input
+              type="date"
+              class="form-control"
+              [class]="claseCampo('birthDate')"
+              [attr.aria-invalid]="camposValidados.birthDate === false"
+              id="birth-date"
+              name="birthDate"
+              [(ngModel)]="datos.birthDate"
+              (blur)="validarCampo('birthDate')"
+              required>
+          </div>
+
+          <!-- Dirección opcional -->
+          <div class="mb-3">
+            <label for="address" class="form-label">
+              Dirección de despacho (opcional)
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              [class]="claseCampo('address')"
+              [attr.aria-invalid]="camposValidados.address === false"
+              id="address"
+              name="address"
+              [(ngModel)]="datos.address"
+              (blur)="validarCampo('address')"
+              autocomplete="street-address">
+          </div>
+
+          <!-- Mensajes dinámicos de validación -->
+          <div
+            id="form-message"
+            class="form-message"
+            [class.message-error]="errores.length > 0"
+            [class.message-success]="registroExitoso"
+            role="status"
+            aria-live="polite">
+
+            @if (errores.length > 0) {
+              <p class="message-title">
+                Revisa los siguientes campos:
+              </p>
+
+              <ul class="error-list">
+                @for (error of errores; track $index) {
+                  <li>{{ error }}</li>
+                }
+              </ul>
+            }
+
+            @if (registroExitoso) {
+              <p>
+                Los datos son válidos.
+                El registro de cuentas estará disponible próximamente.
+              </p>
+            }
+
+          </div>
+
+          <!-- Botones del formulario -->
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="btn-primary"
+              [class.shake]="animarBoton"
+              (animationend)="finalizarAnimacion()">
+              Crear cuenta →
+            </button>
+
+            <button
+              type="button"
+              class="btn-secondary"
+              (click)="limpiarFormulario()">
+              Limpiar formulario
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</section>

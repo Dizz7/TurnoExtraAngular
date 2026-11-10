@@ -1,0 +1,48 @@
+
+/*
+  Estilos específicos del registro Angular.
+  Los estilos generales de TurnoExtra se mantienen
+  en src/styles.css.
+*/
+
+/* Mantener el formulario centrado. */
+.registration-form {
+  width: 100%;
+}
+
+/* Respetar el espacio entre el mensaje y los botones. */
+.form-message:not(:empty) {
+  margin-bottom: 1.5rem;
+}
+
+/* Animación de error del botón. */
+@keyframes registroShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  20%, 60% {
+    transform: translateX(-6px);
+  }
+
+  40%, 80% {
+    transform: translateX(6px);
+  }
+}
+
+.registration-form .btn-primary.shake {
+  animation: registroShake 0.4s ease;
+}
+
+/* Ajustes para pantallas pequeñas. */
+@media (max-width: 576px) {
+  .registration-form .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .registration-form .form-actions button {
+    width: 100%;
+  }
+}
