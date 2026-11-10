@@ -227,7 +227,7 @@ El proceso se ejecuta al subir cambios a la rama `main`.
 
 **Sitio web:** https://dizz7.github.io/TurnoExtraAngular/
 
-**Estado:** despliegue configurado, pendiente de verificación.
+**Estado:** publicado y funcionando correctamente en GitHub Pages.
 
 ## Herramientas de gestión
 
@@ -239,11 +239,16 @@ https://github.com/Dizz7/TurnoExtraAngular
 
 ## Estado del proyecto
 
-**Implementación de la Semana 4 completada.**
+**Experiencia 2 — Semana 4 completada.**
 
-La aplicación cuenta con navegación funcional, catálogo dinámico, componentes reutilizables, comunicación entre componentes, formulario de registro con validaciones y diseño responsive.
+La aplicación se encuentra implementada y publicada en GitHub Pages.
 
-Se encuentra en preparación la entrega académica y la verificación final del despliegue en GitHub Pages.
+Incluye navegación mediante Angular Router, catálogo dinámico,
+componentes reutilizables, comunicación mediante @Input() y @Output(),
+formulario de registro con validaciones y diseño responsive.
+
+El despliegue se realiza automáticamente mediante GitHub Actions
+al subir cambios a la rama main.
 
 ## Autor
 
