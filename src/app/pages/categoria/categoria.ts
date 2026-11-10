@@ -5,10 +5,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { CATEGORIAS, CategoriaId } from '../../data/categorias';
 import { JUEGOS, Juego } from '../../data/juegos';
+import { TarjetaJuego } from '../../components/tarjeta-juego/tarjeta-juego';
 
 @Component({
   selector: 'app-categoria',
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, TarjetaJuego],
   templateUrl: './categoria.html',
   styleUrl: './categoria.css'
 })
@@ -27,6 +28,17 @@ export class Categoria implements OnInit {
       this.categoria = CATEGORIAS[id];
       this.juegos = JUEGOS.filter(juego => juego.categoria === id);
     });
+  }
+
+
+  // Estado del carrito de demostración.
+  cantidadCarrito = 0;
+  ultimoJuegoAgregado = '';
+
+  // Recibir el evento emitido por TarjetaJuego.
+  recibirJuego(juego: Juego): void {
+    this.cantidadCarrito++;
+    this.ultimoJuegoAgregado = juego.nombre;
   }
 
   // Formatear los precios en pesos chilenos.

@@ -1,0 +1,27 @@
+
+/* Resumen del carrito de demostración */
+.cart-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  margin: 0 auto 2rem;
+  padding: 1rem 1.5rem;
+
+  background: var(--cream);
+  border: 1px solid var(--sage);
+  border-radius: 18px;
+}
+
+.cart-count {
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.cart-summary p {
+  margin: 0;
+  color: var(--dark);
+  font-weight: 600;
+}

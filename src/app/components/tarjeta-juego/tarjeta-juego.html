@@ -1,0 +1,65 @@
+
+<article class="product-card h-100">
+
+  <!-- Imagen del juego -->
+  <div class="product-image">
+    <img
+      [src]="juego.imagen"
+      [alt]="'Portada de ' + juego.nombre"
+      [class.imagen-wingspan]="juego.id === 'wingspan'"
+      loading="lazy">
+  </div>
+
+  <!-- Información del juego -->
+  <div class="product-info">
+
+    <h3>{{ juego.nombre }}</h3>
+
+    <p>{{ juego.descripcion }}</p>
+
+    <div class="product-bottom">
+
+      <div class="product-prices">
+
+        <span
+          class="old-price"
+          *ngIf="juego.anterior > juego.precio">
+          {{ formatearPrecio(juego.anterior) }}
+        </span>
+
+        <span class="product-price">
+          {{ formatearPrecio(juego.precio) }}
+        </span>
+
+      </div>
+
+      <span
+        *ngIf="juego.anterior > juego.precio"
+        class="discount-badge">
+        DESCUENTO {{ calcularDescuento() }}%
+      </span>
+
+    </div>
+
+    <!-- Disponibilidad -->
+    <p
+      class="product-status"
+      *ngIf="juego.stock > 0; else sinStock">
+      Disponible
+    </p>
+
+    <ng-template #sinStock>
+      <p class="product-status">Agotado</p>
+    </ng-template>
+
+    <button
+      type="button"
+      class="add-to-cart"
+      [disabled]="juego.stock <= 0"
+      (click)="agregarAlCarrito()">
+      🛒 Agregar al carrito
+    </button>
+
+  </div>
+
+</article>
