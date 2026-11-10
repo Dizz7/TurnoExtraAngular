@@ -1,59 +1,97 @@
-# TurnoExtraAngular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+# TurnoExtraAngular 🎲
 
-## Development server
+Proyecto académico desarrollado para la asignatura **Desarrollo Full Stack II (DSY2202)** de Duoc UC.
 
-To start a local development server, run:
+**Estudiante:** Daniel Alarcón  
+**Experiencia:** 2  
+**Semana:** 4  
+**Framework:** Angular 22
+
+## Descripción
+
+TurnoExtraAngular es la nueva versión de TurnoExtra, una tienda ficticia de juegos de mesa.
+
+El proyecto original fue desarrollado utilizando HTML5, CSS3, Bootstrap 5 y JavaScript durante la Experiencia 1.
+
+En la Experiencia 2 se migrará progresivamente la interfaz a Angular, utilizando componentes, TypeScript, enrutamiento y herramientas propias del framework.
+
+## Tecnologías
+
+- Angular 22
+- TypeScript
+- HTML5
+- CSS3
+- Bootstrap 5 (pendiente de integrar)
+- Node.js 24
+- npm
+- Git y GitHub
+- Trello
+- Visual Studio Code
+
+## Objetivos de la Semana 4
+
+- [x] Crear un proyecto Angular desde cero.
+- [x] Configurar el entorno de desarrollo.
+- [ ] Migrar la interfaz HTML y CSS de TurnoExtra.
+- [ ] Integrar Bootstrap.
+- [ ] Crear componentes Angular.
+- [ ] Implementar navegación mediante Angular Router.
+- [ ] Utilizar directivas `ngIf` y `ngFor`.
+- [ ] Utilizar `ngModel` para vincular datos.
+- [ ] Transferir información entre componentes o páginas.
+- [ ] Realizar pruebas de funcionamiento y responsividad.
+- [ ] Preparar la entrega académica.
+
+## Instalación
+
+### Requisitos
+
+- Node.js compatible con Angular 22.
+- npm.
+
+### Ejecutar el proyecto
+
+Clonar el repositorio y ejecutar:
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abrir en el navegador:
 
-## Code scaffolding
+http://localhost:4200/
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Estructura inicial
 
-```bash
-ng generate component component-name
+```text
+TurnoExtraAngular/
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── app.ts
+│   │   ├── app.html
+│   │   ├── app.css
+│   │   ├── app.routes.ts
+│   │   └── app.config.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.css
+├── angular.json
+├── package.json
+└── README.md
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+La estructura se ampliará a medida que se incorporen los componentes de TurnoExtra.
 
-```bash
-ng generate --help
-```
+## Estado del proyecto
 
-## Building
+**En desarrollo — Experiencia 2, Semana 4.**
 
-To build the project run:
+Actualmente se ha creado el proyecto base de Angular y se ha comprobado su funcionamiento mediante el servidor de desarrollo.
 
-```bash
-ng build
-```
+## Autor
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Daniel Alarcón  
+Duoc UC — Desarrollo Full Stack II
