@@ -38,10 +38,7 @@ jobs:
 
       - name: Preparar rutas de Angular
         run: |
-          BUILD_DIR=$(find dist -path '*/browser/index.html' -print -quit | xargs dirname)
-          test -n "$BUILD_DIR"
-          cp "$BUILD_DIR/index.html" "$BUILD_DIR/404.html"
-          echo "BUILD_DIR=$BUILD_DIR" >> "$GITHUB_ENV"
+          cp dist/turno-extra-angular/browser/index.html dist/turno-extra-angular/browser/404.html
 
       - name: Preparar GitHub Pages
         uses: actions/configure-pages@v5
@@ -49,7 +46,8 @@ jobs:
       - name: Subir archivos compilados
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/TurnoExtraAngular/browser
+          path: dist/turno-extra-angular/browser
+
   deploy:
     environment:
       name: github-pages
