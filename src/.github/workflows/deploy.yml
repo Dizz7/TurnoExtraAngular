@@ -49,8 +49,7 @@ jobs:
       - name: Subir archivos compilados
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_DIR }}
-
+          path: dist/turno-extra-angular/browser
   deploy:
     environment:
       name: github-pages
