@@ -2,18 +2,17 @@
 import { Routes } from '@angular/router';
 
 import { Inicio } from './pages/inicio/inicio';
-import { Estrategia } from './pages/estrategia/estrategia';
-import { Familiares } from './pages/familiares/familiares';
-import { Creatividad } from './pages/creatividad/creatividad';
-import { Fiesta } from './pages/fiesta/fiesta';
+import { Categoria } from './pages/categoria/categoria';
 import { Registro } from './pages/registro/registro';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
-  { path: 'estrategia', component: Estrategia },
-  { path: 'familiares', component: Familiares },
-  { path: 'creatividad', component: Creatividad },
-  { path: 'fiesta', component: Fiesta },
+
+  { path: 'estrategia', component: Categoria, data: { categoria: 'estrategia' } },
+  { path: 'familiares', component: Categoria, data: { categoria: 'familiares' } },
+  { path: 'creatividad', component: Categoria, data: { categoria: 'creatividad' } },
+  { path: 'fiesta', component: Categoria, data: { categoria: 'fiesta' } },
+
   { path: 'registro', component: Registro },
   { path: '**', redirectTo: '' }
 ];

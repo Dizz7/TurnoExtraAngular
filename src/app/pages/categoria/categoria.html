@@ -1,0 +1,135 @@
+
+<!-- Presentación dinámica de la categoría -->
+<section class="hero">
+  <div class="hero-content">
+
+    <p class="eyebrow">{{ categoria.frase }}</p>
+
+    <h1>{{ categoria.titulo }}</h1>
+
+    <p>{{ categoria.descripcion }}</p>
+
+    <a href="#juegos" class="btn-primary">
+      Ver juegos →
+    </a>
+
+  </div>
+
+  <!-- Ilustración de la categoría -->
+  <div
+    [class]="'hero-visual ' + categoria.estilo"
+    aria-hidden="true">
+
+    <span class="hero-dice">{{ categoria.icono }}</span>
+    <span class="hero-star">✦</span>
+    <span class="hero-piece">{{ categoria.pieza }}</span>
+
+  </div>
+</section>
+
+<!-- Catálogo dinámico de juegos -->
+<section id="juegos" class="categories">
+
+  <div class="section-heading">
+    <h2>Juegos de {{ categoria.nombre.toLowerCase() }}</h2>
+    <p>{{ categoria.subtitulo }}</p>
+  </div>
+
+  <div class="row g-4 product-grid">
+
+    <!-- Generar una tarjeta por cada juego mediante ngFor -->
+    <div
+      class="col-12 col-md-6 col-lg-4"
+      *ngFor="let juego of juegos">
+
+      <article class="product-card h-100">
+
+        <!-- Imagen del producto -->
+        <div class="product-image">
+          <img
+            [src]="juego.imagen"
+            [alt]="'Portada de ' + juego.nombre"
+            [class.imagen-wingspan]="juego.id === 'wingspan'"
+            loading="lazy">
+        </div>
+
+        <!-- Información del producto -->
+        <div class="product-info">
+
+          <h3>{{ juego.nombre }}</h3>
+
+          <p>{{ juego.descripcion }}</p>
+
+          <div class="product-bottom">
+
+            <!-- Precios -->
+            <div class="product-prices">
+
+              <!-- Precio anterior, cuando existe descuento -->
+            <span
+              class="old-price"
+              *ngIf="juego.anterior > juego.precio">
+              {{ formatearPrecio(juego.anterior) }}
+            </span>
+
+            <!-- Precio actual -->
+            <span class="product-price">
+              {{ formatearPrecio(juego.precio) }}
+            </span>
+
+            </div>
+
+            <!-- Mostrar porcentaje de descuento cuando corresponda -->
+            <span
+              *ngIf="juego.anterior > juego.precio"
+              class="discount-badge">
+              DESCUENTO {{ calcularDescuento(juego) }}%
+            </span>
+
+          </div>
+
+          <!-- Mostrar disponibilidad del producto -->
+          <p
+            class="product-status"
+            *ngIf="juego.stock > 0; else sinStock">
+            Disponible
+          </p>
+
+          <ng-template #sinStock>
+            <p class="product-status">
+              Agotado
+            </p>
+          </ng-template>
+
+          <!-- Carrito pendiente de implementación en Angular -->
+          <button
+            type="button"
+            class="add-to-cart"
+            [disabled]="true">
+            🛒 Agregar al carrito
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+  <!-- Mensaje si no existen juegos -->
+  <p *ngIf="juegos.length === 0">
+    Aún no hay juegos publicados en esta categoría.
+  </p>
+
+  <!-- Regresar a Inicio -->
+  <div class="back-navigation">
+    <a
+      routerLink="/"
+      fragment="categorias"
+      class="btn-primary">
+      ← Volver a las categorías
+    </a>
+  </div>
+
+</section>
