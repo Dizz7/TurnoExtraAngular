@@ -46,3 +46,18 @@
     width: 100%;
   }
 }
+
+
+/* Evitar que el calendario se superponga
+   con el icono de validación de Bootstrap. */
+.registration-form input[type="date"].is-valid,
+.registration-form input[type="date"].is-invalid {
+  padding-right: 4.5rem;
+}
+
+/* Separar el icono nativo del calendario
+   del indicador de validación. */
+.registration-form input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-right: 1.75rem;
+  cursor: pointer;
+}
