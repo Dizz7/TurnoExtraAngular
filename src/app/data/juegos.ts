@@ -1,17 +1,6 @@
+import type { Juego } from '../models/juego';
 
- // Modelo de datos para los juegos de TurnoExtra.
-import type { CategoriaId } from './categorias';
-
-export interface Juego {
-  id: string;
-  nombre: string;
-  categoria: CategoriaId;
-  descripcion: string;
-  precio: number;
-  anterior: number;
-  imagen: string;
-  stock: number;
-}
+export type { Juego } from '../models/juego';
 
 // Catálogo inicial recuperado de la Experiencia 1.
 export const JUEGOS: Juego[] = [

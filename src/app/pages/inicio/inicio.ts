@@ -2,16 +2,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-interface CategoriaInicio {
-  id: string;
-  nombre: string;
-  descripcion: string;
-  clase: string;
-  imagenes: {
-    ruta: string;
-    nombre: string;
-  }[];
-}
+import { CATEGORIAS } from '../../data/categorias';
+import { JUEGOS } from '../../data/juegos';
+
+import type {
+  CategoriaId,
+  CategoriaInicio
+} from '../../models/categoria';
 
 @Component({
   selector: 'app-inicio',
@@ -21,50 +18,29 @@ interface CategoriaInicio {
 })
 export class Inicio {
 
-  categorias: CategoriaInicio[] = [
-    {
-      id: 'estrategia',
-      nombre: 'Estrategia',
-      descripcion: 'Planifica, conquista y gana.',
-      clase: 'strategy',
-      imagenes: [
-        { ruta: 'img/juegos/wingspan.png', nombre: 'Wingspan' },
-        { ruta: 'img/juegos/catan.png', nombre: 'Catan' },
-        { ruta: 'img/juegos/kurruf.png', nombre: 'Kurruf' }
-      ]
-    },
-    {
-      id: 'familiares',
-      nombre: 'Familiares',
-      descripcion: 'Comparte partidas en familia.',
-      clase: 'family',
-      imagenes: [
-        { ruta: 'img/juegos/exploding-kittens.png', nombre: 'Exploding Kittens' },
-        { ruta: 'img/juegos/dobble.png', nombre: 'Dobble' },
-        { ruta: 'img/juegos/sushi-go.png', nombre: 'Sushi Go!' }
-      ]
-    },
-    {
-      id: 'creatividad',
-      nombre: 'Creatividad',
-      descripcion: 'Imagina, crea y sorprende.',
-      clase: 'creativity',
-      imagenes: [
-        { ruta: 'img/juegos/pictionary.png', nombre: 'Pictionary' },
-        { ruta: 'img/juegos/story-cubes.png', nombre: 'Story Cubes' },
-        { ruta: 'img/juegos/telestrations.png', nombre: 'Telestrations' }
-      ]
-    },
-    {
-      id: 'fiesta',
-      nombre: 'Fiesta',
-      descripcion: 'Ríe, juega y celebra.',
-      clase: 'party',
-      imagenes: [
-        { ruta: 'img/juegos/codigo-secreto.png', nombre: 'Código Secreto' },
-        { ruta: 'img/juegos/dixit.png', nombre: 'Dixit' },
-        { ruta: 'img/juegos/just-one.png', nombre: 'Just One' }
-      ]
-    }
-  ];
+  // Textos breves exclusivos de las tarjetas de inicio.
+  private readonly descripciones: Record<CategoriaId, string> = {
+    estrategia: 'Planifica, conquista y gana.',
+    familiares: 'Comparte partidas en familia.',
+    creatividad: 'Imagina, crea y sorprende.',
+    fiesta: 'Ríe, juega y celebra.'
+  };
+
+  // Generar las tarjetas a partir de los datos existentes.
+  categorias: CategoriaInicio[] = (
+    Object.keys(CATEGORIAS) as CategoriaId[]
+  ).map(id => ({
+    id,
+    nombre: CATEGORIAS[id].nombre,
+    descripcion: this.descripciones[id],
+    clase: CATEGORIAS[id].estilo,
+
+    imagenes: JUEGOS
+      .filter(juego => juego.categoria === id)
+      .slice(0, 3)
+      .map(juego => ({
+        ruta: juego.imagen,
+        nombre: juego.nombre
+      }))
+  }));
 }

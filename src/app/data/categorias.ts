@@ -1,7 +1,9 @@
+import type { Categoria, CategoriaId } from '../models/categoria';
+
 
 // Información visual de las categorías de TurnoExtra.
 
-export const CATEGORIAS = {
+export const CATEGORIAS: Record<CategoriaId, Categoria> = {
   estrategia: {
     nombre: 'Estrategia',
     frase: 'PIENSA. PLANIFICA. CONQUISTA.',
@@ -44,4 +46,4 @@ export const CATEGORIAS = {
   }
 };
 
-export type CategoriaId = keyof typeof CATEGORIAS;
+export type { CategoriaId } from '../models/categoria';
