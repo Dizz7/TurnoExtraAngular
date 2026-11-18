@@ -1,6 +1,13 @@
 
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 
 type CampoRegistro =
   | 'fullName'
@@ -11,186 +18,163 @@ type CampoRegistro =
   | 'birthDate'
   | 'address';
 
-interface DatosRegistro {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  birthDate: string;
-  address: string;
+// Validador personalizado para la edad mínima.
+function validarEdad(control: AbstractControl): ValidationErrors | null {
+  const valor = control.value as string;
+
+  if (!valor) return null;
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+    return { fechaInvalida: true };
+  }
+
+  const [anio, mes, dia] = valor.split('-').map(Number);
+  const fecha = new Date(0);
+  fecha.setFullYear(anio, mes - 1, dia);
+  fecha.setHours(0, 0, 0, 0);
+
+  const hoy = new Date();
+
+  if (
+    fecha.getFullYear() !== anio ||
+    fecha.getMonth() + 1 !== mes ||
+    fecha.getDate() !== dia ||
+    fecha > hoy
+  ) {
+    return { fechaInvalida: true };
+  }
+
+  let edad = hoy.getFullYear() - anio;
+
+  if (
+    hoy.getMonth() + 1 < mes ||
+    (hoy.getMonth() + 1 === mes && hoy.getDate() < dia)
+  ) {
+    edad--;
+  }
+
+  return edad >= 13 ? null : { edadMinima: true };
+}
+
+// Validador para comprobar que las contraseñas coincidan.
+function validarContrasenas(
+  control: AbstractControl
+): ValidationErrors | null {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+
+  if (!password || !confirmPassword) return null;
+
+  return password === confirmPassword
+    ? null
+    : { contrasenasDistintas: true };
 }
 
 @Component({
   selector: 'app-registro',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './registro.html',
   styleUrl: './registro.css'
 })
 export class Registro {
 
-  // Datos vinculados con ngModel.
-  datos: DatosRegistro = this.datosIniciales();
+  // Formulario reactivo con sus validaciones.
+  formulario = new FormGroup({
+    fullName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/.*\S.*/)]
+    }),
+    username: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/.*\S.*/)]
+    }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(18),
+        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)
+      ]
+    }),
+    confirmPassword: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    birthDate: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, validarEdad]
+    }),
+    address: new FormControl('', {
+      nonNullable: true
+    })
+  }, {
+    validators: validarContrasenas
+  });
 
-  // Estado de las validaciones.
   errores: string[] = [];
-  camposValidados: Partial<Record<CampoRegistro, boolean>> = {};
-
   registroExitoso = false;
   animarBoton = false;
 
-  private datosIniciales(): DatosRegistro {
-    return {
-      fullName: '',
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      birthDate: '',
-      address: ''
-    };
-  }
-
-  // Validar correo electrónico.
-  private correoValido(): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-      this.datos.email.trim()
-    );
-  }
-
-  // Validar contraseña.
-  private contrasenaValida(): boolean {
-    const clave = this.datos.password;
-
-    return (
-      clave.length >= 6 &&
-      clave.length <= 18 &&
-      /[A-Z]/.test(clave) &&
-      /[0-9]/.test(clave)
-    );
-  }
-
-  // Calcular edad a partir de una fecha.
-  private calcularEdad(fecha: string): number {
-    const [anio, mes, dia] = fecha.split('-').map(Number);
-    const hoy = new Date();
-
-    let edad = hoy.getFullYear() - anio;
-
-    const cumplioAnios =
-      hoy.getMonth() + 1 > mes ||
-      (
-        hoy.getMonth() + 1 === mes &&
-        hoy.getDate() >= dia
-      );
-
-    if (!cumplioAnios) {
-      edad--;
-    }
-
-    return edad;
-  }
-
-  // Verificar que la fecha exista y no sea futura.
-  private fechaValida(): boolean {
-    const valor = this.datos.birthDate;
-
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
-      return false;
-    }
-
-    const [anio, mes, dia] = valor.split('-').map(Number);
-    const fecha = new Date(anio, mes - 1, dia);
-    const hoy = new Date();
-
-    hoy.setHours(23, 59, 59, 999);
-
-    return (
-      fecha.getFullYear() === anio &&
-      fecha.getMonth() + 1 === mes &&
-      fecha.getDate() === dia &&
-      fecha <= hoy
-    );
-  }
-
-  // Validar un campo individual.
+  // Obtener el estado de validación de un campo.
   validarCampo(campo: CampoRegistro): void {
-    const valor = this.datos[campo].trim();
-    let valido = true;
-
-    switch (campo) {
-      case 'fullName':
-      case 'username':
-        valido = valor.length > 0;
-        break;
-
-      case 'email':
-        valido = this.correoValido();
-        break;
-
-      case 'password':
-        valido = this.contrasenaValida();
-        break;
-
-      case 'confirmPassword':
-        valido =
-          valor.length > 0 &&
-          this.datos.confirmPassword === this.datos.password;
-        break;
-
-      case 'birthDate':
-        valido =
-          this.fechaValida() &&
-          this.calcularEdad(this.datos.birthDate) >= 13;
-        break;
-
-      case 'address':
-        // La dirección es opcional.
-        if (!valor) {
-          delete this.camposValidados.address;
-          return;
-        }
-        valido = true;
-        break;
-    }
-
-    this.camposValidados[campo] = valido;
+    this.formulario.controls[campo].markAsTouched();
   }
 
-  // Clases CSS de validación.
+  // Aplicar clases CSS de Bootstrap.
   claseCampo(campo: CampoRegistro): string {
-    const estado = this.camposValidados[campo];
+    const control = this.formulario.controls[campo];
 
-    if (estado === true) {
-      return 'is-valid';
+    if (campo === 'address' && !control.value.trim()) {
+      return '';
     }
 
-    if (estado === false) {
+    if (!control.touched) {
+      return '';
+    }
+
+    if (
+      campo === 'confirmPassword' &&
+      this.formulario.hasError('contrasenasDistintas')
+    ) {
       return 'is-invalid';
     }
 
-    return '';
+    return control.valid ? 'is-valid' : 'is-invalid';
   }
 
-  // Actualizar validación mientras se escribe.
+  // Actualizar validación al modificar las contraseñas.
   actualizarContrasena(): void {
-    this.validarCampo('password');
+    this.formulario.updateValueAndValidity();
 
-    if (this.datos.confirmPassword) {
-      this.validarCampo('confirmPassword');
+    const confirmacion = this.formulario.controls.confirmPassword;
+
+    if (confirmacion.value) {
+      confirmacion.markAsTouched();
     }
   }
 
   actualizarConfirmacion(): void {
-    if (this.datos.confirmPassword) {
-      this.validarCampo('confirmPassword');
+    const confirmacion = this.formulario.controls.confirmPassword;
+
+    if (confirmacion.value) {
+      confirmacion.markAsTouched();
     }
   }
 
-  // Validar el formulario completo.
+  // Validar y procesar el envío.
   registrar(): void {
     this.errores = [];
     this.registroExitoso = false;
+
+    this.formulario.markAllAsTouched();
+    this.formulario.updateValueAndValidity();
+
+    const controles = this.formulario.controls;
 
     const obligatorios: CampoRegistro[] = [
       'fullName',
@@ -201,88 +185,65 @@ export class Registro {
       'birthDate'
     ];
 
-    const faltanCampos = obligatorios.some(
-      campo => !this.datos[campo].trim()
-    );
-
-    if (faltanCampos) {
-      this.errores.push(
-        'Completa todos los campos obligatorios.'
-      );
+    if (obligatorios.some(campo => !controles[campo].value.trim())) {
+      this.errores.push('Completa todos los campos obligatorios.');
     }
 
-    if (this.datos.email.trim() && !this.correoValido()) {
-      this.errores.push(
-        'Ingresa un correo electrónico válido.'
-      );
+    if (controles.email.value && controles.email.invalid) {
+      this.errores.push('Ingresa un correo electrónico válido.');
     }
 
-    if (this.datos.password) {
-      const clave = this.datos.password;
+    const password = controles.password;
 
-      if (clave.length < 6 || clave.length > 18) {
+    if (password.value) {
+      if (
+        password.hasError('minlength') ||
+        password.hasError('maxlength')
+      ) {
         this.errores.push(
           'La contraseña debe tener entre 6 y 18 caracteres.'
         );
       }
 
-      if (!/[A-Z]/.test(clave) || !/[0-9]/.test(clave)) {
+      if (password.hasError('pattern')) {
         this.errores.push(
           'La contraseña debe incluir una mayúscula y un número.'
         );
       }
     }
 
-    if (
-      this.datos.password &&
-      this.datos.confirmPassword &&
-      this.datos.password !== this.datos.confirmPassword
-    ) {
+    if (this.formulario.hasError('contrasenasDistintas')) {
+      this.errores.push('Las contraseñas no coinciden.');
+    }
+
+    const fecha = controles.birthDate;
+
+    if (fecha.hasError('fechaInvalida')) {
+      this.errores.push('Ingresa una fecha de nacimiento válida.');
+    } else if (fecha.hasError('edadMinima')) {
       this.errores.push(
-        'Las contraseñas no coinciden.'
+        'Debes tener al menos 13 años para registrarte.'
       );
     }
 
-    if (this.datos.birthDate) {
-      if (!this.fechaValida()) {
-        this.errores.push(
-          'Ingresa una fecha de nacimiento válida.'
-        );
-      } else if (this.calcularEdad(this.datos.birthDate) < 13) {
-        this.errores.push(
-          'Debes tener al menos 13 años para registrarte.'
-        );
-      }
-    }
-
-    // Actualizar estilos de todos los campos.
-    const campos: CampoRegistro[] = [
-      ...obligatorios,
-      'address'
-    ];
-
-    campos.forEach(campo => this.validarCampo(campo));
-
-    if (this.errores.length > 0) {
+    if (this.formulario.invalid) {
       this.animarBoton = true;
       return;
     }
 
-    // Demostración de registro: aún no guarda cuentas.
+    // Demostración: todavía no almacenamos cuentas.
     this.registroExitoso = true;
     this.animarBoton = false;
   }
 
-  // Permitir repetir la animación al enviar.
   finalizarAnimacion(): void {
     this.animarBoton = false;
   }
 
-  // Limpiar formulario y estados.
+  // Restablecer controles y mensajes.
   limpiarFormulario(): void {
-    this.datos = this.datosIniciales();
+    this.formulario.reset();
     this.errores = [];
-    this.camposValidados = {};
     this.registroExitoso = false;
     this.animarBoton = false;
   }
