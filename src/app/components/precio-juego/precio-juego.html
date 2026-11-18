@@ -1,0 +1,11 @@
+<div class="product-bottom">
+  <div class="product-prices">
+    @if (juego.anterior > juego.precio) {
+      <span class="old-price"><span class="visually-hidden">Precio anterior: </span>{{ formatearPrecio(juego.anterior) }}</span>
+    }
+    <span class="product-price"><span class="visually-hidden">Precio: </span>{{ formatearPrecio(juego.precio) }}</span>
+  </div>
+  @if (descuento > 0) {
+    <span class="discount-badge">DESCUENTO {{ descuento }}%</span>
+  }
+</div>

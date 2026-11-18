@@ -1,11 +1,13 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Juego } from '../../data/juegos';
+import { RouterLink } from '@angular/router';
+import { PrecioJuego } from '../precio-juego/precio-juego';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-tarjeta-juego',
-  imports: [NgIf],
+  imports: [NgIf, RouterLink, PrecioJuego],
   templateUrl: './tarjeta-juego.html',
   styleUrls: ['../../styles/card-reveal.css', './tarjeta-juego.css']
 })
@@ -22,22 +24,5 @@ export class TarjetaJuego {
     if (this.juego.stock > 0) {
       this.agregarCarrito.emit(this.juego);
     }
-  }
-
-
-  // Calcular el porcentaje de descuento.
-  calcularDescuento(): number {
-    if (this.juego.anterior <= this.juego.precio) {
-      return 0;
-    }
-
-    return Math.round(
-      100 * (1 - this.juego.precio / this.juego.anterior)
-    );
-  }
-
-  // Formatear precios en pesos chilenos.
-  formatearPrecio(precio: number): string {
-    return '$' + precio.toLocaleString('es-CL');
   }
 }

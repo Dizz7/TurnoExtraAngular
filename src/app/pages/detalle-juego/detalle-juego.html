@@ -1,0 +1,39 @@
+@if (juego(); as juego) {
+  <section class="detail-page" aria-labelledby="game-title">
+    <nav class="detail-breadcrumb" aria-label="Ruta de navegación">
+      <a routerLink="/">Inicio</a><span aria-hidden="true"> / </span>
+      <a [routerLink]="['/', juego.categoria]">{{ categorias[juego.categoria].nombre }}</a>
+      <span aria-hidden="true"> / </span><span aria-current="page">{{ juego.nombre }}</span>
+    </nav>
+
+    <div class="detail-layout">
+      <div [class]="'detail-image ' + categorias[juego.categoria].estilo">
+        <img [src]="juego.imagen" [alt]="'Portada de ' + juego.nombre">
+      </div>
+      <div class="hero-content detail-content">
+        <p class="eyebrow">{{ categorias[juego.categoria].nombre }}</p>
+        <h1 id="game-title">{{ juego.nombre }}</h1>
+        <p class="detail-description">{{ juego.descripcion }}</p>
+        <app-precio-juego [juego]="juego" />
+        <p class="detail-stock">{{ juego.stock > 0 ? 'Disponible' : 'Agotado' }}</p>
+        <button type="button" class="btn-primary" [disabled]="juego.stock <= 0" (click)="carrito.agregar(juego)">
+          🛒 Agregar al carrito
+        </button>
+        <div class="cart-feedback" role="status" aria-live="polite">
+          <p>🛒 Juegos agregados: {{ carrito.cantidadCarrito() }}</p>
+          @if (carrito.ultimoJuegoAgregado()) {
+            <p>¡{{ carrito.ultimoJuegoAgregado() }} agregado al carrito!</p>
+          }
+        </div>
+        <a class="detail-back" [routerLink]="['/', juego.categoria]">← Volver a {{ categorias[juego.categoria].nombre.toLowerCase() }}</a>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="detail-page not-found" aria-labelledby="not-found-title">
+    <p class="eyebrow">BUSQUEMOS OTRA PARTIDA</p>
+    <h1 id="not-found-title">Juego no encontrado</h1>
+    <p>Este juego no está disponible en nuestro catálogo.</p>
+    <a class="btn-primary" routerLink="/">Volver al inicio →</a>
+  </section>
+}

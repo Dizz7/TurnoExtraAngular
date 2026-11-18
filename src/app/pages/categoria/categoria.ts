@@ -1,10 +1,11 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { CATEGORIAS, CategoriaId } from '../../data/categorias';
 import { JUEGOS, Juego } from '../../data/juegos';
+import { CarritoDemo } from '../../services/carrito-demo';
 import { TarjetaJuego } from '../../components/tarjeta-juego/tarjeta-juego';
 
 @Component({
@@ -31,28 +32,10 @@ export class Categoria implements OnInit {
   }
 
 
-  // Estado del carrito de demostración.
-  cantidadCarrito = 0;
-  ultimoJuegoAgregado = '';
+  readonly carrito = inject(CarritoDemo);
 
-  // Recibir el evento emitido por TarjetaJuego.
-  recibirJuego(juego: Juego): void {
-    this.cantidadCarrito++;
-    this.ultimoJuegoAgregado = juego.nombre;
-  }
+  get cantidadCarrito(): number { return this.carrito.cantidadCarrito(); }
+  get ultimoJuegoAgregado(): string { return this.carrito.ultimoJuegoAgregado(); }
 
-  // Formatear los precios en pesos chilenos.
-  formatearPrecio(precio: number): string {
-    return '$' + precio.toLocaleString('es-CL');
-  }
-
-
-  // Calcular el porcentaje de descuento de un juego.
-  calcularDescuento(juego: Juego): number {
-    if (juego.anterior <= juego.precio) {
-      return 0;
-    }
-
-    return Math.round(100 * (1 - juego.precio / juego.anterior));
-  }
+  recibirJuego(juego: Juego): void { this.carrito.agregar(juego); }
 }

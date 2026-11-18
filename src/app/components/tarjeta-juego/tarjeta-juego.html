@@ -17,29 +17,9 @@
 
     <p>{{ juego.descripcion }}</p>
 
-    <div class="product-bottom">
+    <app-precio-juego [juego]="juego" />
 
-      <div class="product-prices">
-
-        <span
-          class="old-price"
-          *ngIf="juego.anterior > juego.precio">
-          {{ formatearPrecio(juego.anterior) }}
-        </span>
-
-        <span class="product-price">
-          {{ formatearPrecio(juego.precio) }}
-        </span>
-
-      </div>
-
-      <span
-        *ngIf="juego.anterior > juego.precio"
-        class="discount-badge">
-        DESCUENTO {{ calcularDescuento() }}%
-      </span>
-
-    </div>
+    <a class="detail-link" [routerLink]="['/juegos', juego.id]" [attr.aria-label]="'Ver detalles de ' + juego.nombre">Ver detalles →</a>
 
     <!-- Disponibilidad -->
     <p

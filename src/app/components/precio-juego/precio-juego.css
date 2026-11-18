@@ -1,0 +1,41 @@
+:host { display: block; margin-top: auto; }
+/* Precio y descuento */
+.product-bottom {
+    display: flex; /* distribución flexible */
+    justify-content: space-between; /* espacio entre elementos */
+    align-items: flex-end; /* alineación al final */
+    flex-wrap: wrap; /* permite que los elementos se ajusten a la siguiente línea */
+    gap: 10px; /* espacio entre elementos */
+    margin-top: auto; /* empuja el contenido hacia abajo */
+}
+
+/* Precio actual */
+.product-price {
+    font-size: 22px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    color: var(--dark); /* color principal */
+}
+
+/* Contenedor de precios */
+.product-prices {
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+}
+
+/* Precio original tachado */
+.old-price {
+    font-size: 14px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+    text-decoration: line-through; /* tachado */
+}
+
+/* Etiqueta de descuento */
+.discount-badge {
+    background: var(--peach); /* color de fondo */
+    color: var(--dark); /* color del texto */
+    padding: 6px 12px; /* espacio interno */
+    border-radius: 20px; /* bordes redondeados */
+    font-size: 12px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+}
+
