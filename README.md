@@ -2,172 +2,155 @@
 
 Proyecto académico desarrollado para la asignatura **Desarrollo Full Stack II (DSY2202)** de Duoc UC.
 
-**Estudiante:** Daniel Alarcón  
-**Experiencia:** 2  
-**Semana:** 4  
+**Estudiante:** Daniel Alarcón\
+**Experiencia:** 2\
+**Semana:** 5\
 **Framework:** Angular 22
 
 ## Descripción
 
-**TurnoExtra** es una tienda ficticia de juegos de mesa que permite explorar diferentes categorías, consultar productos y acceder a un formulario de registro de usuarios.
+**TurnoExtra** es una tienda ficticia de juegos de mesa que permite explorar categorías, consultar el detalle de cada juego y completar un formulario de registro con validaciones.
 
-El proyecto original fue desarrollado durante la Experiencia 1 utilizando HTML5, CSS3, Bootstrap 5 y JavaScript.
+El proyecto nació en la Experiencia 1 con HTML5, CSS3, Bootstrap y JavaScript. Durante la Experiencia 2 se migró a Angular, organizando la interfaz mediante componentes reutilizables, modelos TypeScript y navegación con Angular Router.
 
-Durante la Experiencia 2, la aplicación fue migrada a **Angular 22**, incorporando una arquitectura basada en componentes reutilizables, TypeScript, navegación mediante Angular Router, directivas estructurales y vinculación de datos.
+Esta entrega incorpora formularios reactivos, separación de modelos y datos, estilos encapsulados por componente, una página de detalle dinámica y un servicio compartido para el carrito de demostración. Se mantiene el diseño pastel, las animaciones y la adaptación a dispositivos móviles.
 
-Se conservó la identidad visual del proyecto original, caracterizada por una interfaz moderna, colores pastel y diseño adaptable a distintos dispositivos.
+## Tecnologías y herramientas
 
-## Tecnologías utilizadas
-
-- Angular 22
-- TypeScript
-- HTML5
-- CSS3
-- Bootstrap 5.3.3
-- Node.js 24
-- npm
-- Git y GitHub
-- GitHub Actions
-- GitHub Pages
-- Trello
-- Visual Studio Code
+- Angular 22 y Angular Router.
+- TypeScript 6, HTML5 y CSS3.
+- Bootstrap 5.3.
+- Reactive Forms, Signals y RxJS.
+- Jasmine, Karma y utilidades de pruebas de Angular.
+- Node.js 24 y npm.
+- Git, GitHub, GitHub Actions y GitHub Pages.
+- Trello para organizar actividades y Visual Studio Code para desarrollo.
 
 ## Funcionalidades implementadas
 
-### Navegación entre páginas
+### Navegación
 
-Se implementó **Angular Router** para navegar entre las diferentes secciones sin recargar completamente la aplicación.
+Angular Router permite cambiar de página sin recargar la aplicación completa.
 
-Rutas disponibles:
+| Ruta | Contenido |
+| --- | --- |
+| `/` | Inicio y acceso a categorías |
+| `/estrategia` | Juegos de estrategia |
+| `/familiares` | Juegos familiares |
+| `/creatividad` | Juegos de creatividad |
+| `/fiesta` | Juegos de fiesta |
+| `/juegos/:id` | Detalle dinámico de un juego |
+| `/registro` | Formulario de registro |
 
-- `/` — Inicio
-- `/estrategia` — Juegos de estrategia
-- `/familiares` — Juegos familiares
-- `/creatividad` — Juegos de creatividad
-- `/fiesta` — Juegos de fiesta
-- `/registro` — Registro de usuarios
+Por ejemplo, `/juegos/wingspan` y `/juegos/kurruf` utilizan el mismo componente y muestran información distinta según el identificador de la URL. Un identificador de juego desconocido muestra **«Juego no encontrado»** con un enlace al inicio. Las demás rutas desconocidas redirigen al inicio.
 
-### Catálogo de juegos
+### Catálogo y detalle de juegos
 
-El catálogo contiene 12 juegos de mesa distribuidos en cuatro categorías.
+El catálogo contiene **12 juegos distribuidos en cuatro categorías**. La información se define en `data/juegos.ts` y `data/categorias.ts`, utilizando interfaces de `models/`.
 
-Cada producto presenta:
+Las tarjetas muestran nombre, descripción, portada, precio en pesos chilenos, ofertas cuando corresponden y disponibilidad. Cada tarjeta incluye un enlace **«Ver detalles»** y un botón para agregar el juego al carrito de demostración.
 
-- Nombre y descripción.
-- Imagen.
-- Precio en pesos chilenos.
-- Precio anterior cuando corresponde.
-- Disponibilidad de stock.
-- Botón para agregar al carrito de demostración.
+La página de detalle presenta:
 
-La información se administra mediante interfaces y arreglos de objetos en TypeScript.
+- Portada y descripción del juego.
+- Categoría y enlaces de navegación.
+- Precio actual, precio anterior y porcentaje de descuento cuando existe una oferta.
+- Disponibilidad y botón desactivado si no hay stock.
+- Contador del carrito y último juego agregado.
+- Enlace para volver a la categoría correspondiente.
+
+El componente observa los parámetros de la ruta y utiliza una señal para actualizar la vista al cambiar de juego, incluso cuando Angular reutiliza la misma instancia.
 
 ### Componentes reutilizables
 
-La aplicación utiliza componentes Angular para organizar y reutilizar elementos de la interfaz.
+| Componente | Responsabilidad |
+| --- | --- |
+| `Header` | Encabezado, navegación y menú móvil |
+| `Footer` | Pie de página |
+| `Inicio` | Presentación y categorías generadas desde los datos |
+| `Categoria` | Catálogo dinámico para las cuatro categorías |
+| `TarjetaJuego` | Presentación de un juego y emisión del evento de agregar al carrito |
+| `PrecioJuego` | Formato de precios y cálculo de descuentos compartidos por tarjeta y detalle |
+| `DetalleJuego` | Una página reutilizable para todos los juegos |
+| `Registro` | Formulario reactivo y mensajes de validación |
 
-Entre ellos:
+### Comunicación y estado compartido
 
-- **Header:** encabezado y navegación.
-- **Footer:** pie de página.
-- **Inicio:** presentación y acceso a categorías.
-- **Categoria:** visualización dinámica del catálogo.
-- **TarjetaJuego:** presentación individual de cada producto.
-- **Registro:** formulario de registro con validaciones.
+- `@Input()` transmite los datos del juego a `TarjetaJuego` y `PrecioJuego`.
+- `@Output()` y `EventEmitter` permiten que la tarjeta notifique al catálogo cuándo se agrega un juego.
+- El servicio `CarritoDemo`, proporcionado en la raíz de la aplicación, mantiene mediante Signals la cantidad de juegos agregados y el nombre del último seleccionado.
 
-### Comunicación entre componentes
+El catálogo y el detalle comparten ese estado durante la navegación. El contador se reinicia al recargar la página: no se guarda en una base de datos ni en el almacenamiento del navegador. Es una demostración; no procesa compras, no descuenta existencias ni gestiona cantidades por producto.
 
-Se implementó comunicación entre componentes mediante:
+### Formulario reactivo de registro
 
-- `@Input()` para enviar información de los juegos desde el componente de categoría hacia las tarjetas.
-- `@Output()` y `EventEmitter` para comunicar al componente padre cuándo se agrega un producto al carrito.
+El formulario utiliza `ReactiveFormsModule`, `FormGroup`, `FormControl` y validadores de Angular y personalizados. Los campos se vinculan mediante `[formGroup]` y `formControlName`.
 
-El carrito de demostración muestra un contador de productos agregados y el nombre del último juego seleccionado.
+| Campo | Validación |
+| --- | --- |
+| Nombre completo | Obligatorio; no admite únicamente espacios |
+| Nombre de usuario | Obligatorio; no admite únicamente espacios |
+| Correo electrónico | Obligatorio y con formato válido |
+| Contraseña | Entre 6 y 18 caracteres, al menos una mayúscula y un número |
+| Confirmación de contraseña | Obligatoria y coincidente con la contraseña |
+| Fecha de nacimiento | Fecha válida, no futura y edad mínima de 13 años |
+| Dirección | Opcional |
+
+Se muestran mensajes de error, indicadores visuales por campo y confirmación cuando los datos son válidos. El botón **«Limpiar formulario»** restablece los campos y los mensajes.
+
+**El registro no crea cuentas ni implementa autenticación real.**
 
 ### Directivas y vinculación de datos
 
-Se utilizaron funcionalidades de Angular como:
+La aplicación utiliza interpolación, vinculación de propiedades y eventos, `routerLink`, `routerLinkActive`, `*ngFor`, `*ngIf` y los bloques de control `@for` y `@if`.
 
-- `*ngFor` para recorrer colecciones de productos.
-- `*ngIf` para mostrar contenido condicionalmente.
-- `[(ngModel)]` para vincular los campos del formulario con las propiedades del componente.
-- Interpolación para mostrar información dinámica.
-- Enrutamiento mediante `routerLink`.
+El registro de esta entrega utiliza formularios reactivos; ya no depende de `[(ngModel)]`.
 
-### Formulario de registro
+### Estilos y diseño responsive
 
-El formulario permite ingresar información personal y realiza validaciones en Angular.
+Los estilos específicos se encuentran en el CSS de cada componente. `src/styles.css` conserva la fuente Nunito, la paleta de colores, los estilos base, los botones compartidos y las preferencias de movimiento reducido.
 
-Incluye:
+Las hojas `app/styles/page.css` y `card-reveal.css` se reutilizan mediante `styleUrls` y Angular las encapsula para cada componente. `legacy.css` conserva estilos de pantallas del sitio anterior que aún no existen como componentes; no se carga en la aplicación.
 
-- Nombre completo.
-- Nombre de usuario.
-- Correo electrónico.
-- Contraseña.
-- Confirmación de contraseña.
-- Fecha de nacimiento.
-- Dirección opcional.
+Se mantiene Bootstrap para la cuadrícula y la navegación responsive. Se revisaron las pantallas existentes en anchos de 390, 768 y 1280 píxeles, y la nueva página de detalle en móvil y escritorio.
 
-Se implementaron validaciones de campos obligatorios, formato de correo electrónico, requisitos de contraseña, coincidencia de contraseñas y edad mínima.
+## Avances de esta entrega
 
-El formulario muestra mensajes de error, indicadores visuales y confirmación de validación exitosa.
+- [x] Separar interfaces de modelos y datos del catálogo.
+- [x] Generar las categorías de inicio a partir de los datos existentes.
+- [x] Implementar el formulario de registro con Reactive Forms.
+- [x] Distribuir el CSS entre componentes conservando los estilos compartidos.
+- [x] Crear una ruta parametrizada para el detalle de cada juego.
+- [x] Reutilizar la presentación de precios y descuentos.
+- [x] Compartir el carrito de demostración entre catálogo y detalle.
+- [x] Añadir pruebas de navegación, precios, disponibilidad y estado compartido.
+- [x] Comprobar la compilación de producción y el diseño responsive.
 
-**Nota:** el registro es una demostración de validación y vinculación de datos. No almacena cuentas en una base de datos ni implementa autenticación real.
-
-### Diseño responsive
-
-Se adaptó la interfaz para diferentes tamaños de pantalla utilizando CSS y Bootstrap.
-
-Se realizaron pruebas en resoluciones de escritorio, tablet y dispositivos móviles.
-
-## Objetivos de la Semana 4
-
-- [x] Crear un proyecto Angular desde cero.
-- [x] Configurar el entorno de desarrollo.
-- [x] Migrar la interfaz HTML y CSS de TurnoExtra.
-- [x] Integrar Bootstrap.
-- [x] Crear componentes Angular reutilizables.
-- [x] Implementar navegación mediante Angular Router.
-- [x] Utilizar las directivas `ngIf` y `ngFor`.
-- [x] Utilizar `ngModel` para vincular datos.
-- [x] Transferir información entre componentes mediante `@Input()` y `@Output()`.
-- [x] Implementar validaciones en el formulario.
-- [x] Realizar pruebas de funcionamiento y responsividad.
-- [x] Utilizar GitHub para el control de versiones.
-- [x] Organizar las tareas del proyecto mediante Trello.
-- [x] Configurar el despliegue mediante GitHub Actions.
-- [x] Verificar el despliegue público en GitHub Pages.
-- [x] Completar las evidencias y la entrega académica.
-
-## Instalación
+## Instalación y ejecución
 
 ### Requisitos
 
-- Node.js compatible con Angular 22.
+- Node.js 24, utilizado en desarrollo y en el workflow de despliegue.
 - npm.
+- Google Chrome instalado para ejecutar las pruebas con ChromeHeadless.
 
-### Clonar el repositorio
+### Clonar e instalar dependencias
 
 ```bash
 git clone https://github.com/Dizz7/TurnoExtraAngular.git
 cd TurnoExtraAngular
+npm ci
 ```
 
-### Instalar dependencias
+`npm ci` instala las dependencias según `package-lock.json`.
 
-```bash
-npm install
-```
-
-### Ejecutar el proyecto
+### Ejecutar en desarrollo
 
 ```bash
 npm start
 ```
 
-Abrir en el navegador:
-
-http://localhost:4200/
+Abrir [http://localhost:4200/](http://localhost:4200/).
 
 ### Compilar para producción
 
@@ -175,40 +158,81 @@ http://localhost:4200/
 npm run build
 ```
 
-Para generar una compilación compatible con GitHub Pages:
+Los archivos compilados se generan en `dist/turno-extra-angular/browser/`.
+
+Para GitHub Pages:
 
 ```bash
 npm run build -- --base-href /TurnoExtraAngular/
 ```
 
-Los archivos compilados se generan en el directorio `dist/turno-extra-angular/browser/`.
+## Pruebas
+
+La suite utiliza **Jasmine y Karma** e incluye **24 pruebas**:
+
+| Área | Pruebas |
+| --- | ---: |
+| Aplicación y estructura principal | 2 |
+| Formulario de registro | 11 |
+| Tarjeta de juego | 3 |
+| Detalle y navegación entre juegos | 5 |
+| Precios y descuentos | 2 |
+| Carrito de demostración | 1 |
+| **Total** | **24** |
+
+Se comprueban, entre otros casos, las validaciones del registro, el acceso a los 12 juegos mediante sus rutas, la actualización al cambiar de identificador, los juegos inexistentes, los productos agotados y la conservación del contador al volver al catálogo.
+
+Para ejecutar una vez sin modo observación:
+
+```bash
+npx ng test --watch=false --browsers=ChromeHeadless
+```
+
+Para trabajar en modo observación:
+
+```bash
+npm test
+```
+
+**Validación de esta entrega:** compilación de producción exitosa y 24/24 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
+
+La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 
 ## Estructura del proyecto
 
 ```text
 TurnoExtraAngular/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml
-├── public/
-│   └── img/
-│       └── juegos/
+├── .github/workflows/deploy.yml
+├── public/img/juegos/
 ├── src/
 │   ├── app/
 │   │   ├── components/
 │   │   │   ├── header/
 │   │   │   ├── footer/
+│   │   │   ├── precio-juego/
 │   │   │   └── tarjeta-juego/
 │   │   ├── data/
 │   │   │   ├── categorias.ts
 │   │   │   └── juegos.ts
+│   │   ├── models/
+│   │   │   ├── categoria.ts
+│   │   │   └── juego.ts
 │   │   ├── pages/
 │   │   │   ├── inicio/
 │   │   │   ├── categoria/
+│   │   │   ├── detalle-juego/
 │   │   │   └── registro/
+│   │   ├── services/
+│   │   │   ├── carrito-demo.ts
+│   │   │   └── carrito-demo.spec.ts
+│   │   ├── styles/
+│   │   │   ├── page.css
+│   │   │   ├── card-reveal.css
+│   │   │   └── legacy.css
 │   │   ├── app.ts
 │   │   ├── app.html
 │   │   ├── app.css
+│   │   ├── app.spec.ts
 │   │   ├── app.routes.ts
 │   │   └── app.config.ts
 │   ├── index.html
@@ -216,43 +240,36 @@ TurnoExtraAngular/
 │   └── styles.css
 ├── angular.json
 ├── package.json
+├── package-lock.json
 └── README.md
 ```
 
+Las pruebas de los componentes y páginas se ubican junto a su implementación en archivos `*.spec.ts`.
+
 ## Despliegue
 
-El proyecto cuenta con un workflow de **GitHub Actions** para automatizar su compilación y publicación en GitHub Pages.
+El workflow `.github/workflows/deploy.yml` compila y publica en GitHub Pages cuando se realiza un push a `main`. También puede ejecutarse manualmente desde GitHub Actions.
 
-El proceso se ejecuta al subir cambios a la rama `main`.
+Utiliza Node.js 24, instala dependencias con `npm ci`, compila con el `base-href` del repositorio y copia `index.html` como `404.html` para permitir la carga de las rutas de Angular en GitHub Pages. Después publica los archivos compilados.
 
-**Sitio web:** https://dizz7.github.io/TurnoExtraAngular/
+El workflow actual **no ejecuta las pruebas automáticamente**; deben ejecutarse antes de publicar.
 
-**Estado:** publicado y funcionando correctamente en GitHub Pages.
+- **Repositorio:** [Dizz7/TurnoExtraAngular](https://github.com/Dizz7/TurnoExtraAngular)
+- **Sitio del proyecto:** [TurnoExtra en GitHub Pages](https://dizz7.github.io/TurnoExtraAngular/)
 
-## Herramientas de gestión
+Las mejoras locales de esta entrega estarán disponibles en el sitio una vez subidas a `main` y completado correctamente el workflow. La validación local no confirma que la versión pública ya contenga estos cambios.
 
-**GitHub:** repositorio y control de versiones.
+## Alcance y estado
 
-https://github.com/Dizz7/TurnoExtraAngular
+**Experiencia 2 — Semana 5: funcionalidades implementadas y verificadas localmente.**
 
-**Trello:** organización y seguimiento de las actividades de desarrollo mediante un tablero Kanban.
+La aplicación es una demostración de frontend. El catálogo utiliza datos locales y no existe conexión a un backend, base de datos, autenticación ni pasarela de pago. El formulario valida datos y el carrito mantiene un contador temporal.
 
-## Estado del proyecto
-
-**Experiencia 2 — Semana 4 completada.**
-
-La aplicación se encuentra implementada y publicada en GitHub Pages.
-
-Incluye navegación mediante Angular Router, catálogo dinámico,
-componentes reutilizables, comunicación mediante @Input() y @Output(),
-formulario de registro con validaciones y diseño responsive.
-
-El despliegue se realiza automáticamente mediante GitHub Actions
-al subir cambios a la rama main.
+Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 
 ## Autor
 
-**Daniel Alarcón**  
-Duoc UC — Desarrollo Full Stack II  
-Experiencia 2 — Semana 4  
+**Daniel Alarcón**\
+Duoc UC — Desarrollo Full Stack II (DSY2202)\
+Experiencia 2 — Semana 5\
 2026
