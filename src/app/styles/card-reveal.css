@@ -1,0 +1,11 @@
+/* Animación 4: aparición progresiva de las tarjetas */
+@keyframes cardReveal {
+    from {
+        opacity: 0; /* elemento invisible */
+        transform: scale(0.94); /* tamaño inicial reducido */
+    }
+    to {
+        opacity: 1; /* elemento visible */
+        transform: scale(1); /* tamaño original */
+    }
+}

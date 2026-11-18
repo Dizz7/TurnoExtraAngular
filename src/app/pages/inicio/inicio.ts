@@ -14,7 +14,7 @@ import type {
   selector: 'app-inicio',
   imports: [RouterLink],
   templateUrl: './inicio.html',
-  styleUrl: './inicio.css'
+  styleUrls: ['../../styles/page.css', '../../styles/card-reveal.css', './inicio.css']
 })
 export class Inicio {
 

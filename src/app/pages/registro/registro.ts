@@ -74,7 +74,7 @@ function validarContrasenas(
   selector: 'app-registro',
   imports: [ReactiveFormsModule],
   templateUrl: './registro.html',
-  styleUrl: './registro.css'
+  styleUrls: ['../../styles/page.css', './registro.css']
 })
 export class Registro {
 

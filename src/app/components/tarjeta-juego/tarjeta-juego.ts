@@ -7,7 +7,7 @@ import { NgIf } from '@angular/common';
   selector: 'app-tarjeta-juego',
   imports: [NgIf],
   templateUrl: './tarjeta-juego.html',
-  styleUrl: './tarjeta-juego.css'
+  styleUrls: ['../../styles/card-reveal.css', './tarjeta-juego.css']
 })
 export class TarjetaJuego {
 

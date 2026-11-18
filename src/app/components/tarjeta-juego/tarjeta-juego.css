@@ -1,3 +1,165 @@
+/* Tarjeta individual */
+.product-card {
+    background: white; /* color de fondo */
+    border-radius: var(--radius); /* bordes redondeados */
+    overflow: hidden; /* evita que el contenido sobresalga */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06); /* sombra suave */
+    transition: transform 0.3s, box-shadow 0.3s; /* transiciones suaves */
+    animation: cardReveal 0.7s ease both; /* animación de aparición */
+}
+
+/* Animación al pasar el cursor */
+.product-card:hover {
+    transform: translateY(-8px); /* eleva la tarjeta */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12); /* sombra más pronunciada */
+}
+
+/* Contenedor de imagen */
+.product-image {
+    height: 250px; /* altura fija */
+    background: var(--sage); /* color de fondo */
+    padding: 25px; /* espacio interno */
+    display: flex; /* distribución flexible */
+    align-items: center; /* centrado vertical */
+    justify-content: center; /* centrado horizontal */
+}
+
+/* Imagen del juego */
+.product-image img {
+    width: 100%; /* ocupa todo el ancho del contenedor */
+    height: 100%; /* ocupa toda la altura del contenedor */
+    object-fit: contain; /* mantiene la proporción de la imagen */
+}
+
+/* Información del producto */
+.product-info {
+    padding: 25px; /* espacio interno */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    flex: 1; /* ocupa el espacio restante */
+}
+
+/* Nombre del juego */
+.product-info h3 {
+    font-size: 24px; /* tamaño de fuente */
+    margin-bottom: 12px; /* espacio inferior */
+}
+
+/* Descripción */
+.product-info p {
+    color: var(--muted); /* color secundario */
+    font-size: 15px; /* tamaño de fuente */
+    line-height: 1.6; /* altura de línea */
+    margin-bottom: 24px; /* espacio inferior */
+}
+
+/* Precio y descuento */
+.product-bottom {
+    display: flex; /* distribución flexible */
+    justify-content: space-between; /* espacio entre elementos */
+    align-items: flex-end; /* alineación al final */
+    flex-wrap: wrap; /* permite que los elementos se ajusten a la siguiente línea */
+    gap: 10px; /* espacio entre elementos */
+    margin-top: auto; /* empuja el contenido hacia abajo */
+}
+
+/* Precio actual */
+.product-price {
+    font-size: 22px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    color: var(--dark); /* color principal */
+}
+
+/* Contenedor de precios */
+.product-prices {
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+}
+
+/* Precio original tachado */
+.old-price {
+    font-size: 14px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+    text-decoration: line-through; /* tachado */
+}
+
+/* Estado sin descuento */
+.product-status {
+    font-size: 12px; /* tamaño de fuente */
+    color: var(--muted); /* color secundario */
+}
+
+/* Etiqueta de descuento */
+.discount-badge {
+    background: var(--peach); /* color de fondo */
+    color: var(--dark); /* color del texto */
+    padding: 6px 12px; /* espacio interno */
+    border-radius: 20px; /* bordes redondeados */
+    font-size: 12px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+}
+
+/* Ajuste de imagen de Wingspan */
+img.imagen-wingspan {
+    scale: 0.9; /* reduce el tamaño de la imagen */
+}
+
+/* Bordes redondeados para imágenes de productos */
+.product-image img {
+    border-radius: 12px; /* bordes redondeados */
+}
+
+/* Permite el efecto hover después de la animación de entrada */
+.product-card {
+    animation-fill-mode: backwards; /* mantiene el estado inicial de la animación */
+}
+
+/* Botones de agregar al carrito en las tarjetas */
+.product-card .add-to-cart {
+    display: block; /* ocupa toda la línea */
+    width: 100%; /* ocupa todo el ancho del contenedor */
+    margin-top: 18px; /* espacio superior */
+    padding: 12px 16px; /* espacio interno */
+
+    background: var(--coral); /* color de fondo */
+    color: white; /* color del texto */
+
+    border: none; /* sin borde */
+    border-radius: 14px; /* bordes redondeados */
+    box-shadow: none; /* sin sombra */
+
+    font-family: inherit; /* mantiene la fuente del contenedor */
+    font-size: 0.95rem; /* tamaño de fuente */
+    font-weight: 800; /* grosor de fuente */
+    line-height: 1.4; /* altura de línea */
+    text-align: center; /* texto centrado */
+
+    cursor: pointer; /* cursor de mano al pasar el ratón */
+    transition: background 0.2s ease, transform 0.2s ease; /* transiciones suaves */
+}
+
+.product-card .add-to-cart:hover {
+    background: #e56a5d; /* color de fondo al pasar el cursor */
+    color: white; /* mantiene el color del texto */
+    box-shadow: none; /* sin sombra */
+    transform: translateY(-2px); /* eleva el botón al pasar el cursor */
+}
+
+.product-card .add-to-cart:disabled {
+    opacity: 0.75; /* reduce la opacidad para indicar desactivado */
+    cursor: default; /* cursor por defecto */
+    transform: none; /* elimina cualquier transformación */
+}
+
+/* Diseño para celulares */
+@media (max-width: 600px) {
+
+    .product-image {
+        height: 220px; /* reduce la altura del contenedor de imagen */
+    }
+}
 :host {
   display: block;
   height: 100%;

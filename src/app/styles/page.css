@@ -1,0 +1,178 @@
+/* Compartido por las páginas; Angular lo encapsula en cada componente. */
+/* Contenedor principal de presentación */
+.hero {
+    max-width: 1200px; /* ancho máximo */
+    margin: auto; /* centrado horizontal */
+    padding: 90px 24px; /* espacio interno vertical y horizontal */
+    display: grid; /* distribución mediante CSS Grid */
+    grid-template-columns: 1.1fr 0.9fr; /* dos columnas proporcionales */
+    align-items: center; /* alineación vertical */
+    gap: 50px; /* espacio entre columnas */
+}
+
+/* Contenido de texto de la presentación */
+.hero-content {
+    animation: fadeUp 0.8s ease both; /* animación de entrada */
+}
+
+/* Texto pequeño sobre el título principal */
+.eyebrow {
+    font-size: 14px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+    letter-spacing: 2px; /* separación entre letras */
+    color: var(--muted); /* color secundario */
+    margin-bottom: 18px; /* espacio inferior */
+}
+
+/* Título principal de la página */
+.hero h1 {
+    font-size: clamp(40px, 5vw, 70px); /* tamaño adaptable entre 40 y 70 píxeles */
+    line-height: 1.08; /* altura de línea */
+    letter-spacing: -2px; /* reduce la separación entre letras */
+    margin-bottom: 24px; /* espacio inferior */
+}
+
+/* Párrafo descriptivo de la presentación */
+.hero-content > p:not(.eyebrow) {
+    color: var(--muted); /* color secundario */
+    font-size: 18px; /* tamaño de fuente */
+    max-width: 490px; /* ancho máximo del texto */
+    margin-bottom: 30px; /* espacio inferior */
+}
+
+/* Contenedor de elementos decorativos */
+.hero-visual {
+    min-height: 350px; /* altura mínima */
+    background: var(--sage); /* color de fondo */
+    border-radius: 45% 55% 55% 45%; /* forma orgánica */
+    display: flex; /* distribución flexible */
+    justify-content: center; /* centrado horizontal */
+    align-items: center; /* centrado vertical */
+    position: relative; /* referencia para elementos posicionados */
+    animation: float 5s ease-in-out infinite; /* movimiento flotante continuo */
+}
+
+/* Dado decorativo principal */
+.hero-dice {
+    font-size: 130px; /* tamaño del dado */
+    animation: rotateDice 8s ease-in-out infinite; /* rotación suave */
+}
+
+/* Estrella decorativa */
+.hero-star {
+    position: absolute; /* posicionamiento dentro del contenedor */
+    top: 30px; /* distancia desde arriba */
+    right: 45px; /* distancia desde la derecha */
+    font-size: 70px; /* tamaño de la estrella */
+    color: #E8B74E; /* color amarillo */
+}
+
+/* Pieza de juego decorativa */
+.hero-piece {
+    position: absolute; /* posicionamiento dentro del contenedor */
+    bottom: 15px; /* distancia desde abajo */
+    left: 55px; /* distancia desde la izquierda */
+    font-size: 75px; /* tamaño de la pieza */
+    color: var(--coral); /* color destacado */
+}
+
+/* Contenedor general de categorías */
+.categories {
+    max-width: 1200px; /* ancho máximo */
+    margin: auto; /* centrado horizontal */
+    padding: 30px 24px 90px; /* espacio interno */
+}
+
+/* Encabezado de la sección */
+.section-heading {
+    margin-bottom: 28px; /* separación respecto a las tarjetas */
+}
+
+/* Título de la sección */
+.section-heading h2 {
+    font-size: 32px; /* tamaño de fuente */
+    letter-spacing: -1px; /* separación entre letras */
+}
+
+/* Descripción de la sección */
+.section-heading p {
+    color: var(--muted); /* color secundario */
+}
+
+/* Colores de fondo según la categoría */
+.strategy {
+    background: var(--lavender); /* lila pastel */
+}
+
+.family {
+    background: var(--yellow); /* amarillo pastel */
+}
+
+.creativity {
+    background: var(--blue); /* azul pastel */
+}
+
+.party {
+    background: var(--peach); /* durazno pastel */
+}
+
+/* ====================
+   ANIMACIONES CSS
+   ==================== */
+
+/* Animación 1: aparición con desplazamiento hacia arriba */
+@keyframes fadeUp {
+    from {
+        opacity: 0; /* elemento invisible */
+        transform: translateY(25px); /* posición inicial inferior */
+    }
+    to {
+        opacity: 1; /* elemento visible */
+        transform: translateY(0); /* posición original */
+    }
+}
+
+/* Animación 2: movimiento flotante vertical */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* posición original */
+    }
+    50% {
+        transform: translateY(-12px); /* desplazamiento hacia arriba */
+    }
+}
+
+/* Animación 3: rotación suave del dado */
+@keyframes rotateDice {
+    0%, 100% {
+        transform: rotate(-8deg); /* inclinación hacia la izquierda */
+    }
+    50% {
+        transform: rotate(8deg); /* inclinación hacia la derecha */
+    }
+}
+
+/* Adaptación para tablets y pantallas medianas */
+@media (max-width: 900px) {
+
+    .hero {
+        grid-template-columns: 1fr; /* una sola columna */
+        padding-top: 60px; /* reduce el espacio superior */
+    }
+}
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+
+    .hero {
+        padding: 45px 20px; /* reduce los espacios internos */
+    }
+
+    .hero-visual {
+        min-height: 250px; /* reduce la altura del contenedor */
+    }
+
+    .hero-dice {
+        font-size: 90px; /* reduce el tamaño del dado */
+    }
+}

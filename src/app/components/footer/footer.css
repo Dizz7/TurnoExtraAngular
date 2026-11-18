@@ -1,0 +1,8 @@
+/* Estilos del pie de página */
+.footer {
+    text-align: center; /* texto centrado */
+    padding: 30px; /* espacio interno */
+    border-top: 1px solid #EDEBE5; /* línea divisoria superior */
+    color: var(--muted); /* color secundario */
+    font-size: 14px; /* tamaño de fuente */
+}

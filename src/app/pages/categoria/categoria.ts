@@ -11,7 +11,7 @@ import { TarjetaJuego } from '../../components/tarjeta-juego/tarjeta-juego';
   selector: 'app-categoria',
   imports: [NgFor, NgIf, RouterLink, TarjetaJuego],
   templateUrl: './categoria.html',
-  styleUrl: './categoria.css'
+  styleUrls: ['../../styles/page.css', './categoria.css']
 })
 export class Categoria implements OnInit {
 

@@ -1,3 +1,19 @@
+/* ====================
+   CATÁLOGO DE JUEGOS
+   ==================== */
+
+/* Cuadrícula de productos gestionada por Bootstrap */
+.product-grid {
+    max-width: 1200px; /* ancho máximo */
+    margin-left: auto; /* centrado horizontal */
+    margin-right: auto; /* centrado horizontal */
+}
+
+/* Enlace inferior de regreso */
+.back-navigation {
+    text-align: center; /* texto centrado */
+    margin-top: 50px; /* espacio superior */
+}
 
 /* Resumen del carrito de demostración */
 .cart-summary {

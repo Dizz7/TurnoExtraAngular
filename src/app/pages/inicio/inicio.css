@@ -1,0 +1,104 @@
+/* Imagen representativa de cada categoría */
+.category-image {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 18px;
+}
+
+/* Collage de tres juegos en cada categoría */
+.category-collage {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 165px;
+    margin: 0 auto 20px;
+}
+
+.category-collage img {
+    position: absolute;
+    bottom: 10px;
+    width: 54%;
+    height: 135px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 5px rgba(25, 52, 45, 0.15));
+}
+
+/* Caja izquierda */
+.category-collage img:nth-child(1) {
+    left: 0;
+    transform: rotate(-12deg);
+    z-index: 1;
+}
+
+/* Caja central */
+.category-collage img:nth-child(2) {
+    left: 23%;
+    bottom: 0;
+    height: 150px;
+    z-index: 3;
+}
+
+/* Caja derecha */
+.category-collage img:nth-child(3) {
+    right: 0;
+    transform: rotate(12deg);
+    z-index: 2;
+}
+
+/* Diseño general de las tarjetas */
+.category-card {
+    padding: 28px; /* espacio interno */
+    border-radius: var(--radius); /* bordes redondeados */
+    min-height: 240px; /* altura mínima */
+    display: flex; /* distribución flexible */
+    flex-direction: column; /* elementos ordenados verticalmente */
+    align-items: flex-start; /* alineación al inicio */
+    transition: transform 0.3s, box-shadow 0.3s; /* transiciones suaves */
+    animation: cardReveal 0.7s ease both; /* animación de aparición */
+}
+
+/* Efecto al pasar el cursor sobre una tarjeta */
+.category-card:hover {
+    transform: translateY(-8px); /* eleva la tarjeta */
+    box-shadow: 0 14px 30px rgba(25, 52, 45, 0.10); /* sombra suave */
+}
+
+/* Icono de cada categoría */
+.category-icon {
+    font-size: 55px; /* tamaño del icono */
+    margin-bottom: 18px; /* separación inferior */
+}
+
+/* Nombre de la categoría */
+.category-card h3 {
+    font-size: 23px; /* tamaño de fuente */
+    font-weight: 900; /* grosor de fuente */
+}
+
+/* Descripción de la categoría */
+.category-card p {
+    font-size: 14px; /* tamaño de fuente */
+    margin-top: 5px; /* separación superior */
+}
+
+/* Flecha de navegación */
+.category-arrow {
+    margin-top: auto; /* empuja la flecha hacia abajo */
+    align-self: flex-end; /* alinea la flecha a la derecha */
+    font-size: 24px; /* tamaño de la flecha */
+}
+
+/* Permite el efecto hover después de la animación de entrada */
+.category-card {
+    animation-fill-mode: backwards; /* mantiene el estado inicial de la animación */
+}
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+
+    .category-card {
+        min-height: 190px; /* reduce la altura mínima */
+    }
+}
