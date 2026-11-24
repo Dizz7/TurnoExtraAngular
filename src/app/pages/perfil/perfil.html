@@ -1,12 +1,78 @@
-<section class="account-page"><div class="account-card"><h1>Mi perfil</h1>
-<p class="notice">Rol: <strong>{{auth.esAdmin() ? 'Administrador' : 'Cliente'}}</strong></p>
-<form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
-<label for="perfil-nombre">Nombre completo</label><input id="perfil-nombre" formControlName="fullName" autocomplete="name" required>
-<label for="perfil-usuario">Nombre de usuario</label><input id="perfil-usuario" formControlName="username" autocomplete="username" required>
-<label for="perfil-correo">Correo electrónico</label><input id="perfil-correo" type="email" formControlName="email" autocomplete="email" required>
-<label for="perfil-fecha">Fecha de nacimiento</label><input id="perfil-fecha" type="date" formControlName="birthDate" autocomplete="bday" required>
-<label for="perfil-direccion">Dirección (opcional)</label><input id="perfil-direccion" formControlName="address" autocomplete="street-address">
-@if(error) { <p class="error" role="alert">{{error}}</p> }
-@if(exito) { <p class="success" role="status">Tu perfil se guardó correctamente.</p> }
-<div class="actions"><button class="btn-primary">Guardar cambios</button><button type="button" class="btn-secondary" (click)="restaurar()">Descartar cambios</button></div>
-</form></div></section>
+<section class="account-page">
+  <div class="account-card">
+    <h1>Mi perfil</h1>
+    <p class="notice">
+      Rol: <strong>{{ auth.esAdmin() ? 'Administrador' : 'Cliente' }}</strong>
+    </p>
+    <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+      <label for="perfil-nombre">Nombre completo</label
+      ><input
+        id="perfil-nombre"
+        formControlName="fullName"
+        autocomplete="name"
+        required
+        [attr.aria-invalid]="!!errorCampo(formulario.controls.fullName, 'Nombre completo', 'texto')"
+        aria-describedby="perfil-nombre-error"
+      />
+      @if (errorCampo(formulario.controls.fullName, 'Nombre completo', 'texto'); as mensaje) {
+        <p id="perfil-nombre-error" class="field-error">{{ mensaje }}</p>
+      }
+      <label for="perfil-usuario">Nombre de usuario</label
+      ><input
+        id="perfil-usuario"
+        formControlName="username"
+        autocomplete="username"
+        required
+        [attr.aria-invalid]="
+          !!errorCampo(formulario.controls.username, 'Nombre de usuario', 'texto')
+        "
+        aria-describedby="perfil-usuario-error"
+      />
+      @if (errorCampo(formulario.controls.username, 'Nombre de usuario', 'texto'); as mensaje) {
+        <p id="perfil-usuario-error" class="field-error">{{ mensaje }}</p>
+      }
+      <label for="perfil-correo">Correo electrónico</label
+      ><input
+        id="perfil-correo"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        required
+        [attr.aria-invalid]="!!errorCampo(formulario.controls.email, 'Correo electrónico', 'texto')"
+        aria-describedby="perfil-correo-error"
+      />
+      @if (errorCampo(formulario.controls.email, 'Correo electrónico', 'texto'); as mensaje) {
+        <p id="perfil-correo-error" class="field-error">{{ mensaje }}</p>
+      }
+      <label for="perfil-fecha">Fecha de nacimiento</label
+      ><input
+        id="perfil-fecha"
+        type="date"
+        formControlName="birthDate"
+        autocomplete="bday"
+        required
+        [attr.aria-invalid]="
+          !!errorCampo(formulario.controls.birthDate, 'Fecha de nacimiento', 'texto')
+        "
+        aria-describedby="perfil-fecha-error"
+      />
+      @if (errorCampo(formulario.controls.birthDate, 'Fecha de nacimiento', 'texto'); as mensaje) {
+        <p id="perfil-fecha-error" class="field-error">{{ mensaje }}</p>
+      }
+      <label for="perfil-direccion">Dirección (opcional)</label
+      ><input id="perfil-direccion" formControlName="address" autocomplete="street-address" />
+      @if (error) {
+        <p class="error" role="alert">{{ error }}</p>
+      }
+      @if (exito) {
+        <p class="success" role="status">Tu perfil se guardó correctamente.</p>
+      }
+      <div class="actions">
+        <button class="btn-primary">Guardar cambios</button
+        ><button type="button" class="btn-secondary" (click)="restaurar()">
+          Descartar cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

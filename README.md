@@ -131,6 +131,12 @@ Inventario, carrito y comprobante duran durante la navegación y se reinician al
 5. Cerrar sesión y entrar como administrador; cambiar stock y revisar disponibilidad.
 6. Generar el código de recuperación, copiarlo y guardar una nueva contraseña válida; comprobar el acceso.
 
+### Validación de formularios — tarjeta 4
+
+Registro, login, recuperación, perfil, stock y pago usan Reactive Forms. Registro y recuperación comparten las cuatro reglas de contraseña: mínimo 6, máximo 18, mayúscula y número. La confirmación se valida a nivel del grupo. Nombre y usuario rechazan texto compuesto solo por espacios; dirección sigue siendo opcional.
+
+Los errores aparecen junto al campo después de interactuar o intentar enviar, con `aria-invalid` y `aria-describedby`. Editar datos retira mensajes de éxito o error anteriores. Los formularios asíncronos bloquean sus campos durante el envío y evitan peticiones duplicadas. Limpiar registro y descartar cambios del perfil restablecen valores y estados; las claves se limpian después de un registro o recuperación exitosos.
+
 ### Directivas y vinculación de datos
 
 La aplicación utiliza interpolación, vinculación de propiedades y eventos, `routerLink`, `routerLinkActive`, `*ngFor`, `*ngIf` y los bloques de control `@for` y `@if`.
@@ -199,7 +205,7 @@ npm run build -- --base-href /TurnoExtraAngular/
 
 ## Pruebas
 
-La suite utiliza **Jasmine y Karma** e incluye **43 pruebas**:
+La suite utiliza **Jasmine y Karma** e incluye **58 pruebas**:
 
 | Área | Pruebas |
 | --- | ---: |
@@ -213,7 +219,9 @@ La suite utiliza **Jasmine y Karma** e incluye **43 pruebas**:
 | Compra, inventario y envío de pago | 7 |
 | Guards de rutas | 3 |
 | Envío de recuperación | 1 |
-| **Total** | **43** |
+| Reglas compartidas de cuenta | 9 |
+| Retroalimentación de formularios | 6 |
+| **Total** | **58** |
 
 Se comprueban, entre otros casos, las validaciones del registro, el acceso a los 12 juegos mediante sus rutas, la actualización al cambiar de identificador, los juegos inexistentes, los productos agotados y la conservación del contador al volver al catálogo.
 
@@ -229,7 +237,7 @@ Para trabajar en modo observación:
 npm test
 ```
 
-**Validación de esta entrega:** compilación de producción exitosa y 43/43 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
+**Validación de esta entrega:** compilación de producción exitosa y 58/58 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 

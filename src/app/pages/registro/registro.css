@@ -4,65 +4,65 @@
 
 /* Contenedor principal del formulario */
 .registration-form {
-    background: white; /* color de fondo */
-    padding: 40px; /* espacio interno */
-    border-radius: var(--radius); /* bordes redondeados */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); /* sombra suave */
-    animation: fadeUp 0.8s ease both; /* animación de aparición */
+  background: white; /* color de fondo */
+  padding: 40px; /* espacio interno */
+  border-radius: var(--radius); /* bordes redondeados */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); /* sombra suave */
+  animation: fadeUp 0.8s ease both; /* animación de aparición */
 }
 
 /* Etiquetas de los campos */
 .registration-form .form-label {
-    font-weight: 800; /* grosor de fuente */
-    color: var(--dark); /* color principal */
-    margin-bottom: 8px; /* espacio inferior */
+  font-weight: 800; /* grosor de fuente */
+  color: var(--dark); /* color principal */
+  margin-bottom: 8px; /* espacio inferior */
 }
 
 /* Campos de entrada */
 .registration-form .form-control {
-    border: 2px solid #e5e7eb; /* borde gris claro */
-    border-radius: 12px; /* bordes redondeados */
-    padding: 12px 15px; /* espacio interno */
-    font-family: inherit; /* hereda la fuente del contenedor */
-    color: var(--dark); /* color principal */
+  border: 2px solid #e5e7eb; /* borde gris claro */
+  border-radius: 12px; /* bordes redondeados */
+  padding: 12px 15px; /* espacio interno */
+  font-family: inherit; /* hereda la fuente del contenedor */
+  color: var(--dark); /* color principal */
 }
 
 /* Efecto al seleccionar un campo */
 .registration-form .form-control:focus {
-    border-color: var(--coral); /* color del borde cuando se enfoca */
-    box-shadow: 0 0 0 3px rgba(255, 127, 107, 0.15); /* sombra suave alrededor del campo */
+  border-color: var(--coral); /* color del borde cuando se enfoca */
+  box-shadow: 0 0 0 3px rgba(255, 127, 107, 0.15); /* sombra suave alrededor del campo */
 }
 
 /* Indicaciones de contraseña */
 .form-hint {
-    font-size: 13px; /* tamaño de fuente */
-    color: var(--muted); /* color secundario */
-    margin-bottom: 22px; /* espacio inferior */
+  font-size: 13px; /* tamaño de fuente */
+  color: var(--muted); /* color secundario */
+  margin-bottom: 22px; /* espacio inferior */
 }
 
 /* Mensajes de validación */
 .form-message {
-    margin-bottom: 20px; /* espacio inferior */
-    font-weight: 700; /* grosor de fuente */
+  margin-bottom: 20px; /* espacio inferior */
+  font-weight: 700; /* grosor de fuente */
 }
 
 /* Contenedor de botones */
 .form-actions {
-    display: flex; /* distribución flexible */
-    gap: 15px; /* espacio entre botones */
-    flex-wrap: wrap; /* permite que los botones se ajusten a la siguiente línea */
+  display: flex; /* distribución flexible */
+  gap: 15px; /* espacio entre botones */
+  flex-wrap: wrap; /* permite que los botones se ajusten a la siguiente línea */
 }
 
 /* Ajustes específicos para el botón primario del formulario de registro */
 .registration-form .btn-primary {
-    border: none;          /* Elimina el borde oscuro */
-    box-shadow: none;      /* Elimina la sombra del botón */
-    border-radius: 50px;   /* Mantiene la forma redondeada */
+  border: none; /* Elimina el borde oscuro */
+  box-shadow: none; /* Elimina la sombra del botón */
+  border-radius: 50px; /* Mantiene la forma redondeada */
 }
 
 .registration-form .btn-primary:hover {
-    transform: translateY(-3px); /* Eleva el botón al pasar el cursor */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.10); /* Agrega una sombra suave al pasar el cursor */
+  transform: translateY(-3px); /* Eleva el botón al pasar el cursor */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave al pasar el cursor */
 }
 
 /* ====================
@@ -71,88 +71,92 @@
 
 /* Mensaje de error */
 .form-message.message-error {
-    background: #ffe8e4; /* color de fondo rojo claro */
-    color: #a63d32; /* color de texto rojo oscuro */
-    padding: 15px 20px; /* espacio interno */
-    border-radius: 12px; /* bordes redondeados */
-    border-left: 4px solid var(--coral); /* borde izquierdo rojo */
+  background: #ffe8e4; /* color de fondo rojo claro */
+  color: #a63d32; /* color de texto rojo oscuro */
+  padding: 15px 20px; /* espacio interno */
+  border-radius: 12px; /* bordes redondeados */
+  border-left: 4px solid var(--coral); /* borde izquierdo rojo */
 }
 
 /* Mensaje de éxito */
 .form-message.message-success {
-    background: #e2f1e6; /* color de fondo verde claro */
-    color: #246b45; /* color de texto verde oscuro */
-    padding: 15px 20px; /* espacio interno */
-    border-radius: 12px; /* bordes redondeados */
-    border-left: 4px solid #58a779; /* borde izquierdo verde */
+  background: #e2f1e6; /* color de fondo verde claro */
+  color: #246b45; /* color de texto verde oscuro */
+  padding: 15px 20px; /* espacio interno */
+  border-radius: 12px; /* bordes redondeados */
+  border-left: 4px solid #58a779; /* borde izquierdo verde */
 }
 
 /* Campo con error */
 .registration-form .form-control.is-invalid {
-    border-color: #dc5b5b; /* color rojo para indicar error */
+  border-color: #dc5b5b; /* color rojo para indicar error */
 }
 
 /* Campo válido */
 .registration-form .form-control.is-valid {
-    border-color: #58a779; /* color verde para indicar validez */
+  border-color: #58a779; /* color verde para indicar validez */
 }
 
 /* Animación horizontal cuando hay errores en formulario */
 @keyframes shake {
-    0%, 100% {
-        transform: translateX(0); /* posición original */
-    }
+  0%,
+  100% {
+    transform: translateX(0); /* posición original */
+  }
 
-    20%, 60% {
-        transform: translateX(-8px); /* desplazamiento hacia la izquierda */
-    }
+  20%,
+  60% {
+    transform: translateX(-8px); /* desplazamiento hacia la izquierda */
+  }
 
-    40%, 80% {
-        transform: translateX(8px); /* desplazamiento hacia la derecha */
-    }
+  40%,
+  80% {
+    transform: translateX(8px); /* desplazamiento hacia la derecha */
+  }
 }
 
 /* Activar animación mediante JavaScript */
 .registration-form .btn-primary.shake {
-    animation: shake 0.4s ease-in-out; /* aplica la animación de sacudida */
+  animation: shake 0.4s ease-in-out; /* aplica la animación de sacudida */
 }
 
 /* Respetar preferencias de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
-    .registration-form .btn-primary.shake {
-        animation: none; /* desactiva la animación de sacudida */
-    }
+  .registration-form .btn-primary.shake {
+    animation: none; /* desactiva la animación de sacudida */
+  }
 }
 
 /* Lista de errores de validación */
 .form-message.message-error ul {
-    margin: 8px 0 0; /* margen superior e inferior */
-    padding-left: 22px; /* espacio a la izquierda para la viñeta */
+  margin: 8px 0 0; /* margen superior e inferior */
+  padding-left: 22px; /* espacio a la izquierda para la viñeta */
 }
 
 /* Separación entre los errores */
 .form-message.message-error li {
-    margin-bottom: 6px; /* espacio inferior entre errores */
+  margin-bottom: 6px; /* espacio inferior entre errores */
 }
 
 /* Evita espacio adicional después del último error */
 .form-message.message-error li:last-child {
-    margin-bottom: 0; /* elimina el margen inferior del último elemento */
+  margin-bottom: 0; /* elimina el margen inferior del último elemento */
 }
 
 /* Adaptación para celulares registro */
 @media (max-width: 600px) {
-    .registration-form { /* contenedor del formulario */
-        padding: 25px 20px; /* reduce el espacio interno */
-    }
+  .registration-form {
+    /* contenedor del formulario */
+    padding: 25px 20px; /* reduce el espacio interno */
+  }
 
-    .form-actions {
-        flex-direction: column; /* los botones se apilan verticalmente */
-    }
+  .form-actions {
+    flex-direction: column; /* los botones se apilan verticalmente */
+  }
 
-    .form-actions button {
-        width: 100%; /* los botones ocupan todo el ancho del contenedor */
-    }
+  .form-actions button {
+    width: 100%; /* los botones ocupan todo el ancho del contenedor */
+  }
 }
 
 /*
@@ -172,15 +176,18 @@
 
 /* Animación de error del botón. */
 @keyframes registroShake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
 
-  20%, 60% {
+  20%,
+  60% {
     transform: translateX(-6px);
   }
 
-  40%, 80% {
+  40%,
+  80% {
     transform: translateX(6px);
   }
 }
@@ -204,14 +211,26 @@
 
 /* Evitar que el calendario se superponga
    con el icono de validación de Bootstrap. */
-.registration-form input[type="date"].is-valid,
-.registration-form input[type="date"].is-invalid {
+.registration-form input[type='date'].is-valid,
+.registration-form input[type='date'].is-invalid {
   padding-right: 4.5rem;
 }
 
 /* Separar el icono nativo del calendario
    del indicador de validación. */
-.registration-form input[type="date"]::-webkit-calendar-picker-indicator {
+.registration-form input[type='date']::-webkit-calendar-picker-indicator {
   margin-right: 1.75rem;
   cursor: pointer;
+}
+/* Retroalimentación local de los formularios reactivos. */
+.field-error {
+  color: #842618;
+  font-size: 0.9rem;
+  margin: 6px 0 12px;
+}
+fieldset {
+  min-width: 0;
+}
+input[aria-invalid='true'] {
+  border-color: #a72d20;
 }

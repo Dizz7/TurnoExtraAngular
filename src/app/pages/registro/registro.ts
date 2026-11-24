@@ -1,5 +1,12 @@
+import { errorCampo } from '../../validators/cuenta';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Auth } from '../../services/auth';
-import { validarEdad, validarContrasenas } from '../../validators/cuenta';
+import {
+  validarEdad,
+  validarContrasenas,
+  CLAVE_VALIDATORS,
+  TEXTO_REQUERIDO,
+} from '../../validators/cuenta';
 
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,6 +21,7 @@ type CampoRegistro =
   styleUrls: ['../../styles/page.css', './registro.css'],
 })
 export class Registro {
+  readonly errorCampo = errorCampo;
   private readonly auth = inject(Auth);
   ocupado = false;
 
@@ -22,11 +30,11 @@ export class Registro {
     {
       fullName: new FormControl('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+        validators: TEXTO_REQUERIDO,
       }),
       username: new FormControl('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+        validators: TEXTO_REQUERIDO,
       }),
       email: new FormControl('', {
         nonNullable: true,
@@ -34,12 +42,7 @@ export class Registro {
       }),
       password: new FormControl('', {
         nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(18),
-          Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/),
-        ],
+        validators: CLAVE_VALIDATORS,
       }),
       confirmPassword: new FormControl('', {
         nonNullable: true,
@@ -61,6 +64,15 @@ export class Registro {
   errores: string[] = [];
   registroExitoso = false;
   animarBoton = false;
+
+  constructor() {
+    this.formulario.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
+      if (!this.ocupado) {
+        this.errores = [];
+        this.registroExitoso = false;
+      }
+    });
+  }
 
   // Obtener el estado de validación de un campo.
   validarCampo(campo: CampoRegistro): void {
