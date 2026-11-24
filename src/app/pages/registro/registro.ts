@@ -1,3 +1,4 @@
+import { RouterLink } from '@angular/router';
 import { errorCampo } from '../../validators/cuenta';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Auth } from '../../services/auth';
@@ -16,7 +17,7 @@ type CampoRegistro =
 
 @Component({
   selector: 'app-registro',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './registro.html',
   styleUrls: ['../../styles/page.css', './registro.css'],
 })

@@ -1,9 +1,10 @@
-
 <!-- Encabezado y navegación de TurnoExtra -->
 <header class="header">
-  <nav class="navbar navbar-expand-lg"
-       aria-label="Navegación principal">
-
+  <nav
+    class="navbar navbar-expand-lg"
+    aria-label="Navegación principal"
+    (keydown.escape)="cerrarConEscape(menuMovil)"
+  >
     <!-- Logo -->
     <a routerLink="/" class="logo navbar-brand">
       <span class="logo-icon">🎲</span>
@@ -13,66 +14,121 @@
     <!-- Menú hamburguesa -->
     <button
       class="navbar-toggler"
+      #menuMovil
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#menuPrincipal"
+      (click)="alternarMenu()"
       aria-controls="menuPrincipal"
-      aria-expanded="false"
-      aria-label="Mostrar u ocultar menú">
+      [attr.aria-expanded]="menuAbierto()"
+      aria-label="Mostrar u ocultar menú"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Enlaces de navegación -->
-    <div class="collapse navbar-collapse" id="menuPrincipal">
+    <div class="collapse navbar-collapse" [class.show]="menuAbierto()" id="menuPrincipal">
       <ul class="navbar-nav nav-links ms-auto">
-
         <li class="nav-item">
-          <a class="nav-link" routerLink="/"
-             routerLinkActive="active"
-             [routerLinkActiveOptions]="{ exact: true }">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ariaCurrentWhenActive="page"
+            (click)="cerrarMenus()"
+          >
             Inicio
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/estrategia"
-             routerLinkActive="active">
-            Estrategia
-          </a>
+        <li
+          class="nav-item category-disclosure"
+          (keydown.escape)="cerrarCategorias($event, botonCategorias)"
+        >
+          <button
+            #botonCategorias
+            type="button"
+            class="nav-link category-toggle"
+            aria-controls="categorias-menu"
+            [attr.aria-expanded]="categoriasAbiertas()"
+            (click)="categoriasAbiertas.set(!categoriasAbiertas())"
+          >
+            Categorías <span aria-hidden="true">▾</span>
+          </button>
+          @if (categoriasAbiertas()) {
+            <ul id="categorias-menu" class="category-dropdown" aria-label="Categorías de juegos">
+              @for (categoria of categorias; track categoria.id) {
+                <li>
+                  <a
+                    [routerLink]="['/', categoria.id]"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    (click)="cerrarMenus()"
+                    >{{ categoria.nombre }}</a
+                  >
+                </li>
+              }
+            </ul>
+          }
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/familiares"
-             routerLinkActive="active">
-            Familiares
-          </a>
+          <a
+            class="nav-link"
+            routerLink="/carrito"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="cerrarMenus()"
+            >Carrito ({{ carrito.cantidadCarrito() }})</a
+          >
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/creatividad"
-             routerLinkActive="active">
-            Creatividad
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/fiesta"
-             routerLinkActive="active">
-            Fiesta
-          </a>
-        </li>
-
-
-        <li class="nav-item"><a class="nav-link" routerLink="/carrito" routerLinkActive="active">Carrito ({{carrito.cantidadCarrito()}})</a></li>
-        @if(auth.usuario()) {
-          <li class="nav-item"><a class="nav-link" routerLink="/perfil" routerLinkActive="active">Mi perfil</a></li>
-          @if(auth.esAdmin()) { <li class="nav-item"><a class="nav-link" routerLink="/admin" routerLinkActive="active">Administrar</a></li> }
-          <li class="nav-item"><button type="button" class="nav-link session-logout" (click)="salir()">Salir</button></li>
+        @if (auth.usuario()) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/perfil"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              (click)="cerrarMenus()"
+              >Mi perfil</a
+            >
+          </li>
+          @if (auth.esAdmin()) {
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLink="/admin"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                (click)="cerrarMenus()"
+                >Administrar</a
+              >
+            </li>
+          }
+          <li class="nav-item">
+            <button type="button" class="nav-link session-logout" (click)="salir()">Salir</button>
+          </li>
         } @else {
-          <li class="nav-item"><a class="nav-link" routerLink="/login" routerLinkActive="active">Ingresar</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a></li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/login"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              (click)="cerrarMenus()"
+              >Ingresar</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/registro"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              (click)="cerrarMenus()"
+              >Registro</a
+            >
+          </li>
         }
-
       </ul>
     </div>
   </nav>

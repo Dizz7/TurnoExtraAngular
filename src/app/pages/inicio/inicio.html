@@ -1,4 +1,3 @@
-
 <!-- Presentación principal -->
 <section class="hero">
   <div class="hero-content">
@@ -7,13 +6,10 @@
     <h1>Tu próxima partida empieza aquí.</h1>
 
     <p>
-      Descubre juegos de mesa para cada ocasión.
-      Comparte, compite y vive momentos inolvidables.
+      Descubre juegos de mesa para cada ocasión. Comparte, compite y vive momentos inolvidables.
     </p>
 
-    <a href="#categorias" class="btn-primary">
-      Explorar juegos →
-    </a>
+    <a [routerLink]="[]" fragment="categorias" class="btn-primary"> Explorar juegos → </a>
   </div>
 
   <div class="hero-visual" aria-hidden="true">
@@ -31,37 +27,22 @@
   </div>
 
   <div class="row g-3 category-grid">
-
     @for (categoria of categorias; track categoria.id) {
       <div class="col-12 col-md-6 col-lg-3">
-
-        <a
-          [routerLink]="'/' + categoria.id"
-          [class]="'category-card ' + categoria.clase">
-
+        <a [routerLink]="'/' + categoria.id" [class]="'category-card ' + categoria.clase">
           <div class="category-collage" aria-hidden="true">
-
             @for (imagen of categoria.imagenes; track imagen.ruta) {
-              <img
-                [src]="imagen.ruta"
-                [alt]="imagen.nombre"
-                loading="lazy">
+              <img [src]="imagen.ruta" [alt]="imagen.nombre" loading="lazy" />
             }
-
           </div>
 
           <h3>{{ categoria.nombre }}</h3>
 
           <p>{{ categoria.descripcion }}</p>
 
-          <span class="category-arrow" aria-hidden="true">
-            →
-          </span>
-
+          <span class="category-arrow" aria-hidden="true"> → </span>
         </a>
-
       </div>
     }
-
   </div>
 </section>

@@ -1,36 +1,25 @@
-
 <!-- Presentación dinámica de la categoría -->
 <section class="hero">
   <div class="hero-content">
-
     <p class="eyebrow">{{ categoria.frase }}</p>
 
     <h1>{{ categoria.titulo }}</h1>
 
     <p>{{ categoria.descripcion }}</p>
 
-    <a href="#juegos" class="btn-primary">
-      Ver juegos →
-    </a>
-
+    <a [routerLink]="[]" fragment="juegos" class="btn-primary"> Ver juegos → </a>
   </div>
 
   <!-- Ilustración de la categoría -->
-  <div
-    [class]="'hero-visual ' + categoria.estilo"
-    aria-hidden="true">
-
+  <div [class]="'hero-visual ' + categoria.estilo" aria-hidden="true">
     <span class="hero-dice">{{ categoria.icono }}</span>
     <span class="hero-star">✦</span>
     <span class="hero-piece">{{ categoria.pieza }}</span>
-
   </div>
 </section>
 
-
 <!-- Catálogo dinámico de juegos -->
 <section id="juegos" class="categories">
-
   <div class="section-heading">
     <h2>Juegos de {{ categoria.nombre.toLowerCase() }}</h2>
     <p>{{ categoria.subtitulo }}</p>
@@ -38,48 +27,54 @@
 
   <!-- Contador del carrito -->
   <div class="cart-summary" aria-live="polite">
-
-    <span class="cart-count">
-      🛒 Juegos agregados: {{ cantidadCarrito }}
-    </span>
+    <span class="cart-count"> 🛒 Juegos agregados: {{ cantidadCarrito }} </span>
 
     <!-- Mostrar el último juego agregado -->
-    <p *ngIf="ultimoJuegoAgregado">
-      ¡{{ ultimoJuegoAgregado }} agregado al carrito!
-    </p>
+    <p *ngIf="ultimoJuegoAgregado">¡{{ ultimoJuegoAgregado }} agregado al carrito!</p>
+  </div>
 
+  <!-- ngModel independiente: no pertenece a ningún formulario reactivo. -->
+  <div class="catalog-search">
+    <label for="buscar-juegos">Buscar en esta categoría</label>
+    <div class="search-controls">
+      <input
+        id="buscar-juegos"
+        type="search"
+        placeholder="Nombre o descripción del juego"
+        [(ngModel)]="busqueda"
+        [ngModelOptions]="{ standalone: true }"
+        aria-describedby="resultados-busqueda"
+      />
+      @if (busqueda) {
+        <button type="button" class="btn-secondary" (click)="busqueda = ''">
+          Limpiar búsqueda
+        </button>
+      }
+    </div>
+    <p id="resultados-busqueda" role="status">
+      {{ juegosFiltrados.length }} de {{ juegos.length }} juegos
+    </p>
   </div>
 
   <!-- Tarjetas de juegos -->
   <div class="row g-4 product-grid">
-
-    <div
-      class="col-12 col-md-6 col-lg-4"
-      *ngFor="let juego of juegos">
-
-      <app-tarjeta-juego
-        [juego]="juego"
-        (agregarCarrito)="recibirJuego($event)">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let juego of juegosFiltrados">
+      <app-tarjeta-juego [juego]="juego" (agregarCarrito)="recibirJuego($event)">
       </app-tarjeta-juego>
-
     </div>
-
   </div>
 
+  @if (juegos.length > 0 && juegosFiltrados.length === 0) {
+    <p class="search-empty">
+      No encontramos juegos para «{{ busqueda }}». Prueba otro término o limpia la búsqueda.
+    </p>
+  }
+
   <!-- Mensaje si no existen juegos -->
-  <p *ngIf="juegos.length === 0">
-    Aún no hay juegos publicados en esta categoría.
-  </p>
+  <p *ngIf="juegos.length === 0">Aún no hay juegos publicados en esta categoría.</p>
 
   <!-- Regresar al inicio -->
   <div class="back-navigation">
-    <a
-      routerLink="/"
-      fragment="categorias"
-      class="btn-primary">
-      ← Volver a las categorías
-    </a>
+    <a routerLink="/" fragment="categorias" class="btn-primary"> ← Volver a las categorías </a>
   </div>
-
 </section>
-

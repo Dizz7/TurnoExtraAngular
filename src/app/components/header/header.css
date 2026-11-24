@@ -1,82 +1,80 @@
 /* Estilos para el encabezado y la barra de navegación */
 .header {
-    background: rgba(250, 248, 243, 0.95); /* color de fondo con transparencia */
-    border-bottom: 1px solid #EDEBE5; /* línea inferior */
+  background: rgba(250, 248, 243, 0.95); /* color de fondo con transparencia */
+  border-bottom: 1px solid #edebe5; /* línea inferior */
 }
 
 .navbar {
-    max-width: 1200px; /* ancho máximo */
-    margin: auto; /* centrado horizontal */
-    padding: 22px 24px; /* espacio interno */
-    display: flex; /* diseño flexible */
-    justify-content: space-between; /* espacio entre elementos */
-    align-items: center; /* alineación vertical */
-    gap: 24px; /* espacio entre elementos */
+  max-width: 1200px; /* ancho máximo */
+  margin: auto; /* centrado horizontal */
+  padding: 22px 24px; /* espacio interno */
+  display: flex; /* diseño flexible */
+  justify-content: space-between; /* espacio entre elementos */
+  align-items: center; /* alineación vertical */
+  gap: 24px; /* espacio entre elementos */
 }
 
 /* Diseños del Logo */
 .logo {
-    font-size: 28px; /* tamaño de fuente */
-    font-weight: 900; /* grosor de fuente */
-    letter-spacing: -1.5px; /* espaciado entre letras */
+  font-size: 28px; /* tamaño de fuente */
+  font-weight: 900; /* grosor de fuente */
+  letter-spacing: -1.5px; /* espaciado entre letras */
 }
 
 .logo-icon {
-    margin-right: 8px; /* espacio a la derecha del icono */
+  margin-right: 8px; /* espacio a la derecha del icono */
 }
 
 .logo-dot {
-    color: var(--coral); /* color del punto */
+  color: var(--coral); /* color del punto */
 }
 
 /* Enlaces de navegación */
 .nav-links {
-    display: flex; /* distribución horizontal */
-    list-style: none; /* elimina las viñetas */
-    gap: 28px; /* espacio entre enlaces */
-    font-weight: 800; /* grosor de fuente */
+  display: flex; /* distribución horizontal */
+  list-style: none; /* elimina las viñetas */
+  gap: 28px; /* espacio entre enlaces */
+  font-weight: 800; /* grosor de fuente */
 }
 
 /* Enlaces al pasar el cursor o cuando la página está activa */
 .nav-links a:hover,
-.nav-links a[aria-current="page"] {
-    color: var(--coral); /* color destacado */
+.nav-links a[aria-current='page'] {
+  color: var(--coral); /* color destacado */
 }
 
 /* Botón de cierre de sesión integrado al menú */
 .header .session-logout {
-    background: none; /* sin color de fondo */
-    border: none; /* sin borde */
-    cursor: pointer; /* cursor de mano al pasar el ratón */
-    font-family: inherit; /* mantiene la fuente del contenedor */
-    font-weight: 800; /* grosor de fuente */
-    color: var(--dark); /* color del texto */
+  background: none; /* sin color de fondo */
+  border: none; /* sin borde */
+  cursor: pointer; /* cursor de mano al pasar el ratón */
+  font-family: inherit; /* mantiene la fuente del contenedor */
+  font-weight: 800; /* grosor de fuente */
+  color: var(--dark); /* color del texto */
 }
 
 .header .session-logout:hover {
-    color: var(--coral); /* color del texto al pasar el cursor */
+  color: var(--coral); /* color del texto al pasar el cursor */
 }
 
 /* Adaptación para tablets y pantallas medianas */
 @media (max-width: 900px) {
-
-    .nav-links {
-        gap: 12px; /* reduce la separación entre enlaces */
-        flex-wrap: wrap; /* permite saltos de línea */
-    }
+  .nav-links {
+    gap: 12px; /* reduce la separación entre enlaces */
+    flex-wrap: wrap; /* permite saltos de línea */
+  }
 }
 
 /* Adaptación para celulares */
 @media (max-width: 600px) {
+  .navbar {
+    flex-direction: column; /* navegación vertical */
+  }
 
-    .navbar {
-        flex-direction: column; /* navegación vertical */
-    }
-
-    .nav-links {
-        justify-content: center; /* centra los enlaces */
-        font-size: 13px; /* reduce el tamaño del texto */
-    }
+  .nav-links {
+    justify-content: center; /* centra los enlaces */
+    font-size: 13px; /* reduce el tamaño del texto */
+  }
 }
 
 /* ====================
@@ -85,100 +83,165 @@
 
 /* Mantener el diseño original de la barra */
 .header .navbar {
-    max-width: 1200px; /* ancho máximo */
-    margin: 0 auto; /* centrado horizontal */
-    padding: 22px 24px; /* espacio interno */
-    display: flex; /* distribución flexible */
-    flex-direction: row; /* elementos en fila */
-    justify-content: space-between; /* espacio entre elementos */
-    align-items: center; /* alineación vertical */
+  max-width: 1200px; /* ancho máximo */
+  margin: 0 auto; /* centrado horizontal */
+  padding: 22px 24px; /* espacio interno */
+  display: flex; /* distribución flexible */
+  flex-direction: row; /* elementos en fila */
+  justify-content: space-between; /* espacio entre elementos */
+  align-items: center; /* alineación vertical */
 }
 
 /* Mantener el logo original */
 .header .navbar-brand {
-    font-family: 'Nunito', sans-serif; /* fuente principal */
-    font-size: 28px; /* tamaño de fuente */
-    font-weight: 900; /* grosor de fuente */
-    letter-spacing: -1.5px; /* espaciado entre letras */
-    color: var(--dark); /* color del texto */
-    margin-right: 0; /* elimina margen derecho */
+  font-family: 'Nunito', sans-serif; /* fuente principal */
+  font-size: 28px; /* tamaño de fuente */
+  font-weight: 900; /* grosor de fuente */
+  letter-spacing: -1.5px; /* espaciado entre letras */
+  color: var(--dark); /* color del texto */
+  margin-right: 0; /* elimina margen derecho */
 }
 
 /* Color del logo al pasar el cursor */
 .header .navbar-brand:hover {
-    color: var(--dark); /* mantiene el color del texto al pasar el cursor */
+  color: var(--dark); /* mantiene el color del texto al pasar el cursor */
 }
 
 /* Lista de navegación */
 .header .nav-links {
-    display: flex; /* distribución flexible */
-    gap: 28px; /* espacio entre enlaces */
-    margin: 0; /* elimina margen */
-    padding: 0; /* elimina padding */
+  display: flex; /* distribución flexible */
+  gap: 28px; /* espacio entre enlaces */
+  margin: 0; /* elimina margen */
+  padding: 0; /* elimina padding */
 }
 
 /* Enlaces con el estilo de TurnoExtra */
 .header .nav-links .nav-link {
-    font-family: 'Nunito', sans-serif; /* fuente principal */
-    font-weight: 800; /* grosor de fuente */
-    color: var(--dark); /* color del texto */
-    padding: 0; /* elimina padding */
+  font-family: 'Nunito', sans-serif; /* fuente principal */
+  font-weight: 800; /* grosor de fuente */
+  color: var(--dark); /* color del texto */
+  padding: 0; /* elimina padding */
 }
 
 /* Enlace activo o seleccionado */
 .header .nav-links .nav-link:hover,
-.header .nav-links .nav-link[aria-current="page"] {
-    color: var(--coral); /* color destacado */
+.header .nav-links .nav-link[aria-current='page'] {
+  color: var(--coral); /* color destacado */
 }
 
 /* Personalizar el botón hamburguesa */
 .header .navbar-toggler {
-    border: 2px solid var(--sage); /* borde gris claro */
-    border-radius: 12px; /* bordes redondeados */
-    padding: 8px 12px; /* espacio interno */
+  border: 2px solid var(--sage); /* borde gris claro */
+  border-radius: 12px; /* bordes redondeados */
+  padding: 8px 12px; /* espacio interno */
 }
 
 /* Color del contorno al seleccionar el botón */
 .header .navbar-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(239, 121, 104, 0.15); /* sombra suave alrededor del botón */
+  box-shadow: 0 0 0 3px rgba(239, 121, 104, 0.15); /* sombra suave alrededor del botón */
 }
 
 /* Ajustes para tablets y celulares */
-@media (max-width: 991.98px) { /* Bootstrap breakpoint para tablets */
+@media (max-width: 991.98px) {
+  /* Bootstrap breakpoint para tablets */
 
-    /* Menú desplegado ocupa una línea completa */
-    .header .navbar-collapse {
-        flex-basis: 100%; /* ocupa todo el ancho */
-        margin-top: 16px; /* espacio superior */
-    }
+  /* Menú desplegado ocupa una línea completa */
+  .header .navbar-collapse {
+    flex-basis: 100%; /* ocupa todo el ancho */
+    margin-top: 16px; /* espacio superior */
+  }
 
-    /* Enlaces ordenados verticalmente */
-    .header .nav-links {
-        flex-direction: column; /* elementos en columna */
-        align-items: flex-start; /* alineación al inicio */
-        gap: 0; /* elimina el espacio entre enlaces */
-        width: 100%; /* ocupa todo el ancho */
-    }
+  /* Enlaces ordenados verticalmente */
+  .header .nav-links {
+    flex-direction: column; /* elementos en columna */
+    align-items: flex-start; /* alineación al inicio */
+    gap: 0; /* elimina el espacio entre enlaces */
+    width: 100%; /* ocupa todo el ancho */
+  }
 
-    /* Área táctil de cada enlace */
-    .header .nav-links .nav-link {
-        display: block; /* ocupa toda la línea */
-        padding: 12px 8px; /* espacio interno */
-        width: 100%; /* ocupa todo el ancho */
-    }
+  /* Área táctil de cada enlace */
+  .header .nav-links .nav-link {
+    display: block; /* ocupa toda la línea */
+    padding: 12px 8px; /* espacio interno */
+    width: 100%; /* ocupa todo el ancho */
+  }
 
-    /* Separación entre enlaces */
-    .header .nav-links .nav-item {
-        width: 100%; /* ocupa todo el ancho */
-        border-bottom: 1px solid #EDEBE5; /* línea divisoria inferior */
-    }
+  /* Separación entre enlaces */
+  .header .nav-links .nav-item {
+    width: 100%; /* ocupa todo el ancho */
+    border-bottom: 1px solid #edebe5; /* línea divisoria inferior */
+  }
 }
 
 /* Destacar la página activa en Angular Router */
 .header .nav-links .nav-link.active {
-    color: var(--coral);
+  color: var(--coral);
 }
 
 /* La navegación crece con las acciones de cuenta. */
-.header .nav-links { gap:16px; flex-wrap:wrap; align-items:center; }
-@media(max-width:991.98px) { .header .nav-links { gap:0; align-items:flex-start; } }
+.header .nav-links {
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 991.98px) {
+  .header .nav-links {
+    gap: 0;
+    align-items: flex-start;
+  }
+}
+
+/* Navegación desplegable: enlaces normales, accesibles con Tab y Escape. */
+.category-disclosure {
+  position: relative;
+}
+.category-toggle {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.category-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 30;
+  min-width: 200px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: var(--cream);
+  border: 1px solid var(--sage);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px #19342d1f;
+}
+.category-dropdown a {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+.category-dropdown a:hover,
+.category-dropdown a.active {
+  background: var(--sage);
+  color: var(--dark);
+}
+.category-dropdown a:focus-visible,
+.category-toggle:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 3px;
+}
+@media (max-width: 991.98px) {
+  .category-dropdown {
+    position: static;
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 12px;
+    box-shadow: none;
+  }
+  .header .nav-links .category-toggle {
+    display: flex;
+    justify-content: space-between;
+  }
+}

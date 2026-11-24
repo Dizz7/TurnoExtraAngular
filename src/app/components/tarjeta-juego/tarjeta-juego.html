@@ -1,45 +1,43 @@
-
 <article class="product-card h-100">
-
   <!-- Imagen del juego -->
   <div class="product-image">
     <img
       [src]="juego.imagen"
       [alt]="'Portada de ' + juego.nombre"
       [class.imagen-wingspan]="juego.id === 'wingspan'"
-      loading="lazy">
+      loading="lazy"
+    />
   </div>
 
   <!-- Información del juego -->
   <div class="product-info">
-
     <h3>{{ juego.nombre }}</h3>
 
     <p>{{ juego.descripcion }}</p>
 
     <app-precio-juego [juego]="juego" />
 
-    <a class="detail-link" [routerLink]="['/juegos', juego.id]" [attr.aria-label]="'Ver detalles de ' + juego.nombre">Ver detalles →</a>
+    <a
+      class="detail-link"
+      [routerLink]="['/juegos', juego.id]"
+      [attr.aria-label]="'Ver detalles de ' + juego.nombre"
+      >Ver detalles →</a
+    >
 
     <!-- Disponibilidad -->
-    <p
-      class="product-status"
-      *ngIf="juego.stock > 0; else sinStock">
-      Disponible
-    </p>
-
-    <ng-template #sinStock>
+    @if (juego.stock > 0) {
+      <p class="product-status">Disponible</p>
+    } @else {
       <p class="product-status">Agotado</p>
-    </ng-template>
+    }
 
     <button
       type="button"
       class="add-to-cart"
       [disabled]="juego.stock <= 0"
-      (click)="agregarAlCarrito()">
+      (click)="agregarAlCarrito()"
+    >
       🛒 Agregar al carrito
     </button>
-
   </div>
-
 </article>

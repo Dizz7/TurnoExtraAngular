@@ -141,7 +141,11 @@ Los errores aparecen junto al campo después de interactuar o intentar enviar, c
 
 La aplicación utiliza interpolación, vinculación de propiedades y eventos, `routerLink`, `routerLinkActive`, `*ngFor`, `*ngIf` y los bloques de control `@for` y `@if`.
 
-El registro de esta entrega utiliza formularios reactivos; ya no depende de `[(ngModel)]`.
+El buscador del catálogo utiliza `[(ngModel)]` con `standalone: true` y `FormsModule`, fuera de los formularios reactivos. Filtra nombre y descripción dentro de la categoría actual, ignora tildes y mayúsculas, informa la cantidad de resultados y permite limpiar la búsqueda. Cambiar de categoría reinicia el término.
+
+Se conservan `*ngFor` y `*ngIf` en `categoria.html` como ejemplos tradicionales compatibles con la versión instalada. El menú y las tarjetas usan `@for` y `@if`. La comunicación mediante `@Input`, `@Output` y el servicio de carrito se verifica también desde resultados filtrados.
+
+El encabezado agrupa las cuatro categorías en un desplegable controlado por Angular. Funciona con clic, Tab y Escape, expone su estado mediante `aria-expanded`, devuelve el foco al botón al cerrar con Escape y cierra al seleccionar una ruta o hacer clic fuera. El menú móvil también se cierra al navegar. Bootstrap conserva el diseño responsive; no compite con Angular por el estado de apertura. Los enlaces internos usan fragmentos del Router y desplazamiento a anclas, conservando la ruta actual.
 
 ### Estilos y diseño responsive
 
@@ -205,7 +209,7 @@ npm run build -- --base-href /TurnoExtraAngular/
 
 ## Pruebas
 
-La suite utiliza **Jasmine y Karma** e incluye **58 pruebas**:
+La suite utiliza **Jasmine y Karma** e incluye **69 pruebas**:
 
 | Área | Pruebas |
 | --- | ---: |
@@ -221,7 +225,9 @@ La suite utiliza **Jasmine y Karma** e incluye **58 pruebas**:
 | Envío de recuperación | 1 |
 | Reglas compartidas de cuenta | 9 |
 | Retroalimentación de formularios | 6 |
-| **Total** | **58** |
+| Menú desplegable | 4 |
+| Búsqueda, comunicación y enlaces internos | 7 |
+| **Total** | **69** |
 
 Se comprueban, entre otros casos, las validaciones del registro, el acceso a los 12 juegos mediante sus rutas, la actualización al cambiar de identificador, los juegos inexistentes, los productos agotados y la conservación del contador al volver al catálogo.
 
@@ -237,7 +243,7 @@ Para trabajar en modo observación:
 npm test
 ```
 
-**Validación de esta entrega:** compilación de producción exitosa y 58/58 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
+**Validación de esta entrega:** compilación de producción exitosa y 69/69 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 
@@ -306,7 +312,7 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 **Experiencia 2 — Semana 6: tarjeta 3 implementada; entrega sumativa en preparación.**
 
-La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc, revisión final de formularios/directivas y entregables continúan en sus tarjetas respectivas.
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc y los entregables finales continúan en sus tarjetas respectivas. Las tarjetas 3, 4 y 5 están implementadas.
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 
