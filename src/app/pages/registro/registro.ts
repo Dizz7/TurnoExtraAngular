@@ -1,5 +1,7 @@
+import { Auth } from '../../services/auth';
+import { validarEdad, validarContrasenas } from '../../validators/cuenta';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -18,58 +20,6 @@ type CampoRegistro =
   | 'birthDate'
   | 'address';
 
-// Validador personalizado para la edad mínima.
-function validarEdad(control: AbstractControl): ValidationErrors | null {
-  const valor = control.value as string;
-
-  if (!valor) return null;
-
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
-    return { fechaInvalida: true };
-  }
-
-  const [anio, mes, dia] = valor.split('-').map(Number);
-  const fecha = new Date(0);
-  fecha.setFullYear(anio, mes - 1, dia);
-  fecha.setHours(0, 0, 0, 0);
-
-  const hoy = new Date();
-
-  if (
-    fecha.getFullYear() !== anio ||
-    fecha.getMonth() + 1 !== mes ||
-    fecha.getDate() !== dia ||
-    fecha > hoy
-  ) {
-    return { fechaInvalida: true };
-  }
-
-  let edad = hoy.getFullYear() - anio;
-
-  if (
-    hoy.getMonth() + 1 < mes ||
-    (hoy.getMonth() + 1 === mes && hoy.getDate() < dia)
-  ) {
-    edad--;
-  }
-
-  return edad >= 13 ? null : { edadMinima: true };
-}
-
-// Validador para comprobar que las contraseñas coincidan.
-function validarContrasenas(
-  control: AbstractControl
-): ValidationErrors | null {
-  const password = control.get('password')?.value;
-  const confirmPassword = control.get('confirmPassword')?.value;
-
-  if (!password || !confirmPassword) return null;
-
-  return password === confirmPassword
-    ? null
-    : { contrasenasDistintas: true };
-}
-
 @Component({
   selector: 'app-registro',
   imports: [ReactiveFormsModule],
@@ -77,6 +27,8 @@ function validarContrasenas(
   styleUrls: ['../../styles/page.css', './registro.css']
 })
 export class Registro {
+  private readonly auth = inject(Auth);
+  ocupado = false;
 
   // Formulario reactivo con sus validaciones.
   formulario = new FormGroup({
@@ -167,7 +119,8 @@ export class Registro {
   }
 
   // Validar y procesar el envío.
-  registrar(): void {
+  async registrar(): Promise<void> {
+    if (this.ocupado) return;
     this.errores = [];
     this.registroExitoso = false;
 
@@ -231,9 +184,15 @@ export class Registro {
       return;
     }
 
-    // Demostración: todavía no almacenamos cuentas.
-    this.registroExitoso = true;
-    this.animarBoton = false;
+    this.ocupado = true;
+    try {
+      await this.auth.registrar(this.formulario.getRawValue());
+      this.registroExitoso = true;
+      this.animarBoton = false;
+      this.formulario.controls.password.reset();
+      this.formulario.controls.confirmPassword.reset();
+    } catch(e) { this.errores.push(e instanceof Error ? e.message : 'No se pudo guardar la cuenta.'); }
+    finally { this.ocupado = false; }
   }
 
   finalizarAnimacion(): void {

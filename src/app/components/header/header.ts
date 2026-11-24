@@ -1,6 +1,8 @@
+import { Auth } from '../../services/auth';
+import { CarritoDemo } from '../../services/carrito-demo';
 
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +10,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class Header {}
+export class Header {
+  readonly auth = inject(Auth);
+  readonly carrito = inject(CarritoDemo);
+  private readonly router = inject(Router);
+  salir(): void { this.auth.salir(); void this.router.navigateByUrl('/login'); }
+}

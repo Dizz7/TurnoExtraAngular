@@ -1,0 +1,9 @@
+<section class="account-page"><h1>Administrar catálogo</h1><p>Actualiza el stock disponible. Los cambios de inventario duran hasta recargar la aplicación.</p>
+@if(error) { <p class="error" role="alert">{{error}}</p> } @if(mensaje) { <p class="success" role="status">{{mensaje}}</p> }
+@for(juego of catalogo.juegos(); track juego.id) {
+<form class="product-row" [formGroup]="formularios.get(juego.id)!" (ngSubmit)="guardar(juego.id)" novalidate>
+<img [src]="juego.imagen" alt=""><div class="product-copy"><h2>{{juego.nombre}}</h2><p>Disponible: {{juego.stock}}</p></div>
+<div><label [for]="'stock-'+juego.id">Nuevo stock</label><input class="stock-input" [id]="'stock-'+juego.id" type="number" formControlName="stock" min="0" max="9999" step="1" required></div>
+<button class="btn-secondary" [attr.aria-label]="'Guardar stock de '+juego.nombre">Guardar</button>
+</form>
+}</section>

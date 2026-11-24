@@ -1,0 +1,20 @@
+<section class="account-page"><div class="account-card"><h1>Recuperar contraseña</h1>
+<p class="notice">Simulación académica: no enviamos correos. El código aparecerá aquí y vencerá en 10 minutos. Usa solo cuentas y contraseñas de prueba.</p>
+<form [formGroup]="solicitud" (ngSubmit)="solicitar()" novalidate>
+<label for="rec-correo">Correo de tu cuenta</label><input id="rec-correo" type="email" [formControl]="correo" autocomplete="email" required>
+<div class="actions"><button class="btn-secondary" [disabled]="ocupado">Generar código de demostración</button></div>
+</form>
+@if(codigoDemo) {
+<p class="notice">Código de demostración: <strong>{{codigoDemo}}</strong></p>
+<form [formGroup]="formulario" (ngSubmit)="restablecer()" novalidate>
+<label for="rec-codigo">Código de recuperación</label><input id="rec-codigo" formControlName="codigo" autocomplete="one-time-code" required>
+<label for="rec-clave">Nueva contraseña</label><input id="rec-clave" type="password" formControlName="password" autocomplete="new-password" required>
+<p class="hint">Entre 6 y 18 caracteres, al menos una mayúscula y un número.</p>
+<label for="rec-confirmar">Repetir contraseña</label><input id="rec-confirmar" type="password" formControlName="confirmPassword" autocomplete="new-password" required>
+<div class="actions"><button class="btn-primary" [disabled]="ocupado">Guardar nueva contraseña</button></div>
+</form>
+}
+@if(error) { <p class="error" role="alert">{{error}}</p> }
+@if(exito) { <p class="success" role="status">Contraseña actualizada. Ya puedes iniciar sesión con tu nueva contraseña.</p> }
+<div class="actions"><a routerLink="/login">Volver al inicio de sesión</a></div>
+</div></section>

@@ -1,0 +1,24 @@
+:host { display:block; }
+.account-page { max-width:1100px; margin:0 auto; padding:48px 24px; }
+.account-card { max-width:620px; margin:24px auto; padding:32px; border-radius:var(--radius); background:white; border:1px solid var(--sage); box-shadow:0 12px 30px #19342d08; }
+h1 { font-weight:900; font-size:clamp(1.8rem,4vw,2.7rem); }
+h2 { font-size:1.35rem; font-weight:800; }
+label { display:block; font-weight:800; margin:18px 0 6px; }
+input { width:100%; border:2px solid var(--sage); border-radius:12px; padding:12px; font:inherit; background:white; color:var(--dark); }
+input:focus { outline:3px solid var(--yellow); border-color:var(--dark); }
+input.ng-touched.ng-invalid { border-color:#a72d20; }
+.actions { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:24px; }
+a { text-decoration:underline; text-underline-offset:4px; font-weight:800; }
+.notice { padding:16px; border-radius:14px; background:var(--blue); margin:18px 0; overflow-wrap:anywhere; }
+.error { background:#fff0ec; color:#842618; padding:12px; border-radius:12px; margin:16px 0; }
+.success { background:var(--sage); padding:16px; border-radius:12px; margin:16px 0; }
+.hint { color:var(--muted); font-size:.9rem; margin-top:8px; }
+button:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+button { border:0; }
+.product-row { display:flex; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid var(--sage); flex-wrap:wrap; }
+.product-row img { width:80px; height:90px; object-fit:contain; }
+.product-copy { flex:1; min-width:150px; }
+.quantity { display:flex; gap:12px; align-items:center; }
+.total { font-size:1.5rem; font-weight:900; margin-top:24px; }
+.stock-input { max-width:120px; }
+@media(max-width:600px) { .account-page { padding:28px 16px; } .account-card { padding:22px 18px; } .actions > * { width:100%; text-align:center; } }

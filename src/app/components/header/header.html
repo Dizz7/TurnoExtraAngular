@@ -62,12 +62,16 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/registro"
-             routerLinkActive="active">
-            Registro
-          </a>
-        </li>
+
+        <li class="nav-item"><a class="nav-link" routerLink="/carrito" routerLinkActive="active">Carrito ({{carrito.cantidadCarrito()}})</a></li>
+        @if(auth.usuario()) {
+          <li class="nav-item"><a class="nav-link" routerLink="/perfil" routerLinkActive="active">Mi perfil</a></li>
+          @if(auth.esAdmin()) { <li class="nav-item"><a class="nav-link" routerLink="/admin" routerLinkActive="active">Administrar</a></li> }
+          <li class="nav-item"><button type="button" class="nav-link session-logout" (click)="salir()">Salir</button></li>
+        } @else {
+          <li class="nav-item"><a class="nav-link" routerLink="/login" routerLinkActive="active">Ingresar</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/registro" routerLinkActive="active">Registro</a></li>
+        }
 
       </ul>
     </div>

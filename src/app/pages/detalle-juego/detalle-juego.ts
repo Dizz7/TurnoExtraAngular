@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JUEGOS } from '../../data/juegos';
+import { Catalogo } from '../../services/catalogo';
 import { CATEGORIAS } from '../../data/categorias';
 import type { Juego } from '../../models/juego';
 import { PrecioJuego } from '../../components/precio-juego/precio-juego';
@@ -18,10 +18,15 @@ export class DetalleJuego {
   readonly categorias = CATEGORIAS;
   readonly carrito = inject(CarritoDemo);
 
+  private readonly catalogo = inject(Catalogo);
+  private readonly id = signal<string | null>(null);
+
   constructor() {
+    effect(() => this.juego.set(this.catalogo.juegos().find(j => j.id === this.id())));
     // Reutiliza la misma página incluso al navegar entre dos juegos.
     inject(ActivatedRoute).paramMap.pipe(takeUntilDestroyed()).subscribe(params => {
-      this.juego.set(JUEGOS.find(juego => juego.id === params.get('id')));
+      this.id.set(params.get('id'));
+      this.juego.set(this.catalogo.juegos().find(j => j.id === this.id()));
     });
   }
 }

@@ -1,3 +1,5 @@
+import { cuentasDePrueba } from '../../testing/almacen-pruebas';
+import { Auth } from '../../services/auth';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
@@ -7,7 +9,7 @@ import { JUEGOS } from '../../data/juegos';
 import { CarritoDemo } from '../../services/carrito-demo';
 
 describe('DetalleJuego', () => {
-  beforeEach(() => TestBed.configureTestingModule({ providers: [provideRouter(routes)] }));
+  beforeEach(async () => { TestBed.configureTestingModule({ providers: [provideRouter(routes), ...cuentasDePrueba()] }); await TestBed.inject(Auth).preparado; });
 
   it('muestra cada juego al abrir su URL directamente', async () => {
     const harness = await RouterTestingHarness.create();

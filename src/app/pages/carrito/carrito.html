@@ -1,0 +1,13 @@
+<section class="account-page"><h1>Tu carrito</h1>
+@if(carrito.lineas().length) {
+@for(linea of carrito.lineas(); track linea.juego.id) {
+<div class="product-row"><img [src]="linea.juego.imagen" [alt]="linea.juego.nombre">
+<div class="product-copy"><a [routerLink]="['/juegos',linea.juego.id]">{{linea.juego.nombre}}</a><p>{{precio(linea.juego.precio)}} por unidad</p></div>
+<div class="quantity"><button type="button" class="btn-secondary" [disabled]="linea.cantidad <= 1" [attr.aria-label]="'Quitar una unidad de '+linea.juego.nombre" (click)="carrito.cambiar(linea.juego.id,linea.cantidad-1)">−</button><span>{{linea.cantidad}}</span><button type="button" class="btn-secondary" [disabled]="linea.cantidad >= linea.juego.stock" [attr.aria-label]="'Añadir una unidad de '+linea.juego.nombre" (click)="carrito.cambiar(linea.juego.id,linea.cantidad+1)">+</button></div>
+<strong>{{precio(linea.cantidad*linea.juego.precio)}}</strong><button type="button" class="btn-secondary" [attr.aria-label]="'Eliminar '+linea.juego.nombre" (click)="carrito.quitar(linea.juego.id)">Eliminar</button></div>
+}
+<p class="total" aria-live="polite">Total: {{precio(carrito.total())}}</p>
+<div class="actions"><a class="btn-primary" routerLink="/pago">{{auth.usuario() ? 'Continuar al pago simulado' : 'Iniciar sesión para comprar'}}</a><button class="btn-secondary" (click)="carrito.vaciar()">Vaciar carrito</button></div>
+} @else { <p class="notice">Tu carrito está vacío. Encuentra tu próxima partida en el catálogo.</p> }
+<div class="actions"><a routerLink="/estrategia">Seguir explorando juegos</a></div>
+</section>

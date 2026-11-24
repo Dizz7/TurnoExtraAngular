@@ -1,0 +1,13 @@
+<section class="account-page"><div class="account-card"><h1>Pago simulado</h1>
+@if(comprobante) {
+<div class="success" role="status"><h2>¡Compra simulada exitosa!</h2><p>Comprobante: {{comprobante.folio}}</p><p>{{comprobante.unidades}} unidades · Total: {{precio(comprobante.total)}}</p><p>No se realizó ningún cobro real.</p></div><a routerLink="/">Volver al inicio</a>
+} @else if(carrito.lineas().length) {
+<p>Comprando como {{auth.usuario()?.fullName}}.</p>
+@for(linea of carrito.lineas(); track linea.juego.id) { <p>{{linea.cantidad}} × {{linea.juego.nombre}} — {{precio(linea.cantidad*linea.juego.precio)}}</p> }
+<p class="total">Total: {{precio(carrito.total())}}</p>
+<p class="notice">Esta compra es una demostración. No ingreses tarjetas ni datos bancarios.</p>
+<form [formGroup]="formulario" (ngSubmit)="pagar()"><label><input style="width:auto" type="checkbox" [formControl]="acepto"> Entiendo que no se hará un cobro real.</label>
+@if(error) { <p class="error" role="alert">{{error}}</p> }
+<div class="actions"><button class="btn-primary">Confirmar pago simulado</button><a routerLink="/carrito">Revisar carrito</a></div></form>
+} @else { <p class="notice">Agrega juegos al carrito antes de pagar.</p><a routerLink="/estrategia">Ir al catálogo</a> }
+</div></section>

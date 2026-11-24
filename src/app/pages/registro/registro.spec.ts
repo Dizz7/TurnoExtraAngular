@@ -1,3 +1,5 @@
+import { cuentasDePrueba } from '../../testing/almacen-pruebas';
+import { Auth } from '../../services/auth';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Registro } from './registro';
@@ -8,9 +10,11 @@ describe('Registro', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: cuentasDePrueba(),
       imports: [Registro]
     }).compileComponents();
 
+    await TestBed.inject(Auth).preparado;
     fixture = TestBed.createComponent(Registro);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -143,19 +147,19 @@ describe('Registro', () => {
     ).toBeTrue();
   });
 
-  it('debería aceptar un formulario válido', () => {
+  it('debería aceptar un formulario válido', async () => {
     completarFormulario();
 
-    component.registrar();
+    await component.registrar();
 
-    expect(component.formulario.valid).toBeTrue();
+    expect(component.formulario.controls.password.value).toBe('');
     expect(component.registroExitoso).toBeTrue();
     expect(component.errores.length).toBe(0);
   });
 
-  it('debería limpiar el formulario', () => {
+  it('debería limpiar el formulario', async () => {
     completarFormulario();
-    component.registrar();
+    await component.registrar();
 
     component.limpiarFormulario();
 

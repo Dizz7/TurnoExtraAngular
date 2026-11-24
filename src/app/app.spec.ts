@@ -1,3 +1,5 @@
+import { cuentasDePrueba } from './testing/almacen-pruebas';
+import { Auth } from './services/auth';
 
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
@@ -8,8 +10,9 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter(routes)]
+      providers: [provideRouter(routes), ...cuentasDePrueba()]
     }).compileComponents();
+    await TestBed.inject(Auth).preparado;
   });
 
   it('debería crear la aplicación', () => {

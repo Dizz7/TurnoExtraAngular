@@ -1,3 +1,11 @@
+import { Login } from './pages/login/login';
+import { Recuperar } from './pages/recuperar/recuperar';
+import { Perfil } from './pages/perfil/perfil';
+import { Carrito } from './pages/carrito/carrito';
+import { Pago } from './pages/pago/pago';
+import { Admin } from './pages/admin/admin';
+import { SinAcceso } from './pages/sin-acceso/sin-acceso';
+import { acceso, administrador } from './guards/acceso';
 
 import { Routes } from '@angular/router';
 
@@ -17,5 +25,12 @@ export const routes: Routes = [
   { path: 'juegos/:id', component: DetalleJuego },
 
   { path: 'registro', component: Registro },
+  { path: 'login', component: Login },
+  { path: 'recuperar', component: Recuperar },
+  { path: 'perfil', component: Perfil, canActivate: [acceso] },
+  { path: 'carrito', component: Carrito },
+  { path: 'pago', component: Pago, canActivate: [acceso] },
+  { path: 'admin', component: Admin, canActivate: [acceso, administrador] },
+  { path: 'sin-acceso', component: SinAcceso },
   { path: '**', redirectTo: '' }
 ];

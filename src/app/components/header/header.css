@@ -178,3 +178,7 @@
 .header .nav-links .nav-link.active {
     color: var(--coral);
 }
+
+/* La navegación crece con las acciones de cuenta. */
+.header .nav-links { gap:16px; flex-wrap:wrap; align-items:center; }
+@media(max-width:991.98px) { .header .nav-links { gap:0; align-items:flex-start; } }
