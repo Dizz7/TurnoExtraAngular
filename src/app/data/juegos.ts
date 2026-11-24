@@ -3,6 +3,7 @@ import type { Juego } from '../models/juego';
 export type { Juego } from '../models/juego';
 
 // Catálogo inicial recuperado de la Experiencia 1.
+/** Catálogo inicial de doce juegos; Catalogo copia estos datos para mantener el inventario temporal. */
 export const JUEGOS: Juego[] = [
   {
     id: 'wingspan',

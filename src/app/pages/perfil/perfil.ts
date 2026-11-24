@@ -12,8 +12,11 @@ import { TEXTO_REQUERIDO, validarEdad } from '../../validators/cuenta';
   styleUrl: '../../styles/cuenta.css',
 })
 export class Perfil {
+  /** Expone a la plantilla los mensajes de validación del control y de su grupo. */
   readonly errorCampo = errorCampo;
+  /** Servicio de cuentas y sesión local utilizado por esta vista. */
   readonly auth = inject(Auth);
+  /** Datos editables del perfil; valida nombre, usuario, correo y edad mínima de 13 años. */
   formulario = new FormGroup({
     fullName: new FormControl('', { nonNullable: true, validators: TEXTO_REQUERIDO }),
     username: new FormControl('', { nonNullable: true, validators: TEXTO_REQUERIDO }),
@@ -27,8 +30,11 @@ export class Perfil {
     }),
     address: new FormControl('', { nonNullable: true }),
   });
+  /** Mensaje de la última operación fallida; vacío cuando no hay error visible. */
   error = '';
+  /** Indica que la última operación terminó correctamente. */
   exito = false;
+  /** Carga el perfil y limpia mensajes cuando cambian los campos. */
   constructor() {
     this.restaurar();
     this.formulario.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
@@ -36,6 +42,7 @@ export class Perfil {
       this.exito = false;
     });
   }
+  /** Recarga los datos de la cuenta activa, restablece los controles y descarta mensajes. */
   restaurar(): void {
     const u = this.auth.usuario();
     if (u)
@@ -49,6 +56,7 @@ export class Perfil {
     this.error = '';
     this.exito = false;
   }
+  /** Valida los campos y actualiza la cuenta mediante Auth, mostrando éxito o error. */
   guardar(): void {
     this.error = '';
     this.exito = false;

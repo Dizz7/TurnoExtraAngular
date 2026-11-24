@@ -14,6 +14,7 @@ import { Categoria } from './pages/categoria/categoria';
 import { DetalleJuego } from './pages/detalle-juego/detalle-juego';
 import { Registro } from './pages/registro/registro';
 
+/** Rutas públicas y protegidas. Perfil y pago requieren sesión; administración requiere además el rol administrador. Las rutas desconocidas vuelven al inicio. */
 export const routes: Routes = [
   { path: '', component: Inicio },
 

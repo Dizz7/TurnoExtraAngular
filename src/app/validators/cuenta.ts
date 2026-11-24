@@ -1,17 +1,28 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
-/** Cuatro reglas de composición compartidas por registro y recuperación. */
+/** Obligatoriedad y cuatro reglas de contraseña: mínimo 6, máximo 18, al menos una mayúscula ASCII y un dígito. */
 export const CLAVE_VALIDATORS = [
   Validators.required,
   Validators.minLength(6),
   Validators.maxLength(18),
   Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/),
 ];
+/** Validadores que exigen un valor con al menos un carácter que no sea espacio. */
 export const TEXTO_REQUERIDO = [Validators.required, Validators.pattern(/.*\S.*/)];
+/**
+ * Compara las contraseñas del grupo cuando ambas tienen valor; required se aplica en cada control.
+ * @param control Grupo con password y confirmPassword.
+ * @returns Error contrasenasDistintas si difieren, o null.
+ */
 export function validarContrasenas(control: AbstractControl): ValidationErrors | null {
   const a = control.get('password')?.value,
     b = control.get('confirmPassword')?.value;
   return a && b && a !== b ? { contrasenasDistintas: true } : null;
 }
+/**
+ * Comprueba una fecha real no futura y una edad mínima de 13 años; el vacío se delega a required.
+ * @param control Control con fecha YYYY-MM-DD.
+ * @returns fechaInvalida, edadMinima o null cuando no corresponde error.
+ */
 export function validarEdad(control: AbstractControl): ValidationErrors | null {
   const valor = control.value as string;
   if (!valor) return null;
@@ -33,7 +44,13 @@ export function validarEdad(control: AbstractControl): ValidationErrors | null {
   return edad >= 13 ? null : { edadMinima: true };
 }
 
-/** Mensaje visible tras interactuar con un control; incluye confirmación a nivel de grupo. */
+/**
+ * Selecciona el primer mensaje aplicable a un control tocado, incluida la confirmación validada en el grupo.
+ * @param control Control cuyo estado se presentará.
+ * @param etiqueta Nombre legible del campo.
+ * @param tipo Variante de mensaje para texto, contraseña o stock.
+ * @returns Mensaje de error o cadena vacía si no debe mostrarse ninguno.
+ */
 export function errorCampo(
   control: AbstractControl,
   etiqueta: string,

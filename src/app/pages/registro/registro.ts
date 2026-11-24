@@ -12,9 +12,11 @@ import {
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
+/** Nombres de los controles del formulario de registro, incluida la dirección opcional. */
 type CampoRegistro =
   'fullName' | 'username' | 'email' | 'password' | 'confirmPassword' | 'birthDate' | 'address';
 
+/** Alta de cuentas cliente mediante formulario reactivo y validadores compartidos. */
 @Component({
   selector: 'app-registro',
   imports: [ReactiveFormsModule, RouterLink],
@@ -22,11 +24,14 @@ type CampoRegistro =
   styleUrls: ['../../styles/page.css', './registro.css'],
 })
 export class Registro {
+  /** Expone a la plantilla los mensajes de validación del control y de su grupo. */
   readonly errorCampo = errorCampo;
+  /** Servicio de cuentas y sesión local utilizado por esta vista. */
   private readonly auth = inject(Auth);
+  /** Indica una operación asíncrona en curso y evita envíos duplicados. */
   ocupado = false;
 
-  // Formulario reactivo con sus validaciones.
+  /** Formulario de registro con cuatro reglas de contraseña, confirmación, edad mínima y dirección opcional. */
   formulario = new FormGroup(
     {
       fullName: new FormControl('', {
@@ -62,10 +67,14 @@ export class Registro {
     },
   );
 
+  /** Resumen de errores de validación o del servicio de cuentas. */
   errores: string[] = [];
+  /** Indica que la cuenta fue creada correctamente. */
   registroExitoso = false;
+  /** Activa la animación de retroalimentación ante un envío inválido. */
   animarBoton = false;
 
+  /** Retira errores y confirmación al editar cuando no hay un registro en curso. */
   constructor() {
     this.formulario.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
       if (!this.ocupado) {
@@ -75,12 +84,19 @@ export class Registro {
     });
   }
 
-  // Obtener el estado de validación de un campo.
+  /**
+   * Marca un campo como tocado para mostrar sus validaciones.
+   * @param campo Nombre del control del formulario de registro.
+   */
   validarCampo(campo: CampoRegistro): void {
     this.formulario.controls[campo].markAsTouched();
   }
 
-  // Aplicar clases CSS de Bootstrap.
+  /**
+   * Obtiene la clase Bootstrap según interacción, validez y coincidencia de contraseñas.
+   * @param campo Control que se está presentando.
+   * @returns is-valid, is-invalid o una cadena vacía para campos sin interacción o dirección vacía.
+   */
   claseCampo(campo: CampoRegistro): string {
     const control = this.formulario.controls[campo];
 
@@ -99,7 +115,7 @@ export class Registro {
     return control.valid ? 'is-valid' : 'is-invalid';
   }
 
-  // Actualizar validación al modificar las contraseñas.
+  /** Recalcula la validación del grupo y marca la confirmación como tocada si tiene valor. */
   actualizarContrasena(): void {
     this.formulario.updateValueAndValidity();
 
@@ -110,6 +126,7 @@ export class Registro {
     }
   }
 
+  /** Marca la confirmación como tocada si contiene texto. */
   actualizarConfirmacion(): void {
     const confirmacion = this.formulario.controls.confirmPassword;
 
@@ -118,7 +135,10 @@ export class Registro {
     }
   }
 
-  // Validar y procesar el envío.
+  /**
+   * Valida y crea una cuenta cliente; evita envíos duplicados y limpia las claves tras el éxito.
+   * @returns Promesa que finaliza al completar el intento; los errores se acumulan en la vista.
+   */
   async registrar(): Promise<void> {
     if (this.ocupado) return;
     this.errores = [];
@@ -189,11 +209,12 @@ export class Registro {
     }
   }
 
+  /** Desactiva la animación del botón al terminar su reproducción. */
   finalizarAnimacion(): void {
     this.animarBoton = false;
   }
 
-  // Restablecer controles y mensajes.
+  /** Restablece valores, estados de interacción, errores y confirmación del formulario. */
   limpiarFormulario(): void {
     this.formulario.reset();
     this.errores = [];

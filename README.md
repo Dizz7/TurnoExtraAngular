@@ -260,7 +260,7 @@ El primer comando genera `documentation/`. El segundo vuelve a generar la docume
 
 La configuración se encuentra en `.compodocrc.json`. `tsconfig.doc.json` incluye los archivos TypeScript de `src/` y excluye únicamente las pruebas `*.spec.ts` y sus utilidades en `src/app/testing/`. La carpeta generada se omite de Git y puede reconstruirse con los comandos anteriores.
 
-La primera generación reconoce 16 componentes, 3 servicios, 2 guards y 6 interfaces, además de funciones, variables y tipos. **La instalación y generación inicial están verificadas; completar los comentarios JSDoc y revisar la cobertura final corresponde a las tarjetas 7 y 8.** Generar el sitio no implica tener el 100 % del código documentado.
+La primera generación reconoce 16 componentes, 3 servicios, 2 guards y 6 interfaces, además de funciones, variables y tipos. **La tarjeta 7 incorpora comentarios JSDoc en componentes, servicios, modelos, guards, datos, configuración y validadores.** Los métodos documentan parámetros, resultados y errores cuando corresponde, incluidos los límites de la simulación local. La generación posterior informa 100 % en las 41 entidades del reporte de cobertura, sin ampliar las exclusiones. Este porcentaje mide presencia de comentarios en los elementos evaluados por Compodoc, no cobertura de pruebas ni corrección funcional. La revisión final de navegación y presentación corresponde a la tarjeta 8.
 
 Se fija `i18next` a `26.3.4` mediante un override limitado a Compodoc, para corregir la dependencia vulnerable incluida inicialmente ([aviso de seguridad](https://github.com/advisories/GHSA-6jcc-5g8w-32mx)). La instalación resultante informó cero vulnerabilidades en la revisión de esta tarjeta.
 
@@ -329,9 +329,9 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 ## Alcance y estado
 
-**Experiencia 2 — Semana 6: tarjetas 3 a 6 implementadas; entrega sumativa en preparación.**
+**Experiencia 2 — Semana 6: tarjetas 3 a 7 implementadas; entrega sumativa en preparación.**
 
-La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc está instalado y genera la documentación inicial. Los comentarios JSDoc, la cobertura de documentación y los entregables finales continúan en sus tarjetas respectivas.
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc está instalado y genera la documentación inicial. Los comentarios JSDoc están incorporados. La revisión final de documentación y los entregables de cierre continúan en sus tarjetas respectivas.
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 

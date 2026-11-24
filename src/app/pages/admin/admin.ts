@@ -11,8 +11,11 @@ import { Catalogo } from '../../services/catalogo';
   styleUrl: '../../styles/cuenta.css',
 })
 export class Admin {
+  /** Expone a la plantilla los mensajes de validación del control y de su grupo. */
   readonly errorCampo = errorCampo;
+  /** Inventario compartido con disponibilidad actualizada durante la navegación. */
   readonly catalogo = inject(Catalogo);
+  /** Formulario de stock por identificador, inicializado con el inventario al crear la vista. */
   readonly formularios = new Map(
     this.catalogo
       .juegos()
@@ -31,8 +34,11 @@ export class Admin {
         }),
       ]),
   );
+  /** Confirmación visible después de guardar el stock. */
   mensaje = '';
+  /** Mensaje de la última operación fallida; vacío cuando no hay error visible. */
   error = '';
+  /** Retira mensajes anteriores al editar un formulario; libera suscripciones al destruirse. */
   constructor() {
     for (const formulario of this.formularios.values()) {
       formulario.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
@@ -41,6 +47,10 @@ export class Admin {
       });
     }
   }
+  /**
+   * Valida el stock y solicita su actualización al servicio, mostrando éxito o error.
+   * @param id Identificador de un juego con formulario registrado en esta vista.
+   */
   guardar(id: string): void {
     this.error = '';
     this.mensaje = '';

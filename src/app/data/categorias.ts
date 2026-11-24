@@ -1,8 +1,8 @@
 import type { Categoria, CategoriaId } from '../models/categoria';
 
 
-// Información visual de las categorías de TurnoExtra.
 
+/** Metadatos visuales de las cuatro categorías, indexados por su identificador. */
 export const CATEGORIAS: Record<CategoriaId, Categoria> = {
   estrategia: {
     nombre: 'Estrategia',

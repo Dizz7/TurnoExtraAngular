@@ -10,6 +10,7 @@ import type {
   CategoriaInicio
 } from '../../models/categoria';
 
+/** Portada con tarjetas de categorías derivadas de los datos del catálogo. */
 @Component({
   selector: 'app-inicio',
   imports: [RouterLink],
@@ -18,7 +19,7 @@ import type {
 })
 export class Inicio {
 
-  // Textos breves exclusivos de las tarjetas de inicio.
+  /** Textos breves exclusivos de las tarjetas de la portada. */
   private readonly descripciones: Record<CategoriaId, string> = {
     estrategia: 'Planifica, conquista y gana.',
     familiares: 'Comparte partidas en familia.',
@@ -26,7 +27,7 @@ export class Inicio {
     fiesta: 'Ríe, juega y celebra.'
   };
 
-  // Generar las tarjetas a partir de los datos existentes.
+  /** Tarjetas de inicio con metadatos y hasta tres imágenes por categoría. */
   categorias: CategoriaInicio[] = (
     Object.keys(CATEGORIAS) as CategoriaId[]
   ).map(id => ({

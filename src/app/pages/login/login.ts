@@ -12,10 +12,15 @@ import { Auth } from '../../services/auth';
   styleUrl: '../../styles/cuenta.css',
 })
 export class Login {
+  /** Expone a la plantilla los mensajes de validación del control y de su grupo. */
   readonly errorCampo = errorCampo;
+  /** Servicio de cuentas y sesión local utilizado por esta vista. */
   readonly auth = inject(Auth);
+  /** Router utilizado para navegar entre pantallas de la aplicación. */
   private readonly router = inject(Router);
+  /** Ruta activa utilizada para consultar sus datos o parámetros. */
   private readonly route = inject(ActivatedRoute);
+  /** Formulario reactivo de correo obligatorio válido y contraseña obligatoria. */
   formulario = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
@@ -23,13 +28,20 @@ export class Login {
     }),
     password: new FormControl('', { nonNullable: true, validators: Validators.required }),
   });
+  /** Mensaje de la última operación fallida; vacío cuando no hay error visible. */
   error = '';
+  /** Indica una operación asíncrona en curso y evita envíos duplicados. */
   ocupado = false;
+  /** Limpia errores al editar cuando no hay un inicio de sesión en curso. */
   constructor() {
     this.formulario.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
       if (!this.ocupado) this.error = '';
     });
   }
+  /**
+   * Valida credenciales, inicia la sesión y navega a un destino permitido o al perfil.
+   * @returns Promesa que finaliza al completar el intento; los errores se muestran en la vista.
+   */
   async ingresar(): Promise<void> {
     if (this.ocupado) return;
     this.error = '';
