@@ -260,9 +260,23 @@ El primer comando genera `documentation/`. El segundo vuelve a generar la docume
 
 La configuración se encuentra en `.compodocrc.json`. `tsconfig.doc.json` incluye los archivos TypeScript de `src/` y excluye únicamente las pruebas `*.spec.ts` y sus utilidades en `src/app/testing/`. La carpeta generada se omite de Git y puede reconstruirse con los comandos anteriores.
 
-La primera generación reconoce 16 componentes, 3 servicios, 2 guards y 6 interfaces, además de funciones, variables y tipos. **La tarjeta 7 incorpora comentarios JSDoc en componentes, servicios, modelos, guards, datos, configuración y validadores.** Los métodos documentan parámetros, resultados y errores cuando corresponde, incluidos los límites de la simulación local. La generación posterior informa 100 % en las 41 entidades del reporte de cobertura, sin ampliar las exclusiones. Este porcentaje mide presencia de comentarios en los elementos evaluados por Compodoc, no cobertura de pruebas ni corrección funcional. La revisión final de navegación y presentación corresponde a la tarjeta 8.
+La primera generación reconoce 16 componentes, 3 servicios, 2 guards y 6 interfaces, además de funciones, variables y tipos. **La tarjeta 7 incorpora comentarios JSDoc en componentes, servicios, modelos, guards, datos, configuración y validadores.** Los métodos documentan parámetros, resultados y errores cuando corresponde, incluidos los límites de la simulación local. La generación posterior informa 100 % en las 41 entidades del reporte de cobertura, sin ampliar las exclusiones. Este porcentaje mide presencia de comentarios en los elementos evaluados por Compodoc, no cobertura de pruebas ni corrección funcional. La revisión de la tarjeta 8 está completada: generación correcta, cobertura del 100 % y comprobación de navegación y presentación por muestreo.
 
 Se fija `i18next` a `26.3.4` mediante un override limitado a Compodoc, para corregir la dependencia vulnerable incluida inicialmente ([aviso de seguridad](https://github.com/advisories/GHSA-6jcc-5g8w-32mx)). La instalación resultante informó cero vulnerabilidades en la revisión de esta tarjeta.
+
+### Revisión de la documentación — tarjeta 8
+
+Revisión local realizada el 24 de noviembre de 2026:
+
+- Generación correcta con `npm run docs:build`: 39 páginas HTML.
+- Cobertura documental: 41 entidades documentadas, ninguna parcial ni sin documentar; 100 % en el reporte de Compodoc.
+- Comprobación de 1.018 referencias locales a archivos y secciones, sin destinos ausentes en la generación revisada. No incluye verificar sitios externos.
+- Revisión en navegador de cobertura, descripción y API de `Auth`, parámetros, resultados y errores; ficha, plantilla y estilos de `Registro`; índice de rutas con enlaces a sus componentes.
+- Se conservan las exclusiones de pruebas y utilidades de pruebas. La carpeta `documentation/` se regenera localmente y permanece fuera de Git.
+
+Para repetir la revisión, ejecutar `npm run docs:serve` y abrir `http://127.0.0.1:8080/`. Consultar **Documentation coverage**, **Injectables → Auth → API**, **Components → Registro** y **Routes**. Detener el servidor con Ctrl+C antes de iniciar otra instancia en el mismo puerto.
+
+Esta revisión no sustituye las pruebas funcionales ni su cobertura. La suite de Jasmine/Karma y la compilación final se vuelven a comprobar en la tarjeta 9.
 
 ## Estructura del proyecto
 
@@ -280,21 +294,37 @@ TurnoExtraAngular/
 │   │   ├── data/
 │   │   │   ├── categorias.ts
 │   │   │   └── juegos.ts
+│   │   ├── guards/
+│   │   │   └── acceso.ts
 │   │   ├── models/
 │   │   │   ├── categoria.ts
-│   │   │   └── juego.ts
+│   │   │   ├── juego.ts
+│   │   │   └── usuario.ts
 │   │   ├── pages/
 │   │   │   ├── inicio/
 │   │   │   ├── categoria/
 │   │   │   ├── detalle-juego/
-│   │   │   └── registro/
+│   │   │   ├── registro/
+│   │   │   ├── login/
+│   │   │   ├── recuperar/
+│   │   │   ├── perfil/
+│   │   │   ├── carrito/
+│   │   │   ├── pago/
+│   │   │   ├── admin/
+│   │   │   └── sin-acceso/
 │   │   ├── services/
-│   │   │   ├── carrito-demo.ts
-│   │   │   └── carrito-demo.spec.ts
+│   │   │   ├── almacen.ts
+│   │   │   ├── auth.ts
+│   │   │   ├── catalogo.ts
+│   │   │   └── carrito-demo.ts
 │   │   ├── styles/
 │   │   │   ├── page.css
+│   │   │   ├── cuenta.css
 │   │   │   ├── card-reveal.css
 │   │   │   └── legacy.css
+│   │   ├── testing/
+│   │   ├── validators/
+│   │   │   └── cuenta.ts
 │   │   ├── app.ts
 │   │   ├── app.html
 │   │   ├── app.css
@@ -329,9 +359,9 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 ## Alcance y estado
 
-**Experiencia 2 — Semana 6: tarjetas 3 a 7 implementadas; entrega sumativa en preparación.**
+**Experiencia 2 — Semana 6: tarjetas 3 a 8 completadas; entrega sumativa en preparación.**
 
-La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc está instalado y genera la documentación inicial. Los comentarios JSDoc están incorporados. La revisión final de documentación y los entregables de cierre continúan en sus tarjetas respectivas.
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc genera la documentación con los comentarios JSDoc incorporados y su revisión está completada. Quedan la validación final de pruebas y compilación (tarjeta 9), el cierre de README/GitHub/Trello (tarjeta 10), el video (tarjeta 11) y la entrega final (tarjeta 12).
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 
