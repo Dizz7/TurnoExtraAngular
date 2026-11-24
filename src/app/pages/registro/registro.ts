@@ -2,71 +2,61 @@ import { Auth } from '../../services/auth';
 import { validarEdad, validarContrasenas } from '../../validators/cuenta';
 
 import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 type CampoRegistro =
-  | 'fullName'
-  | 'username'
-  | 'email'
-  | 'password'
-  | 'confirmPassword'
-  | 'birthDate'
-  | 'address';
+  'fullName' | 'username' | 'email' | 'password' | 'confirmPassword' | 'birthDate' | 'address';
 
 @Component({
   selector: 'app-registro',
   imports: [ReactiveFormsModule],
   templateUrl: './registro.html',
-  styleUrls: ['../../styles/page.css', './registro.css']
+  styleUrls: ['../../styles/page.css', './registro.css'],
 })
 export class Registro {
   private readonly auth = inject(Auth);
   ocupado = false;
 
   // Formulario reactivo con sus validaciones.
-  formulario = new FormGroup({
-    fullName: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.pattern(/.*\S.*/)]
-    }),
-    username: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.pattern(/.*\S.*/)]
-    }),
-    email: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email]
-    }),
-    password: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(18),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)
-      ]
-    }),
-    confirmPassword: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required]
-    }),
-    birthDate: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, validarEdad]
-    }),
-    address: new FormControl('', {
-      nonNullable: true
-    })
-  }, {
-    validators: validarContrasenas
-  });
+  formulario = new FormGroup(
+    {
+      fullName: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+      }),
+      username: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+      }),
+      email: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(18),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/),
+        ],
+      }),
+      confirmPassword: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      birthDate: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, validarEdad],
+      }),
+      address: new FormControl('', {
+        nonNullable: true,
+      }),
+    },
+    {
+      validators: validarContrasenas,
+    },
+  );
 
   errores: string[] = [];
   registroExitoso = false;
@@ -89,10 +79,7 @@ export class Registro {
       return '';
     }
 
-    if (
-      campo === 'confirmPassword' &&
-      this.formulario.hasError('contrasenasDistintas')
-    ) {
+    if (campo === 'confirmPassword' && this.formulario.hasError('contrasenasDistintas')) {
       return 'is-invalid';
     }
 
@@ -135,10 +122,10 @@ export class Registro {
       'email',
       'password',
       'confirmPassword',
-      'birthDate'
+      'birthDate',
     ];
 
-    if (obligatorios.some(campo => !controles[campo].value.trim())) {
+    if (obligatorios.some((campo) => !controles[campo].value.trim())) {
       this.errores.push('Completa todos los campos obligatorios.');
     }
 
@@ -149,19 +136,12 @@ export class Registro {
     const password = controles.password;
 
     if (password.value) {
-      if (
-        password.hasError('minlength') ||
-        password.hasError('maxlength')
-      ) {
-        this.errores.push(
-          'La contraseña debe tener entre 6 y 18 caracteres.'
-        );
+      if (password.hasError('minlength') || password.hasError('maxlength')) {
+        this.errores.push('La contraseña debe tener entre 6 y 18 caracteres.');
       }
 
       if (password.hasError('pattern')) {
-        this.errores.push(
-          'La contraseña debe incluir una mayúscula y un número.'
-        );
+        this.errores.push('La contraseña debe incluir una mayúscula y un número.');
       }
     }
 
@@ -174,9 +154,7 @@ export class Registro {
     if (fecha.hasError('fechaInvalida')) {
       this.errores.push('Ingresa una fecha de nacimiento válida.');
     } else if (fecha.hasError('edadMinima')) {
-      this.errores.push(
-        'Debes tener al menos 13 años para registrarte.'
-      );
+      this.errores.push('Debes tener al menos 13 años para registrarte.');
     }
 
     if (this.formulario.invalid) {
@@ -191,8 +169,11 @@ export class Registro {
       this.animarBoton = false;
       this.formulario.controls.password.reset();
       this.formulario.controls.confirmPassword.reset();
-    } catch(e) { this.errores.push(e instanceof Error ? e.message : 'No se pudo guardar la cuenta.'); }
-    finally { this.ocupado = false; }
+    } catch (e) {
+      this.errores.push(e instanceof Error ? e.message : 'No se pudo guardar la cuenta.');
+    } finally {
+      this.ocupado = false;
+    }
   }
 
   finalizarAnimacion(): void {

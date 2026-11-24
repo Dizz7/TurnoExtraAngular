@@ -4,12 +4,12 @@ Proyecto académico desarrollado para la asignatura **Desarrollo Full Stack II (
 
 **Estudiante:** Daniel Alarcón\
 **Experiencia:** 2\
-**Semana:** 5\
+**Semana:** 6\
 **Framework:** Angular 22
 
 ## Descripción
 
-**TurnoExtra** es una tienda ficticia de juegos de mesa que permite explorar categorías, consultar el detalle de cada juego y completar un formulario de registro con validaciones.
+**TurnoExtra** es una tienda ficticia de juegos de mesa que permite explorar categorías, consultar el detalle de cada juego y registrarse, iniciar sesión, editar su perfil y realizar compras simuladas. El administrador también puede gestionar el stock.
 
 El proyecto nació en la Experiencia 1 con HTML5, CSS3, Bootstrap y JavaScript. Durante la Experiencia 2 se migró a Angular, organizando la interfaz mediante componentes reutilizables, modelos TypeScript y navegación con Angular Router.
 
@@ -40,7 +40,14 @@ Angular Router permite cambiar de página sin recargar la aplicación completa.
 | `/creatividad` | Juegos de creatividad |
 | `/fiesta` | Juegos de fiesta |
 | `/juegos/:id` | Detalle dinámico de un juego |
-| `/registro` | Formulario de registro |
+| `/registro` | Registro de cuentas cliente |
+| `/login` | Inicio de sesión |
+| `/recuperar` | Recuperación local simulada |
+| `/perfil` | Edición de perfil; requiere sesión |
+| `/carrito` | Productos, cantidades y total |
+| `/pago` | Compra simulada; requiere sesión |
+| `/admin` | Gestión de stock; exclusivo de administradores |
+| `/sin-acceso` | Mensaje de acceso restringido |
 
 Por ejemplo, `/juegos/wingspan` y `/juegos/kurruf` utilizan el mismo componente y muestran información distinta según el identificador de la URL. Un identificador de juego desconocido muestra **«Juego no encontrado»** con un enlace al inicio. Las demás rutas desconocidas redirigen al inicio.
 
@@ -78,9 +85,9 @@ El componente observa los parámetros de la ruta y utiliza una señal para actua
 
 - `@Input()` transmite los datos del juego a `TarjetaJuego` y `PrecioJuego`.
 - `@Output()` y `EventEmitter` permiten que la tarjeta notifique al catálogo cuándo se agrega un juego.
-- El servicio `CarritoDemo`, proporcionado en la raíz de la aplicación, mantiene mediante Signals la cantidad de juegos agregados y el nombre del último seleccionado.
+- El servicio `CarritoDemo`, proporcionado en la raíz de la aplicación, mantiene mediante Signals las líneas, cantidades, total y último juego agregado.
 
-El catálogo y el detalle comparten ese estado durante la navegación. El contador se reinicia al recargar la página: no se guarda en una base de datos ni en el almacenamiento del navegador. Es una demostración; no procesa compras, no descuenta existencias ni gestiona cantidades por producto.
+El catálogo y el detalle comparten ese estado durante la navegación. El contador se reinicia al recargar la página: no se guarda en una base de datos ni en el almacenamiento del navegador. El pago simulado genera un comprobante, descuenta stock y vacía el carrito, sin cobros reales. Cerrar sesión también vacía el carrito.
 
 ### Formulario reactivo de registro
 
@@ -98,7 +105,31 @@ El formulario utiliza `ReactiveFormsModule`, `FormGroup`, `FormControl` y valida
 
 Se muestran mensajes de error, indicadores visuales por campo y confirmación cuando los datos son válidos. El botón **«Limpiar formulario»** restablece los campos y los mensajes.
 
-**El registro no crea cuentas ni implementa autenticación real.**
+El registro crea cuentas cliente en este navegador, impide duplicar correo o nombre de usuario y limpia las contraseñas después del éxito.
+
+### Cuentas y roles de demostración
+
+| Rol | Correo | Contraseña inicial | Privilegios |
+| --- | --- | --- | --- |
+| Cliente | cliente@turnoextra.demo | Cliente123 | Editar su perfil y realizar compras simuladas |
+| Administrador | admin@turnoextra.demo | Admin123 | Lo anterior, además de actualizar stock en `/admin` |
+
+Las cuentas iniciales se crean en el primer uso. Las nuevas cuentas siempre son clientes; el perfil no puede cambiar el rol. Los guards comprueban el acceso incluso mediante URL directa y el servicio de catálogo comprueba el permiso al modificar stock.
+
+Usar únicamente datos ficticios. Las cuentas se guardan en `localStorage` bajo `turnoextra.cuentas.v1`; la sesión usa `sessionStorage` bajo `turnoextra.sesion.v1`. Las contraseñas se derivan con PBKDF2/SHA-256, sal aleatoria y 100.000 iteraciones, sin guardarlas como texto legible. Es una simulación frontend: almacenamiento y permisos son manipulables desde el navegador y no sustituyen la autenticación ni autorización de un servidor.
+
+La recuperación muestra un código local válido por 10 minutos, de un solo uso y con máximo de cinco intentos incorrectos. No envía correo. Cambiar la contraseña de la cuenta activa cierra su sesión en esta instancia.
+
+Inventario, carrito y comprobante duran durante la navegación y se reinician al recargar. El pago no solicita datos bancarios ni integra una pasarela.
+
+### Recorrido de la tarjeta 3
+
+1. Registrar una cuenta ficticia e iniciar sesión con ella.
+2. Editar el perfil y comprobar errores por correo o usuario duplicado.
+3. Abrir `/admin` como cliente y comprobar el acceso restringido.
+4. Agregar juegos, cambiar cantidades y confirmar el pago simulado.
+5. Cerrar sesión y entrar como administrador; cambiar stock y revisar disponibilidad.
+6. Generar el código de recuperación, copiarlo y guardar una nueva contraseña válida; comprobar el acceso.
 
 ### Directivas y vinculación de datos
 
@@ -110,9 +141,9 @@ El registro de esta entrega utiliza formularios reactivos; ya no depende de `[(n
 
 Los estilos específicos se encuentran en el CSS de cada componente. `src/styles.css` conserva la fuente Nunito, la paleta de colores, los estilos base, los botones compartidos y las preferencias de movimiento reducido.
 
-Las hojas `app/styles/page.css` y `card-reveal.css` se reutilizan mediante `styleUrls` y Angular las encapsula para cada componente. `legacy.css` conserva estilos de pantallas del sitio anterior que aún no existen como componentes; no se carga en la aplicación.
+Las hojas `app/styles/page.css` y `card-reveal.css` se reutilizan mediante `styleUrls` y Angular las encapsula para cada componente. `cuenta.css` se comparte de forma encapsulada entre las pantallas nuevas. `legacy.css` conserva estilos históricos y no se carga en la aplicación.
 
-Se mantiene Bootstrap para la cuadrícula y la navegación responsive. Se revisaron las pantallas existentes en anchos de 390, 768 y 1280 píxeles, y la nueva página de detalle en móvil y escritorio.
+Se mantiene Bootstrap para la cuadrícula y la navegación responsive. En Semana 5 se revisaron las pantallas existentes en anchos de 390, 768 y 1280 píxeles, y la página de detalle en móvil y escritorio. Incluir las nuevas pantallas de cuenta y compra en la revisión final de tres tamaños de Semana 6.
 
 ## Avances de esta entrega
 
@@ -168,7 +199,7 @@ npm run build -- --base-href /TurnoExtraAngular/
 
 ## Pruebas
 
-La suite utiliza **Jasmine y Karma** e incluye **24 pruebas**:
+La suite utiliza **Jasmine y Karma** e incluye **43 pruebas**:
 
 | Área | Pruebas |
 | --- | ---: |
@@ -178,7 +209,11 @@ La suite utiliza **Jasmine y Karma** e incluye **24 pruebas**:
 | Detalle y navegación entre juegos | 5 |
 | Precios y descuentos | 2 |
 | Carrito de demostración | 1 |
-| **Total** | **24** |
+| Cuentas y permisos | 8 |
+| Compra, inventario y envío de pago | 7 |
+| Guards de rutas | 3 |
+| Envío de recuperación | 1 |
+| **Total** | **43** |
 
 Se comprueban, entre otros casos, las validaciones del registro, el acceso a los 12 juegos mediante sus rutas, la actualización al cambiar de identificador, los juegos inexistentes, los productos agotados y la conservación del contador al volver al catálogo.
 
@@ -194,7 +229,7 @@ Para trabajar en modo observación:
 npm test
 ```
 
-**Validación de esta entrega:** compilación de producción exitosa y 24/24 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
+**Validación de esta entrega:** compilación de producción exitosa y 43/43 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 
@@ -261,9 +296,9 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 ## Alcance y estado
 
-**Experiencia 2 — Semana 5: funcionalidades implementadas y verificadas localmente.**
+**Experiencia 2 — Semana 6: tarjeta 3 implementada; entrega sumativa en preparación.**
 
-La aplicación es una demostración de frontend. El catálogo utiliza datos locales y no existe conexión a un backend, base de datos, autenticación ni pasarela de pago. El formulario valida datos y el carrito mantiene un contador temporal.
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc, revisión final de formularios/directivas y entregables continúan en sus tarjetas respectivas.
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 
@@ -271,5 +306,5 @@ Las tareas del proyecto se organizan mediante Trello y el control de versiones s
 
 **Daniel Alarcón**\
 Duoc UC — Desarrollo Full Stack II (DSY2202)\
-Experiencia 2 — Semana 5\
+Experiencia 2 — Semana 6\
 2026
