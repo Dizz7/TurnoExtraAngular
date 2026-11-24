@@ -243,7 +243,11 @@ Para trabajar en modo observación:
 npm test
 ```
 
-**Validación de esta entrega:** compilación de producción exitosa y 69/69 pruebas aprobadas con Karma/Jasmine en Chrome integrado. El lanzamiento de ChromeHeadless desde el entorno de revisión no estuvo disponible; el comando anterior permite repetir la suite en el terminal local.
+**Validación final — tarjeta 9 (24 de noviembre de 2026):** 69 de 69 pruebas aprobadas con Jasmine/Karma y Chrome integrado 158; compilación de producción exitosa. Ambos procesos terminaron con código de salida 0. Se supera el mínimo de cuatro pruebas solicitado.
+
+En el entorno de revisión se utilizó `CI=true NG_BUILD_PARALLEL_TS=0` para evitar el fallo previo del compilador paralelo. Karma se ejecutó una sola vez con una configuración temporal fuera del repositorio y captura manual del navegador integrado, ya que el lanzamiento automático de ChromeHeadless no estaba disponible. Al cerrar el servidor apareció un aviso de desconexión después de `TOTAL: 69 SUCCESS`; no hubo pruebas fallidas. Los comandos anteriores permiten repetir las pruebas desde el terminal local con ChromeHeadless.
+
+El paquete inicial de producción resultó de **728,38 kB** (transferencia estimada: **140,55 kB**). Supera el umbral de advertencia de 500 kB y permanece por debajo del límite de error de 1 MB. No se modificaron los presupuestos. Esta ejecución confirma las pruebas existentes; no constituye una medición del porcentaje de cobertura de pruebas.
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 
@@ -276,7 +280,7 @@ Revisión local realizada el 24 de noviembre de 2026:
 
 Para repetir la revisión, ejecutar `npm run docs:serve` y abrir `http://127.0.0.1:8080/`. Consultar **Documentation coverage**, **Injectables → Auth → API**, **Components → Registro** y **Routes**. Detener el servidor con Ctrl+C antes de iniciar otra instancia en el mismo puerto.
 
-Esta revisión no sustituye las pruebas funcionales ni su cobertura. La suite de Jasmine/Karma y la compilación final se vuelven a comprobar en la tarjeta 9.
+Esta revisión no sustituye las pruebas funcionales ni su cobertura. La suite de Jasmine/Karma y la compilación final se comprobaron en la tarjeta 9; sus resultados se detallan en la sección Pruebas.
 
 ## Estructura del proyecto
 
@@ -359,9 +363,9 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 ## Alcance y estado
 
-**Experiencia 2 — Semana 6: tarjetas 3 a 8 completadas; entrega sumativa en preparación.**
+**Experiencia 2 — Semana 6: tarjetas 3 a 9 completadas; entrega sumativa en preparación.**
 
-La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc genera la documentación con los comentarios JSDoc incorporados y su revisión está completada. Quedan la validación final de pruebas y compilación (tarjeta 9), el cierre de README/GitHub/Trello (tarjeta 10), el video (tarjeta 11) y la entrega final (tarjeta 12).
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc genera la documentación con los comentarios JSDoc incorporados y su revisión está completada. La validación final de pruebas y compilación está completada. Quedan el cierre de README/GitHub/Trello (tarjeta 10), el video (tarjeta 11) y la entrega final (tarjeta 12).
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 
