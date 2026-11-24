@@ -247,6 +247,23 @@ npm test
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.
 
+## Documentación técnica con Compodoc
+
+Compodoc **2.0.0** se instala como dependencia de desarrollo mediante `npm ci`; no requiere una instalación global.
+
+```bash
+npm run docs:build
+npm run docs:serve
+```
+
+El primer comando genera `documentation/`. El segundo vuelve a generar la documentación y la sirve en [http://127.0.0.1:8080/](http://127.0.0.1:8080/); detenerlo con Ctrl+C. Para regenerarla automáticamente mientras se edita el código, usar `npm run docs:watch`.
+
+La configuración se encuentra en `.compodocrc.json`. `tsconfig.doc.json` incluye los archivos TypeScript de `src/` y excluye únicamente las pruebas `*.spec.ts` y sus utilidades en `src/app/testing/`. La carpeta generada se omite de Git y puede reconstruirse con los comandos anteriores.
+
+La primera generación reconoce 16 componentes, 3 servicios, 2 guards y 6 interfaces, además de funciones, variables y tipos. **La instalación y generación inicial están verificadas; completar los comentarios JSDoc y revisar la cobertura final corresponde a las tarjetas 7 y 8.** Generar el sitio no implica tener el 100 % del código documentado.
+
+Se fija `i18next` a `26.3.4` mediante un override limitado a Compodoc, para corregir la dependencia vulnerable incluida inicialmente ([aviso de seguridad](https://github.com/advisories/GHSA-6jcc-5g8w-32mx)). La instalación resultante informó cero vulnerabilidades en la revisión de esta tarjeta.
+
 ## Estructura del proyecto
 
 ```text
@@ -287,6 +304,8 @@ TurnoExtraAngular/
 │   ├── index.html
 │   ├── main.ts
 │   └── styles.css
+├── .compodocrc.json
+├── tsconfig.doc.json
 ├── angular.json
 ├── package.json
 ├── package-lock.json
@@ -310,9 +329,9 @@ Las mejoras locales de esta entrega estarán disponibles en el sitio una vez sub
 
 ## Alcance y estado
 
-**Experiencia 2 — Semana 6: tarjeta 3 implementada; entrega sumativa en preparación.**
+**Experiencia 2 — Semana 6: tarjetas 3 a 6 implementadas; entrega sumativa en preparación.**
 
-La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc y los entregables finales continúan en sus tarjetas respectivas. Las tarjetas 3, 4 y 5 están implementadas.
+La aplicación es una demostración frontend con cuentas locales y dos roles. No tiene backend, base de datos remota, correo real ni pasarela de pago. Compodoc está instalado y genera la documentación inicial. Los comentarios JSDoc, la cobertura de documentación y los entregables finales continúan en sus tarjetas respectivas.
 
 Las tareas del proyecto se organizan mediante Trello y el control de versiones se realiza con Git y GitHub.
 

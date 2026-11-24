@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docs:build": "compodoc -c .compodocrc.json",
+    "docs:serve": "compodoc -c .compodocrc.json --serve --host 127.0.0.1 --port 8080",
+    "docs:watch": "compodoc -c .compodocrc.json --serve --watch --host 127.0.0.1 --port 8080"
   },
   "private": true,
   "packageManager": "npm@11.19.1",
@@ -25,6 +28,7 @@
     "@angular/build": "^22.2.6",
     "@angular/cli": "^22.2.6",
     "@angular/compiler-cli": "^22.2.0",
+    "@compodoc/compodoc": "2.0.0",
     "@types/jasmine": "^7.0.0",
     "jasmine-core": "^7.0.2",
     "jsdom": "^30.0.0",
@@ -36,5 +40,10 @@
     "prettier": "^3.8.1",
     "typescript": "~6.0.2",
     "vitest": "^5.0.0"
+  },
+  "overrides": {
+    "@compodoc/compodoc": {
+      "i18next": "26.3.4"
+    }
   }
 }

@@ -1,0 +1,7 @@
+{
+  "tsconfig": "tsconfig.doc.json",
+  "output": "documentation",
+  "name": "TurnoExtra Angular — Documentación técnica",
+  "language": "es-ES",
+  "theme": "gitbook"
+}
