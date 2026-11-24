@@ -247,6 +247,8 @@ npm test
 
 En el entorno de revisión se utilizó `CI=true NG_BUILD_PARALLEL_TS=0` para evitar el fallo previo del compilador paralelo. Karma se ejecutó una sola vez con una configuración temporal fuera del repositorio y captura manual del navegador integrado, ya que el lanzamiento automático de ChromeHeadless no estaba disponible. Al cerrar el servidor apareció un aviso de desconexión después de `TOTAL: 69 SUCCESS`; no hubo pruebas fallidas. Los comandos anteriores permiten repetir las pruebas desde el terminal local con ChromeHeadless.
 
+**Corrección posterior de la prueba de foco:** se reprodujo el fallo de Escape con un ancho de 800 px: la prueba intentaba enfocar un enlace dentro del menú móvil cerrado. Ahora abre el menú antes de enfocar y comprueba el foco inicial, el retorno al botón, el cierre del desplegable y que el menú principal permanezca abierto. La suite volvió a aprobar 69/69 pruebas en Chrome integrado a 800 y 1280 px. ChromeHeadless no pudo iniciarse desde el entorno de revisión; repetir el comando anterior en el terminal local para confirmar allí el resultado. El aviso de deprecación de Jasmine sobre carga como módulo ES es independiente de esta corrección y sigue pendiente de revisar.
+
 El paquete inicial de producción resultó de **728,38 kB** (transferencia estimada: **140,55 kB**). Supera el umbral de advertencia de 500 kB y permanece por debajo del límite de error de 1 MB. No se modificaron los presupuestos. Esta ejecución confirma las pruebas existentes; no constituye una medición del porcentaje de cobertura de pruebas.
 
 La compilación conserva una advertencia no bloqueante: el bundle inicial supera el presupuesto de 500 kB configurado en `angular.json`. No se aumentó ese presupuesto para ocultar la advertencia.

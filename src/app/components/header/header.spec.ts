@@ -40,13 +40,19 @@ describe('Menú desplegable de categorías', () => {
     expect(f.componentInstance.categoriasAbiertas()).toBeFalse();
   });
   it('cierra con Escape y devuelve el foco al botón de categorías', () => {
+    // En anchos móviles, el desplegable debe estar dentro de un menú visible.
+    f.componentInstance.alternarMenu();
+    f.detectChanges();
     const boton = abrir();
     const enlace = f.nativeElement.querySelector('#categorias-menu a') as HTMLAnchorElement;
     enlace.focus();
+    expect(document.activeElement).toBe(enlace);
     enlace.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     f.detectChanges();
     expect(f.componentInstance.categoriasAbiertas()).toBeFalse();
     expect(document.activeElement).toBe(boton);
+    expect(f.componentInstance.menuAbierto()).toBeTrue();
+    expect(f.nativeElement.querySelector('#categorias-menu')).toBeNull();
   });
   it('cierra al hacer clic fuera del encabezado', () => {
     f.componentInstance.alternarMenu();
